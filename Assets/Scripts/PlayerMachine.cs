@@ -28,6 +28,8 @@ public class PlayerMachine : SuperStateMachine {
     // current direction our character's art is facing
     public Vector3 lookDirection { get; private set; }
 
+    public Transform camera;
+
     private PlayerInputController input;
 
 	void Start () {
@@ -89,19 +91,21 @@ public class PlayerMachine : SuperStateMachine {
     /// </summary>
     private Vector3 LocalMovement()
     {
-        Vector3 right = Vector3.Cross(controller.up, lookDirection);
+        //Vector3 right = Vector3.Cross(controller.up, lookDirection);
 
         Vector3 local = Vector3.zero;
 
-        if (input.Current.MoveInput.x != 0)
-        {
-            local += right * input.Current.MoveInput.x;
-        }
+        //if (input.Current.MoveInput.x != 0)
+        //{
+        //    local += right * input.Current.MoveInput.x;
+        //}
 
-        if (input.Current.MoveInput.z != 0)
-        {
-            local += lookDirection * input.Current.MoveInput.z;
-        }
+        //if (input.Current.MoveInput.z != 0)
+        //{
+        //    local += lookDirection * input.Current.MoveInput.z;
+        //}
+            Vector3 cameraForward = Vector3.Scale(camera.forward, new Vector3(1, 0, 1)).normalized;
+            local = input.Current.MoveInput.z * cameraForward + input.Current.MoveInput.x * camera.right;
 
         return local.normalized;
     }
