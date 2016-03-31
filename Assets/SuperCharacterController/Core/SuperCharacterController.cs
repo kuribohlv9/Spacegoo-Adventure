@@ -84,6 +84,8 @@ public class SuperCharacterController : MonoBehaviour
 
     public Vector3 up { get { return transform.up; } }
     public Vector3 down { get { return -transform.up; } }
+    public Vector3 right { get { return transform.right; } } 
+    public Vector3 left { get { return -transform.right; } } 
     public List<SuperCollision> collisionData { get; private set; }
     public Transform currentlyClampedTo { get; set; }
     public float heightScale { get; set; }
