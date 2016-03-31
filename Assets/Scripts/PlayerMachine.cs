@@ -16,6 +16,7 @@ public class PlayerMachine : SuperStateMachine {
     public float JumpHeight = 3.0f;
     public float Gravity = 25.0f;
     public float Friction = 10.0f;
+    private float time = 0;
 
     // Add more states by comma separating them
     enum PlayerStates { Idle, Walk, Jump, Fall }
@@ -174,7 +175,14 @@ public class PlayerMachine : SuperStateMachine {
 
         if (input.Current.MoveInput != Vector3.zero)
         {
-            moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * WalkSpeed, WalkAcceleration * Time.deltaTime);
+            if(input.moveinput.magnitude > 1.2)
+            {
+                moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * WalkSpeed, WalkAcceleration * Time.deltaTime);
+            }
+            else
+            {
+                moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * WalkSpeed * input.moveinput.magnitude , WalkAcceleration * Time.deltaTime);
+            }
             
             // Rotate our mesh to face where we are "looking"
             //Simon: I moved this code
@@ -193,10 +201,14 @@ public class PlayerMachine : SuperStateMachine {
         controller.DisableSlopeLimit();
 
         moveDirection += controller.up * CalculateJumpSpeed(JumpHeight, Gravity);
+
+        time = 0;
+
     }
 
     void Jump_SuperUpdate()
     {
+        time += Time.deltaTime;
         Vector3 planarMoveDirection = Math3d.ProjectVectorOnPlane(controller.up, moveDirection);
         Vector3 verticalMoveDirection = moveDirection - planarMoveDirection;
 
@@ -211,6 +223,11 @@ public class PlayerMachine : SuperStateMachine {
         verticalMoveDirection -= controller.up * Gravity * Time.deltaTime;
 
         moveDirection = planarMoveDirection + verticalMoveDirection;
+
+        Vector3 tempdirection = moveDirection;
+        tempdirection.y = 0;
+        AnimatedMesh.rotation = Quaternion.LookRotation(tempdirection, controller.up);
+
     }
 
     void Fall_EnterState()
