@@ -5,6 +5,9 @@ public class PlayerCamera : MonoBehaviour {
 
     public float Distance = 5.0f;
     public float Height = 2.0f;
+    public float xRotationSpeed = 15.0f;
+    public float yRotationSpeed = 4.0f;
+
 
     public GameObject PlayerTarget;    
 
@@ -12,6 +15,7 @@ public class PlayerCamera : MonoBehaviour {
     private Transform target;
     private PlayerMachine machine;
     private float yRotation;
+    private float xRotation;
 
     private SuperCharacterController controller;
 
@@ -28,11 +32,17 @@ public class PlayerCamera : MonoBehaviour {
         transform.position = target.position;
 
         yRotation += input.Current.MouseInput.y;
+        xRotation += input.Current.MouseInput.x;
 
-        Vector3 left = Vector3.Cross(machine.lookDirection, controller.up);
+        Vector3 upward = Vector3.Cross(machine.lookDirection, controller.up);
+        Vector3 right = Vector3.Cross(machine.lookDirection, controller.right);
+        
+
 
         transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.up);
-        transform.rotation = Quaternion.AngleAxis(yRotation, left) * transform.rotation;
+        //transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.right);
+        transform.rotation = Quaternion.AngleAxis(yRotation * yRotationSpeed, upward) * transform.rotation;
+        transform.rotation = Quaternion.AngleAxis(xRotation * xRotationSpeed, right) * transform.rotation;
 
         transform.position -= transform.forward * Distance;
         transform.position += controller.up * Height;
