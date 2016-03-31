@@ -16,7 +16,7 @@ public class PlayerMachine : SuperStateMachine {
     public float JumpHeight = 3.0f;
     public float Gravity = 25.0f;
     public float Friction = 10.0f;
-    private float time = 0;
+    private float jumptime = 0;
 
     // Add more states by comma separating them
     enum PlayerStates { Idle, Walk, Jump, Fall }
@@ -85,6 +85,11 @@ public class PlayerMachine : SuperStateMachine {
         lookDirection = Quaternion.FromToRotation(transform.up, up) * lookDirection;
     }
 
+    public void ChangeMovement(Vector3 movement)
+    {
+        //currentState = PlayerStates.Jump;
+        moveDirection = movement;
+    }
     /// <summary>
     /// Constructs a vector representing our movement local to our lookDirection, which is
     /// controlled by the camera
@@ -206,13 +211,11 @@ public class PlayerMachine : SuperStateMachine {
 
         moveDirection += controller.up * CalculateJumpSpeed(JumpHeight, Gravity);
 
-        time = 0;
 
     }
 
     void Jump_SuperUpdate()
     {
-        time += Time.deltaTime;
         Vector3 planarMoveDirection = Math3d.ProjectVectorOnPlane(controller.up, moveDirection);
         Vector3 verticalMoveDirection = moveDirection - planarMoveDirection;
 
@@ -236,6 +239,8 @@ public class PlayerMachine : SuperStateMachine {
 
     void Fall_EnterState()
     {
+        jumptime = 0;
+
         controller.DisableClamping();
         controller.DisableSlopeLimit();
 
@@ -244,6 +249,13 @@ public class PlayerMachine : SuperStateMachine {
 
     void Fall_SuperUpdate()
     {
+        jumptime += Time.deltaTime;
+        if (jumptime < 0.1 && input.Current.JumpInput)
+        {
+            currentState = PlayerStates.Jump;
+            return;
+        }
+
         if (AcquiringGround())
         {
             moveDirection = Math3d.ProjectVectorOnPlane(controller.up, moveDirection);
