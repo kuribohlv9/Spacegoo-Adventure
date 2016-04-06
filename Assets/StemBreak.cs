@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class brokenstem : MonoBehaviour {
+public class StemBreak : MonoBehaviour {
 
     AudioSource audio;
     public float Height = 10;
@@ -12,12 +12,14 @@ public class brokenstem : MonoBehaviour {
     bool colSolid = false;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         audio = GetComponent<AudioSource>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (colSolid == true) target1.useGravity = true;
         if (colSolid == true) target2.useGravity = true;
     }
@@ -31,4 +33,5 @@ public class brokenstem : MonoBehaviour {
             colSolid = true;
         }
     }
+
 }

@@ -9,6 +9,9 @@ public class PlayerCamera : MonoBehaviour {
     public float yRotationSpeed = 4.0f;
 
 
+    public float maxDownRotate = 10.0f;
+    public float maxUpRotate = 75.0f;
+
     public GameObject PlayerTarget;    
 
     private PlayerInputController input;
@@ -31,20 +34,26 @@ public class PlayerCamera : MonoBehaviour {
 	void LateUpdate () {
         transform.position = target.position;
 
-        yRotation += input.Current.MouseInput.y;
+        yRotation += input.Current.MouseInput.y * yRotationSpeed;
+
+        yRotation = Mathf.Clamp(yRotation, -maxUpRotate, maxDownRotate);
+
         xRotation += input.Current.MouseInput.x;
+
+        Debug.Log(yRotation);
 
         Vector3 upward = Vector3.Cross(machine.lookDirection, controller.up);
         Vector3 right = Vector3.Cross(machine.lookDirection, controller.right);
-        
-
 
         transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.up);
         //transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.right);
-        transform.rotation = Quaternion.AngleAxis(yRotation * yRotationSpeed, upward) * transform.rotation;
+        transform.rotation = Quaternion.AngleAxis(yRotation, upward) * transform.rotation;
         transform.rotation = Quaternion.AngleAxis(xRotation * xRotationSpeed, right) * transform.rotation;
+
+        
 
         transform.position -= transform.forward * Distance;
         transform.position += controller.up * Height;
+
 	}
 }
