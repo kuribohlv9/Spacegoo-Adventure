@@ -16,6 +16,7 @@ public class PlayerMachine : SuperStateMachine {
     public float JumpHeight = 3.0f;
     public float Gravity = 25.0f;
     public float Friction = 10.0f;
+    public float Slowdown = 0.1f;
     private float jumptime = 0;
 
     // Add more states by comma separating them
@@ -85,6 +86,8 @@ public class PlayerMachine : SuperStateMachine {
         lookDirection = Quaternion.FromToRotation(transform.up, up) * lookDirection;
     }
 
+    //Simoncode
+    //Changes the movement on command. Used in bounce mushrooms.
     public void ChangeMovement(Vector3 movement)
     {
         //currentState = PlayerStates.Jump;
@@ -223,6 +226,7 @@ public class PlayerMachine : SuperStateMachine {
         {
             moveDirection = planarMoveDirection;
             currentState = PlayerStates.Idle;
+            moveDirection *= Slowdown;
             return;            
         }
 
