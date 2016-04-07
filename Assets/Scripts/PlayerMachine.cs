@@ -18,6 +18,7 @@ public class PlayerMachine : SuperStateMachine {
     public float Friction = 10.0f;
     public float Slowdown = 0.1f;
     private float jumptime = 0;
+    private bool CanDoubleJump = false;
 
     // Add more states by comma separating them
     enum PlayerStates { Idle, Walk, Jump, Fall }
@@ -239,6 +240,21 @@ public class PlayerMachine : SuperStateMachine {
         tempdirection.y = 0;
         AnimatedMesh.rotation = Quaternion.LookRotation(tempdirection, controller.up);
 
+        //Simoncode
+        //Do the double jump
+        if (input.Current.JumpInput && CanDoubleJump)
+        {
+            CanDoubleJump = false;
+            moveDirection = LocalMovement() * WalkSpeed;
+            moveDirection += controller.up * CalculateJumpSpeed(JumpHeight, Gravity);
+            return;
+        }
+
+    }
+
+    void Jump_ExitState()
+    {
+        CanDoubleJump = true;
     }
 
     void Fall_EnterState()
