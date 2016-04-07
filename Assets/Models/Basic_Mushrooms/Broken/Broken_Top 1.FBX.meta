@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 40bb3b3e2d6db054b9b2020e5c771529
-timeCreated: 1459780943
+guid: 77ee3ffb12ebf224cbfd7ae7b8e91647
+timeCreated: 1460041357
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -14,7 +14,6 @@ ModelImporter:
     2300000: BrokenUpper_PH
     3300000: BrokenUpper_PH
     4300000: BrokenUpper_PH
-    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -73,7 +72,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
