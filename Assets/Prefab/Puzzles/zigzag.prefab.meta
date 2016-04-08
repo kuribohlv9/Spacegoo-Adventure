@@ -1,6 +1,16 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Prefab/Puzzles/zigzag.prefab.meta
 guid: c51a01e08bb83164fb895ffa94730ad6
 timeCreated: 1460032543
+=======
+<<<<<<< HEAD
+guid: 781f47200e624f04e91b663689e5e4d9
+timeCreated: 1459947052
+=======
+guid: c51a01e08bb83164fb895ffa94730ad6
+timeCreated: 1460032543
+>>>>>>> e0b7f5f740f4bc113fdc24cf0a1b8de264dbec22
+>>>>>>> origin/Pony_2_Electric_Boogalo:Assets/Prefab/zigzag.prefab.meta
 licenseType: Free
 NativeFormatImporter:
   userData: 
