@@ -93,6 +93,7 @@ public class PlayerMachine : SuperStateMachine {
     {
         //currentState = PlayerStates.Jump;
         moveDirection = movement;
+        CanDoubleJump = true;
     }
     /// <summary>
     /// Constructs a vector representing our movement local to our lookDirection, which is
@@ -165,6 +166,8 @@ public class PlayerMachine : SuperStateMachine {
 
         // Apply friction to slow us to a halt
         moveDirection = Vector3.MoveTowards(moveDirection, Vector3.zero, Friction * Time.deltaTime);
+        //DebugDraw.DrawVector(transform.position, lookDirection, 2.0f, 1.0f, Color.green, 0, false);
+        //AnimatedMesh.rotation = Quaternion.LookRotation(controller.up, controller.currentGround.PrimaryNormal());
     }
 
     void Idle_ExitState()
