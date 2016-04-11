@@ -12,25 +12,36 @@ public class brokenstem : MonoBehaviour {
     bool colSolid = false;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         audio = GetComponent<AudioSource>();
         target1.useGravity = false;
-        target2.useGravity = false;
+        //target2.useGravity = false;
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         if (colSolid == true) target1.useGravity = true;
-        if (colSolid == true) target2.useGravity = true;
+        //if (colSolid == true) target2.useGravity = true;
     }
 
-    void OnTriggerEnter(Collider col)
+    /*void OnTriggerEnter(Collider col)
     {
         if (col.tag == "Player")
         {
             //audio.Play();
             //col.GetComponentInParent<PlayerMachine>().ChangeMovement(Vector3.up * Height);
             colSolid = true;
+        }
+    }*/
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.tag == "Player")
+        {
+            target1.useGravity = true;
+            target1.isKinematic = false;
         }
     }
 }
