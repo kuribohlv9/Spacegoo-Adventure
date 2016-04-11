@@ -325,7 +325,7 @@ ModelImporter:
       name: anim
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 66
+      lastFrame: 94
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1904,16 +1904,16 @@ ModelImporter:
     - serializedVersion: 16
       name: Idle
       takeName: Take 001
-      firstFrame: 1
-      lastFrame: 1
+      firstFrame: 71
+      lastFrame: 94
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
