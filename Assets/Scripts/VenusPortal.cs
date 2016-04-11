@@ -29,15 +29,11 @@ public class VenusPortal : MonoBehaviour {
 
         if (count >= timing)
         {
-            //if (coling.tag == "Player")
-            //{
             count = 0;
             onIt = false;
             Player.transform.position = TeleTarget.transform.position;
-            Debug.Log("Fuck this!");
             Debug.Log(count);
         }
-        //Debug.Log(Time.deltaTime);
     }
 
     void OnTriggerEnter(Collider col)
@@ -45,13 +41,6 @@ public class VenusPortal : MonoBehaviour {
         if (col.tag == "Player")
         {
             if (onIt == false) onIt = true;
-
-            //if (onIt == true)
-            //{
-            //onIt = true;
-            //}
-
-            Debug.Log("Collisionisms!");
         }
 
         
