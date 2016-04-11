@@ -14,6 +14,8 @@ public class brokenstem : MonoBehaviour {
     // Use this for initialization
     void Start () {
         audio = GetComponent<AudioSource>();
+        target1.useGravity = false;
+        target2.useGravity = false;
     }
 	
 	// Update is called once per frame
