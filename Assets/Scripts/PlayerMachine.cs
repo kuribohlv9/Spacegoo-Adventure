@@ -17,6 +17,8 @@ public class PlayerMachine : SuperStateMachine {
     public float Gravity = 25.0f;
     public float Friction = 10.0f;
     public float Slowdown = 0.1f;
+    public float MaxFallSpeed = 4.0f;
+    public float Glide = 1.0f;
     private float jumptime = 0;
     private bool CanDoubleJump = false;
 
@@ -166,8 +168,9 @@ public class PlayerMachine : SuperStateMachine {
 
         // Apply friction to slow us to a halt
         moveDirection = Vector3.MoveTowards(moveDirection, Vector3.zero, Friction * Time.deltaTime);
-        //DebugDraw.DrawVector(transform.position, lookDirection, 2.0f, 1.0f, Color.green, 0, false);
-        //AnimatedMesh.rotation = Quaternion.LookRotation(controller.up, controller.currentGround.PrimaryNormal());
+        AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
+        AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(moveDirection, controller.up);
+
     }
 
     void Idle_ExitState()
@@ -202,7 +205,10 @@ public class PlayerMachine : SuperStateMachine {
             
             // Rotate our mesh to face where we are "looking"
             //Simon: I moved this code
-            AnimatedMesh.rotation = Quaternion.LookRotation(moveDirection, controller.up);
+
+            AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
+            AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(moveDirection, controller.up);
+            //AnimatedMesh.transform.position += controller.currentGround.PrimaryNormal() * controller.currentGround.Distance();
         }
         else
         {
@@ -226,6 +232,7 @@ public class PlayerMachine : SuperStateMachine {
         Vector3 planarMoveDirection = Math3d.ProjectVectorOnPlane(controller.up, moveDirection);
         Vector3 verticalMoveDirection = moveDirection - planarMoveDirection;
 
+        //This calculates if we touch the ground
         if (Vector3.Angle(verticalMoveDirection, controller.up) > 90 && AcquiringGround())
         {
             moveDirection = planarMoveDirection;
@@ -235,13 +242,30 @@ public class PlayerMachine : SuperStateMachine {
         }
 
         planarMoveDirection = Vector3.MoveTowards(planarMoveDirection, LocalMovement() * WalkSpeed, JumpAcceleration * Time.deltaTime);
-        verticalMoveDirection -= controller.up * Gravity * Time.deltaTime;
-
-        moveDirection = planarMoveDirection + verticalMoveDirection;
+        if(verticalMoveDirection.y > -30)
+        {
+            verticalMoveDirection -= controller.up * Gravity * Time.deltaTime;
+            //verticalMoveDirection = Vector3.MoveTowards(verticalMoveDirection, verticalMoveDirection - controller.up * Gravity * Time.deltaTime, MaxFallSpeed * Time.deltaTime);
+        }
+        //Simoncode
+        if (input.Current.ContinuousJumpInput && moveDirection.y < 0)
+        {
+            moveDirection = planarMoveDirection + -Vector3.up * Glide;
+        }
+        else
+        {
+            //This is the standard air movement
+            moveDirection = planarMoveDirection + verticalMoveDirection;
+        }
 
         Vector3 tempdirection = moveDirection;
         tempdirection.y = 0;
-        AnimatedMesh.rotation = Quaternion.LookRotation(tempdirection, controller.up);
+        if(tempdirection != Vector3.zero)
+        { 
+            AnimatedMesh.rotation = Quaternion.LookRotation(tempdirection, controller.up);
+        }
+
+        
 
         //Simoncode
         //Do the double jump
