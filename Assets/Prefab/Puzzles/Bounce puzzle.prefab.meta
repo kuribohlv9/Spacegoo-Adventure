@@ -1,4 +1,7 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+guid: e46cfba7ce7c3f3408bd80c0ae2730ae
+=======
 <<<<<<< HEAD:Assets/Prefab/Puzzles/Bounce puzzle.prefab.meta
 guid: e46cfba7ce7c3f3408bd80c0ae2730ae
 timeCreated: 1460032543
@@ -12,6 +15,7 @@ timeCreated: 1460032543
 >>>>>>> e0b7f5f740f4bc113fdc24cf0a1b8de264dbec22
 >>>>>>> b3dcfc8e9940261933ca95a2746a97692467b86c:Assets/Prefab/Bounce puzzle.prefab.meta
 licenseType: Free
+>>>>>>> 787a07d4926a784e1eecfc84f7a64f961e06df1c
 NativeFormatImporter:
   userData: 
   assetBundleName: 
