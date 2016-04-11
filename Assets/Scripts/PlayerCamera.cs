@@ -40,7 +40,7 @@ public class PlayerCamera : MonoBehaviour {
 
         xRotation += input.Current.MouseInput.x;
 
-        Debug.Log(yRotation);
+        //Debug.Log(yRotation);
 
         Vector3 upward = Vector3.Cross(machine.lookDirection, controller.up);
         Vector3 right = Vector3.Cross(machine.lookDirection, controller.right);

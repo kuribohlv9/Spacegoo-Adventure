@@ -584,7 +584,7 @@ public class SuperCharacterController : MonoBehaviour
         /// <param name="iter">Debug tool to print out which ProbeGround iteration is being run (3 are run each frame for the controller)</param>
         public void ProbeGround(Vector3 origin, int iter)
         {
-            Debug.Log(origin);
+            //Debug.Log(origin);
             ResetGrounds();
 
             Vector3 up = controller.up;
