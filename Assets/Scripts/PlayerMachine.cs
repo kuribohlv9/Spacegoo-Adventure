@@ -34,8 +34,13 @@ public class PlayerMachine : SuperStateMachine {
 
     private PlayerInputController input;
 
+    public Animator anim;  //Dee: animator
+
+
 	void Start () {
 	    // Put any code here you want to run ONCE, when the object is initialized
+
+        anim = GetComponentInChildren<Animator>();        //Dee: INITIALIZE ANIMATOR
 
         input = gameObject.GetComponent<PlayerInputController>();
 
@@ -139,12 +144,16 @@ public class PlayerMachine : SuperStateMachine {
     {
         controller.EnableSlopeLimit();
         controller.EnableClamping();
+
+        //Dee: ANIMATE
+        anim.SetBool("IsWalking", false);
     }
 
     void Idle_SuperUpdate()
     {
         // Run every frame we are in the idle state
 
+        
         if (input.Current.JumpInput)
         {
             currentState = PlayerStates.Jump;
@@ -188,6 +197,10 @@ public class PlayerMachine : SuperStateMachine {
 
         if (input.Current.MoveInput != Vector3.zero)
         {
+
+            //Dee: ANIMATE!
+            anim.SetBool("IsWalking", true);
+
             if(input.moveinput.magnitude > 1.2)
             {
                 moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * WalkSpeed, WalkAcceleration * Time.deltaTime);
@@ -195,6 +208,7 @@ public class PlayerMachine : SuperStateMachine {
             else
             {
                 moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * WalkSpeed * input.moveinput.magnitude , WalkAcceleration * Time.deltaTime);
+
             }
             
             // Rotate our mesh to face where we are "looking"
@@ -210,11 +224,14 @@ public class PlayerMachine : SuperStateMachine {
 
     void Jump_EnterState()
     {
+        //Dee: ANIMATE!
+        anim.SetBool("IsJumping", true);
+        anim.SetBool("HasLanded", false);
+
         controller.DisableClamping();
         controller.DisableSlopeLimit();
 
         moveDirection += controller.up * CalculateJumpSpeed(JumpHeight, Gravity);
-
 
     }
 
@@ -244,9 +261,13 @@ public class PlayerMachine : SuperStateMachine {
         //Do the double jump
         if (input.Current.JumpInput && CanDoubleJump)
         {
+            //Dee: ANIMATE!
+            anim.SetBool("IsDoubleJumping", true);
+
             CanDoubleJump = false;
             moveDirection = LocalMovement() * WalkSpeed;
             moveDirection += controller.up * CalculateJumpSpeed(JumpHeight, Gravity);
+            
             return;
         }
 
@@ -254,11 +275,17 @@ public class PlayerMachine : SuperStateMachine {
 
     void Jump_ExitState()
     {
+        //Dee: ANIMATE!
+        anim.SetBool("IsJumping", false);
+        anim.SetBool("IsDoubleJumping", false);
+        anim.SetBool("HasLanded", true);
+
         CanDoubleJump = true;
     }
 
     void Fall_EnterState()
     {
+        
         jumptime = 0;
 
         controller.DisableClamping();
@@ -278,6 +305,7 @@ public class PlayerMachine : SuperStateMachine {
 
         if (AcquiringGround())
         {
+            
             moveDirection = Math3d.ProjectVectorOnPlane(controller.up, moveDirection);
             currentState = PlayerStates.Idle;
             return;
