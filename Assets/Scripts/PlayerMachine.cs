@@ -68,7 +68,11 @@ public class PlayerMachine : SuperStateMachine {
         // Move the player by our velocity every frame
         transform.position += moveDirection * Time.deltaTime;
 
-
+        //Debug button
+        if(input.Current.Debug)
+        {
+            int derp = 42;
+        }
 
         //Vector3 temp = AnimatedMesh.eulerAngles;
         //temp.x = 0;
