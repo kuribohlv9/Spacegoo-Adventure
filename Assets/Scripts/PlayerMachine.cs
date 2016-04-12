@@ -20,10 +20,11 @@ public class PlayerMachine : SuperStateMachine {
     public float MaxFallSpeed = 4.0f;
     public float Glide = 1.0f;
     private float jumptime = 0;
-    private bool CanDoubleJump = false;
+    private bool CanDoubleJump = true;
+    private RaycastHit StickWall;
 
     // Add more states by comma separating them
-    enum PlayerStates { Idle, Walk, Jump, Fall }
+    enum PlayerStates { Idle, Walk, Jump, Fall, Sticky }
 
     private SuperCharacterController controller;
 
@@ -169,7 +170,10 @@ public class PlayerMachine : SuperStateMachine {
         // Apply friction to slow us to a halt
         moveDirection = Vector3.MoveTowards(moveDirection, Vector3.zero, Friction * Time.deltaTime);
         AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
-        AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(moveDirection, controller.up);
+        if(moveDirection.magnitude > 0)
+        {
+            AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(moveDirection, controller.up);
+        }
 
     }
 
@@ -277,6 +281,38 @@ public class PlayerMachine : SuperStateMachine {
             return;
         }
 
+        if(input.Current.Sticky)
+        {
+            Debug.Log("And his name is: ");
+            Collider[] colliders =  Physics.OverlapSphere(controller.transform.position, 1);
+            foreach(Collider col in colliders)
+            {
+                if(col.tag == "Environment")
+                {
+                    Debug.Log("JOHN");
+                    //Vector3 closestpoint = col.ClosestPointOnBounds(controller.transform.position);
+                    Ray wallray = new Ray(controller.transform.position, col.bounds.center - controller.transform.position);
+                    RaycastHit hit;
+                    if(col.Raycast(wallray, out hit, Mathf.Infinity))
+                    {
+                        wallray = new Ray(controller.transform.position, -hit.normal);
+                    }
+                    //Debug.Break();
+                    if (col.Raycast(wallray, out hit, Mathf.Infinity) && hit.normal.y < 1)
+                    {
+                        //Debug.Break();
+                        Debug.Log("CENA");
+                        StickWall = hit;
+                        currentState = PlayerStates.Sticky;
+                    }
+                }
+                else
+                {
+                   // Debug.Log("CENA");
+                }
+            }
+        }
+
     }
 
     void Jump_ExitState()
@@ -311,5 +347,20 @@ public class PlayerMachine : SuperStateMachine {
         }
 
         moveDirection -= controller.up * Gravity * Time.deltaTime;
+    }
+    void Sticky_EnterState()
+    {
+        moveDirection = Vector3.zero;
+    }
+    void Sticky_SuperUpdate()
+    {
+        if(input.Current.Sticky)
+        {
+            currentState = PlayerStates.Jump;
+        }
+    }
+    void Sticky_ExitState()
+    {
+
     }
 }
