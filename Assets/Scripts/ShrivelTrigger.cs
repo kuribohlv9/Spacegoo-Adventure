@@ -12,10 +12,12 @@ public class ShrivelTrigger : MonoBehaviour {
 
     private float timer = 0;
 
-    public float resizeSpeed = 0.1f;
+    public float desizeSpeed = 0.1f;
+    public float resizeSpeed = 0.05f;
     public float growthDelay = 3.0f;
 
     public GameObject target1;
+    public MeshCollider target2;
 
     // Use this for initialization
     void Start ()
@@ -31,13 +33,12 @@ public class ShrivelTrigger : MonoBehaviour {
         {
             if (target1.transform.localScale.x >= xOriginal/10)
             {
-                Debug.Log("Fucking hell!");
-                target1.transform.localScale += new Vector3(-resizeSpeed, 0, 0);
+                target1.transform.localScale += new Vector3(-desizeSpeed, 0, 0);
             }
 
             if (target1.transform.localScale.z >= zOriginal / 10)
             {
-                target1.transform.localScale += new Vector3(0, 0, -resizeSpeed);
+                target1.transform.localScale += new Vector3(0, 0, -desizeSpeed);
             }
 
 
@@ -61,7 +62,6 @@ public class ShrivelTrigger : MonoBehaviour {
             if (target1.transform.localScale.x < xOriginal)
             {
                 target1.transform.localScale += new Vector3(resizeSpeed, 0, 0);
-                Debug.Log("Up");
             }
 
             if (target1.transform.localScale.z < zOriginal)
@@ -81,7 +81,6 @@ public class ShrivelTrigger : MonoBehaviour {
             shrink = true;
             undone = false;
             grow = false;
-            Debug.Log("Dis shit work!");
             timer = 0;
         }
     }
