@@ -22,6 +22,7 @@ public class PlayerMachine : SuperStateMachine {
     private float jumptime = 0;
     private bool CanDoubleJump = true;
     private RaycastHit StickWall;
+    private Vector3 Lastmovedirection;
 
     // Add more states by comma separating them
     enum PlayerStates { Idle, Walk, Jump, Fall, Sticky }
@@ -50,12 +51,13 @@ public class PlayerMachine : SuperStateMachine {
 
         // Set our currentState to idle on startup
         currentState = PlayerStates.Idle;
+
+        //Start out lookingforward
+        Lastmovedirection = lookDirection;
 	}
 
     protected override void EarlyGlobalSuperUpdate()
     {
-		// Rotate out facing direction horizontally based on mouse input
-        //lookDirection = Quaternion.AngleAxis(input.Current.MouseInput.x, controller.up) * lookDirection;
         // Put any code in here you want to run BEFORE the state's update function.
         // This is run regardless of what state you're in
     }
@@ -71,7 +73,16 @@ public class PlayerMachine : SuperStateMachine {
         //Debug button
         if(input.Current.Debug)
         {
+            float terp =  Vector3.Angle(new Vector3(0, 0, 0), new Vector3(0, 1, 0));
             int derp = 42;
+        }
+
+        //Simoncode
+        //Always save the last moved direction for when we need to stand still and look the correct way
+        if(moveDirection.x != 0 || moveDirection.z != 0)
+        {
+            Lastmovedirection = moveDirection;
+            Lastmovedirection.y = 0;
         }
 
         //Vector3 temp = AnimatedMesh.eulerAngles;
@@ -108,21 +119,10 @@ public class PlayerMachine : SuperStateMachine {
     /// </summary>
     private Vector3 LocalMovement()
     {
-        //Vector3 right = Vector3.Cross(controller.up, lookDirection);
-
         Vector3 local = Vector3.zero;
 
-        //if (input.Current.MoveInput.x != 0)
-        //{
-        //    local += right * input.Current.MoveInput.x;
-        //}
-
-        //if (input.Current.MoveInput.z != 0)
-        //{
-        //    local += lookDirection * input.Current.MoveInput.z;
-        //}
-            Vector3 cameraForward = Vector3.Scale(camera.forward, new Vector3(1, 0, 1)).normalized;
-            local = input.Current.MoveInput.z * cameraForward + input.Current.MoveInput.x * camera.right;
+        Vector3 cameraForward = Vector3.Scale(camera.forward, new Vector3(1, 0, 1)).normalized;
+        local = input.Current.MoveInput.z * cameraForward + input.Current.MoveInput.x * camera.right;
 
         return local.normalized;
     }
@@ -174,10 +174,7 @@ public class PlayerMachine : SuperStateMachine {
         // Apply friction to slow us to a halt
         moveDirection = Vector3.MoveTowards(moveDirection, Vector3.zero, Friction * Time.deltaTime);
         AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
-        if(moveDirection.magnitude > 0)
-        {
-            AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(moveDirection, controller.up);
-        }
+        AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
 
     }
 
