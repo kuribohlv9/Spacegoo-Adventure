@@ -23,7 +23,6 @@ public class PlayerMachine : SuperStateMachine {
     private bool CanDoubleJump = true;
     private RaycastHit StickWall;
     private Vector3 Lastmovedirection;
-
     // Add more states by comma separating them
     enum PlayerStates { Idle, Walk, Jump, Fall, Sticky }
 
@@ -51,7 +50,7 @@ public class PlayerMachine : SuperStateMachine {
 
         // Set our currentState to idle on startup
         currentState = PlayerStates.Idle;
-
+        
         //Start out lookingforward
         Lastmovedirection = lookDirection;
 	}
@@ -70,6 +69,7 @@ public class PlayerMachine : SuperStateMachine {
         // Move the player by our velocity every frame
         transform.position += moveDirection * Time.deltaTime;
 
+        //Simoncode
         //Debug button
         if(input.Current.Debug)
         {
@@ -165,7 +165,7 @@ public class PlayerMachine : SuperStateMachine {
             return;
         }
 
-        if (input.Current.MoveInput != Vector3.zero)
+        if (input.Current.MoveInput.magnitude > 0.1f)
         {
             currentState = PlayerStates.Walk;
             return;
@@ -305,6 +305,7 @@ public class PlayerMachine : SuperStateMachine {
                         Debug.Log("CENA");
                         StickWall = hit;
                         currentState = PlayerStates.Sticky;
+
                     }
                 }
                 else
@@ -352,6 +353,8 @@ public class PlayerMachine : SuperStateMachine {
     void Sticky_EnterState()
     {
         moveDirection = Vector3.zero;
+        AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, StickWall.normal);
+        controller.transform.position -= StickWall.normal * StickWall.distance;
     }
     void Sticky_SuperUpdate()
     {
@@ -362,6 +365,7 @@ public class PlayerMachine : SuperStateMachine {
     }
     void Sticky_ExitState()
     {
-
+        moveDirection += StickWall.normal;
+        AnimatedMesh.rotation = Quaternion.LookRotation(moveDirection);
     }
 }
