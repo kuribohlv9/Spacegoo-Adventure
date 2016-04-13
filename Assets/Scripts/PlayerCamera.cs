@@ -5,11 +5,11 @@ public class PlayerCamera : MonoBehaviour {
 
     public float Distance = 5.0f;
     public float Height = 2.0f;
-    public float xRotationSpeed = 15.0f;
-    public float yRotationSpeed = 4.0f;
+    public float xRotationSpeed = 30.0f;
+    public float yRotationSpeed = 15.0f;
 
 
-    public float maxDownRotate = 10.0f;
+    public float maxDownRotate = 40.0f;
     public float maxUpRotate = 75.0f;
 
     public GameObject PlayerTarget;    
@@ -40,7 +40,7 @@ public class PlayerCamera : MonoBehaviour {
 
         xRotation += input.Current.MouseInput.x;
 
-        Debug.Log(yRotation);
+        //Debug.Log(yRotation);
 
         Vector3 upward = Vector3.Cross(machine.lookDirection, controller.up);
         Vector3 right = Vector3.Cross(machine.lookDirection, controller.right);

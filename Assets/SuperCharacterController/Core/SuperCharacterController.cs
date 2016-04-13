@@ -227,6 +227,8 @@ public class SuperCharacterController : MonoBehaviour
         if (debugGrounding)
             currentGround.DebugGround(true, true, true, true, true);
 
+        SimonDebug();
+
     }
 
     void ProbeGround(int iter)
@@ -584,7 +586,7 @@ public class SuperCharacterController : MonoBehaviour
         /// <param name="iter">Debug tool to print out which ProbeGround iteration is being run (3 are run each frame for the controller)</param>
         public void ProbeGround(Vector3 origin, int iter)
         {
-            Debug.Log(origin);
+            //Debug.Log(origin);
             ResetGrounds();
 
             Vector3 up = controller.up;
@@ -905,6 +907,9 @@ public class SuperCharacterController : MonoBehaviour
             }
         }
     }
+    private void SimonDebug()
+    {
+    }
 }
 
 [Serializable]
@@ -930,3 +935,4 @@ public struct SuperCollision
     public Vector3 point;
     public Vector3 normal;
 }
+
