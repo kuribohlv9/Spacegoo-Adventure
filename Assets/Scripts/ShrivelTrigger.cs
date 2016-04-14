@@ -8,7 +8,7 @@ public class ShrivelTrigger : MonoBehaviour {
     private bool grow = false;
 
     private float xOriginal;
-    private float zOriginal;
+    private float yOriginal;
 
     private float timer = 0;
 
@@ -23,7 +23,7 @@ public class ShrivelTrigger : MonoBehaviour {
     void Start ()
     {
         xOriginal = target1.transform.localScale.x;
-        zOriginal = target1.transform.localScale.z;
+        yOriginal = target1.transform.localScale.y;
     }
 	
 	// Update is called once per frame
@@ -36,9 +36,9 @@ public class ShrivelTrigger : MonoBehaviour {
                 target1.transform.localScale += new Vector3(-desizeSpeed, 0, 0);
             }
 
-            if (target1.transform.localScale.z >= zOriginal / 10)
+            if (target1.transform.localScale.y >= yOriginal / 10)
             {
-                target1.transform.localScale += new Vector3(0, 0, -desizeSpeed);
+                target1.transform.localScale += new Vector3(0, -desizeSpeed, 0);
             }
 
 
@@ -64,9 +64,9 @@ public class ShrivelTrigger : MonoBehaviour {
                 target1.transform.localScale += new Vector3(resizeSpeed, 0, 0);
             }
 
-            if (target1.transform.localScale.z < zOriginal)
+            if (target1.transform.localScale.y < yOriginal)
             {
-                target1.transform.localScale += new Vector3(0, 0, resizeSpeed);
+                target1.transform.localScale += new Vector3(0, resizeSpeed, 0);
             }
 
 

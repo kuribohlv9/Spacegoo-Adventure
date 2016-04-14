@@ -38,7 +38,7 @@ public class PlayerCamera : MonoBehaviour {
 
         yRotation = Mathf.Clamp(yRotation, -maxUpRotate, maxDownRotate);
 
-        xRotation += input.Current.MouseInput.x;
+        xRotation += input.Current.MouseInput.x * xRotationSpeed;
 
         //Debug.Log(yRotation);
 
@@ -48,7 +48,7 @@ public class PlayerCamera : MonoBehaviour {
         transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.up);
         //transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.right);
         transform.rotation = Quaternion.AngleAxis(yRotation, upward) * transform.rotation;
-        transform.rotation = Quaternion.AngleAxis(xRotation * xRotationSpeed, right) * transform.rotation;
+        transform.rotation = Quaternion.AngleAxis(xRotation, right) * transform.rotation;
 
         
 
