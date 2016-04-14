@@ -1,0 +1,1364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <title>ELIAS Instruction Manual</title>
+  <style type="text/css">code{white-space: pre-wrap;}</style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">ELIAS Instruction Manual</h1>
+</div>
+<div id="TOC">
+<ul>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a><ul>
+<li><a href="#design-goals"><span class="toc-section-number">1.1</span> Design Goals</a></li>
+</ul></li>
+<li><a href="#functionality"><span class="toc-section-number">2</span> Functionality</a><ul>
+<li><a href="#fundamentals"><span class="toc-section-number">2.1</span> Fundamentals</a></li>
+<li><a href="#fades"><span class="toc-section-number">2.2</span> Fades</a><ul>
+<li><a href="#smart-fades"><span class="toc-section-number">2.2.1</span> Smart Fades</a></li>
+</ul></li>
+<li><a href="#reverberation"><span class="toc-section-number">2.3</span> Reverberation</a></li>
+<li><a href="#modes-of-operation"><span class="toc-section-number">2.4</span> Modes of Operation</a></li>
+<li><a href="#urgency"><span class="toc-section-number">2.5</span> Urgency</a></li>
+<li><a href="#immediate-versus-queued-transitions"><span class="toc-section-number">2.6</span> Immediate versus Queued Transitions</a></li>
+<li><a href="#keys"><span class="toc-section-number">2.7</span> Keys</a></li>
+<li><a href="#stingers"><span class="toc-section-number">2.8</span> Stingers</a></li>
+<li><a href="#rendezvous-transitions"><span class="toc-section-number">2.9</span> Rendezvous Transitions</a></li>
+</ul></li>
+<li><a href="#composing-for-elias"><span class="toc-section-number">3</span> Composing for ELIAS</a><ul>
+<li><a href="#the-difference-between-linear-and-loop-based-composing"><span class="toc-section-number">3.1</span> The Difference Between Linear and Loop Based Composing</a></li>
+<li><a href="#initial-planning"><span class="toc-section-number">3.2</span> Initial Planning</a></li>
+<li><a href="#the-daw"><span class="toc-section-number">3.3</span> The DAW</a></li>
+</ul></li>
+<li><a href="#programming-guide"><span class="toc-section-number">4</span> Programming Guide</a><ul>
+<li><a href="#high-level-layer-features"><span class="toc-section-number">4.1</span> High Level Layer Features</a></li>
+<li><a href="#which-layer-should-i-use"><span class="toc-section-number">4.2</span> Which layer should I use?</a></li>
+<li><a href="#audio-formats-supported-by-the-high-level-layer"><span class="toc-section-number">4.3</span> Audio Formats Supported by the High Level Layer</a></li>
+<li><a href="#current-limitations-of-the-high-level-layer"><span class="toc-section-number">4.4</span> Current Limitations of the High Level Layer</a></li>
+<li><a href="#getting-started"><span class="toc-section-number">4.5</span> Getting Started</a><ul>
+<li><a href="#themes-and-tracks"><span class="toc-section-number">4.5.1</span> Themes and Tracks</a></li>
+<li><a href="#low-level-only-the-input-data-callback"><span class="toc-section-number">4.5.2</span> (Low Level Only) The Input Data Callback</a></li>
+<li><a href="#high-level-only-configuring-decoders"><span class="toc-section-number">4.5.3</span> (High Level Only) Configuring Decoders</a></li>
+<li><a href="#final-configuration-steps"><span class="toc-section-number">4.5.4</span> Final Configuration Steps</a></li>
+<li><a href="#playing-and-controlling-the-music"><span class="toc-section-number">4.5.5</span> Playing and Controlling the Music</a></li>
+</ul></li>
+<li><a href="#multithreading"><span class="toc-section-number">4.6</span> Multithreading</a></li>
+<li><a href="#tuning"><span class="toc-section-number">4.7</span> Tuning</a><ul>
+<li><a href="#replacing-the-memory-allocator"><span class="toc-section-number">4.7.1</span> Replacing the Memory Allocator</a></li>
+<li><a href="#replacing-the-floating-point-to-integer-converter"><span class="toc-section-number">4.7.2</span> Replacing the Floating Point to Integer Converter</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#low-level-c-api-reference"><span class="toc-section-number">5</span> Low Level C API Reference</a><ul>
+<li><a href="#enums-and-typedefs"><span class="toc-section-number">5.1</span> Enums and Typedefs</a></li>
+<li><a href="#api-conventions"><span class="toc-section-number">5.2</span> API Conventions</a></li>
+<li><a href="#instance-independent-functions"><span class="toc-section-number">5.3</span> Instance Independent Functions</a><ul>
+<li><a href="#memory-allocation"><span class="toc-section-number">5.3.1</span> Memory Allocation</a></li>
+<li><a href="#float-to-integer-conversions"><span class="toc-section-number">5.3.2</span> Float to Integer Conversions</a></li>
+</ul></li>
+<li><a href="#the-track-object"><span class="toc-section-number">5.4</span> The Track Object</a><ul>
+<li><a href="#thread-safety"><span class="toc-section-number">5.4.1</span> Thread-safety</a></li>
+<li><a href="#construction-and-destruction"><span class="toc-section-number">5.4.2</span> Construction and Destruction</a></li>
+<li><a href="#adding-and-removing-content"><span class="toc-section-number">5.4.3</span> Adding and Removing Content</a></li>
+<li><a href="#reverb-settings"><span class="toc-section-number">5.4.4</span> Reverb Settings</a></li>
+<li><a href="#fade-settings"><span class="toc-section-number">5.4.5</span> Fade Settings</a></li>
+<li><a href="#agility"><span class="toc-section-number">5.4.6</span> Agility</a></li>
+<li><a href="#stinger-progression"><span class="toc-section-number">5.4.7</span> Stinger Progression</a></li>
+<li><a href="#stinger-pickup-beats"><span class="toc-section-number">5.4.8</span> Stinger Pickup Beats</a></li>
+<li><a href="#miscellaneous"><span class="toc-section-number">5.4.9</span> Miscellaneous</a></li>
+</ul></li>
+<li><a href="#the-theme-object"><span class="toc-section-number">5.5</span> The Theme Object</a><ul>
+<li><a href="#thread-safety-1"><span class="toc-section-number">5.5.1</span> Thread-safety</a></li>
+<li><a href="#construction-and-destruction-1"><span class="toc-section-number">5.5.2</span> Construction and Destruction</a></li>
+<li><a href="#adding-and-removing-tracks"><span class="toc-section-number">5.5.3</span> Adding and Removing Tracks</a></li>
+<li><a href="#buffering"><span class="toc-section-number">5.5.4</span> Buffering</a></li>
+<li><a href="#mode-of-operation"><span class="toc-section-number">5.5.5</span> Mode of Operation</a></li>
+<li><a href="#threading"><span class="toc-section-number">5.5.6</span> Threading</a></li>
+<li><a href="#starting-and-stopping"><span class="toc-section-number">5.5.7</span> Starting and Stopping</a></li>
+<li><a href="#real-time"><span class="toc-section-number">5.5.8</span> Real-time</a></li>
+<li><a href="#rendezvous-settings"><span class="toc-section-number">5.5.9</span> Rendezvous Settings</a></li>
+<li><a href="#action-presets"><span class="toc-section-number">5.5.10</span> Action Presets</a></li>
+<li><a href="#miscellaneous-1"><span class="toc-section-number">5.5.11</span> Miscellaneous</a></li>
+<li><a href="#notifications"><span class="toc-section-number">5.5.12</span> Notifications</a></li>
+<li><a href="#xml-reading"><span class="toc-section-number">5.5.13</span> XML Reading</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#high-level-c-api-reference"><span class="toc-section-number">6</span> High Level C API Reference</a><ul>
+<li><a href="#preparing-decoders"><span class="toc-section-number">6.1</span> Preparing Decoders</a><ul>
+<li><a href="#decoder-preparation-flags"><span class="toc-section-number">6.1.1</span> Decoder Preparation Flags</a></li>
+<li><a href="#custom-data-readers"><span class="toc-section-number">6.1.2</span> Custom Data Readers</a></li>
+</ul></li>
+<li><a href="#output-settings"><span class="toc-section-number">6.2</span> Output Settings</a></li>
+</ul></li>
+<li><a href="#frequently-asked-questions"><span class="toc-section-number">7</span> Frequently Asked Questions</a><ul>
+<li><a href="#q-if-i-have-many-traks-and-all-of-them-have-reverb-turned-on-will-this-result-in-a-lot-of-cpu-usage"><span class="toc-section-number">7.1</span> Q: If I have many traks and all of them have reverb turned on, will this result in a lot of CPU usage?</a></li>
+<li><a href="#q-what-is-the-maximum-number-of-tracks-that-i-can-have-in-a-given-theme"><span class="toc-section-number">7.2</span> Q: What is the maximum number of tracks that I can have in a given theme?</a></li>
+<li><a href="#q-what-sample-rate-should-i-use"><span class="toc-section-number">7.3</span> Q: What sample rate should I use?</a></li>
+</ul></li>
+<li><a href="#version-history"><span class="toc-section-number">8</span> Version History</a><ul>
+<li><a href="#version-1.7---december-10-2015"><span class="toc-section-number">8.1</span> Version 1.7 - December 10, 2015</a></li>
+<li><a href="#version-1.6---august-20-2015"><span class="toc-section-number">8.2</span> Version 1.6 - August 20, 2015</a></li>
+<li><a href="#version-1.5---april-1-2015"><span class="toc-section-number">8.3</span> Version 1.5 - April 1, 2015</a></li>
+<li><a href="#version-1.1---june-25-2014"><span class="toc-section-number">8.4</span> Version 1.1 - June 25, 2014</a></li>
+<li><a href="#version-1.0---april-24-2014"><span class="toc-section-number">8.5</span> Version 1.0 - April 24, 2014</a></li>
+</ul></li>
+<li><a href="#credits-and-contact"><span class="toc-section-number">9</span> Credits and Contact</a></li>
+</ul>
+</div>
+<div id="introduction" class="section level1">
+<h1><a href="#introduction"><span class="header-section-number">1</span> Introduction</a></h1>
+<p>ELIAS (elastic lightweight integrated audio system) is an engine that renders adaptive game music. Rather than morphing between preconfigured stems or even complete mixes, ELIAS brings an entirely new level of control to the table. For the first time, the level designer can collaborate directly with the composer to deliver truly dynamic musical scenarios that adapt themselves based on the player's actions in the game world.</p>
+<p>In order to understand how ELIAS operates and the philosophy behind its design, it is important to view each musician as a separate entity. Rather than conducting an entire orchestra or band, ELIAS conducts each musician individually in order to provide a final musical experience that never feels static to the listener.</p>
+<div id="design-goals" class="section level2">
+<h2><a href="#design-goals"><span class="header-section-number">1.1</span> Design Goals</a></h2>
+<p>ELIAS has several design goals:</p>
+<p><em>Ease of use:</em></p>
+<p>We are assuming that most game developers use some sort of scripting facility in order to separate the low level engine code from the higher level game logic. Therefore, it has been essential to keep the interface simple enough to be easily integrated in a scripted environment where the instructions given are at a very high level. It is trivial to control the dramatic development of the music at run-time once ELIAS has been integrated into the core of the game engine. This initial integration, while not quite as trivial as the controlling of the music, should not take very long provided that the framework to handle audio in the game is extensive enough to allow for moderately low latency streams from custom sources.</p>
+<p><em>Portability:</em></p>
+<p>Games run on a large number of platforms, all of which are vastly different. We know this, and strive to make sure that ELIAS works in as portable a fashion as possible. Therefore we do not provide functionality such as audio output, as we don't know your platform nearly as well as you do. We also do not attempt to provide audio decoding facilities for the input data, due to the fact that we do not wish to impose any limitations on how your data is stored. Instead we expect several raw 16 bit audio streams as input and provide one such stream as our output. You may then handle this stream in the most optimal fashion depending on your situation.</p>
+<p>The ELIAS engine has no dependencies other than standard system libraries. As a result it is easy to get it up and running on a new platform.</p>
+<p><em>Customizability and performance:</em></p>
+<p>Game engines generally want complete control over exactly how much of the available resources that are used for any given task. We attempt to facilitate this by providing as much control as we can over the internals of ELIAS, such as changing the memory allocation routines that are used. Additionally, ELIAS provides a lot of flexibility in terms of performance tuning as it allows you to adjust or even replace many of the internal parts of the engine through simple API calls.</p>
+</div>
+</div>
+<div id="functionality" class="section level1">
+<h1><a href="#functionality"><span class="header-section-number">2</span> Functionality</a></h1>
+<p>The internal operation of ELIAS is intricate and has many details that are outside the scope of this manual, but in order to understand how to use it, it is necessary that we look at some of the basics behind its design.</p>
+<div id="fundamentals" class="section level2">
+<h2><a href="#fundamentals"><span class="header-section-number">2.1</span> Fundamentals</a></h2>
+<p>ELIAS works by taking several synchronized audio sources as its input and produces a single output track which is the mixed music. The input sources are divided into tracks, each of which is divided into trigger points in its turn. A trigger point is simply a variation (or version) of the same track that must fit musically with all other variations of that track. Picture a straight horizontal line with one or more dots on it. Each dot represents a trigger, and each line represents one track which when combined form the complete musical piece. The line should not be thought of as a timeline, but rather as representing some sort of change in the music. In the most common case, lower triggers (which is to say dots that are closer to the left) will represent softer versions of a given track, while higher triggers (that are further to the right) will represent more dramatic or intense versions. The composer decides how many triggers each track should have and may leave blank spots on the line where no change should occur. For example one track may include triggers 1, 3, 5 and 10. Another track in the same piece may include triggers 2, 4, 6 and 9. The game tells the engine what trigger level to use for the entire piece at run-time, and it then decides which triggers should be selected for the various tracks that make up the composition. If the game asks for trigger 5 for example, in our above scenario the first track would select trigger 5 since that's an exact match, while the second track will select either trigger 4 or trigger 6. Which of these it selects will depend on what trigger the track was using prior to the request. If it was at trigger 2 before the request was made, it will choose 4 rather than 6. On the other hand, if it was at trigger 9 before the request then it will go to 6 instead.</p>
+</div>
+<div id="fades" class="section level2">
+<h2><a href="#fades"><span class="header-section-number">2.2</span> Fades</a></h2>
+<p>In order to create smooth transitions, ELIAS automatically applies fades to the individual tracks before rendering them. If a track is silent, for instance, and then a change is made that causes it to switch to a trigger where there is audio material available, it would usually create a noticeable click if the new audio simply started playing immediately. Instead, a gradual fade is applied so that the inclusion of the new audio in the existing mix sounds more natural. If a transition is made from one existing trigger to another on a given track, a crossfade is applied. This simply means that the old trigger is gradually faded out while the new one is faded in at the same time. These two fades are then put together to cause the new trigger to gradually blend in with the old one which eventually disappears. Similarly, if a track goes from having a trigger to a point where it is silent, the old audio is faded out smoothly rather than just being stopped abruptly.</p>
+<p>You can control all aspects of the fades and crossfades for every track individually, which gives you a great deal of freedom to create flawless transitions depending on what type of instrument you are dealing with. For example you might want drums to fade quickly, since it would not be particularly realistic if a drum loop slowly morphed into another over the course of a few seconds. You would want the drums to change almost instantaneously. On the other hand, a large choir changing immediately would produce a very choppy sound. You would probably want that transition to take at least one or two seconds, often significantly longer. This is why the fine control over the fades for each track is so important. It allows you to customize the behavior based on the instrument type, heightening the player's impression that they are listening to a real ensemble or orchestra.</p>
+<div id="smart-fades" class="section level3">
+<h3><a href="#smart-fades"><span class="header-section-number">2.2.1</span> Smart Fades</a></h3>
+<p>For all intents and purposes, the fades described above are merely a workaround. In an ideal world we would like to switch between different triggers without using any fades at all, as fading will nearly always decrease the realism of the sound somewhat. Therefore, ELIAS employs a technique called smart fades. This means that if one or both of the triggers involved in a transition happen to be silent for a brief period, ELIAS will switch them instantaneously. The most preferable scenario is that both triggers are silent at the point of the transition, in which case ELIAS switches immediately without doing any fades whatsoever. This is rarely the case, however, so the engine also has rules to determine when it is appropriate to switch immediately even if only one of the triggers is silent. These rules also apply during fade in and fade out operations, and not just during crossfades.</p>
+<p>To take a practical example, assume that we have a choir track that we want to switch from one trigger to another. The trigger we are switching from is loud, and contains sung words. As a result, it has pauses when the choir takes breaths. The trigger we are switching to is a much softer choir with no words and no pauses, meaning that a transition between these two triggers is rather extreme. If we use regular fades to go from the loud trigger to the quiet one, provided that we have a long crossfade time for the track which would be most appropriate, we would hear the first choir singing loudly while faiding out slowly. To an attuned listener it will be immediately obvious that a transition is taking place, since the choir is still technically singing loudly but someone is merely turning down the volume. This is not terrible, but is not ideal either. This is where the smart fades come in. At the earliest opportunity, presumably when the louder choir takes a breath, it will be stopped immediately. This will result in the old trigger ending on a natural phrase boundary, while the new trigger continues to fade in simultaneously. This gives a significantly more natural result than merely using a traditional fade would. Therefore, for tracks where you know in advance that smart fades will be beneficial, two things are recommended:</p>
+<ol style="list-style-type: decimal">
+<li><p>Use a gate on the audio with pauses, so that the trigger is actually silent during these pauses and no unnecessarily long reverb tails are left lingering.</p></li>
+<li><p>Configure the track to use long fades if appropriate, as that gives the engine a greater opportunity to use its smart fades.</p></li>
+</ol>
+<p>When no opportunity presents itself for the engine to bring smart fades into play, it will fall back to the regular fades as described above.</p>
+</div>
+</div>
+<div id="reverberation" class="section level2">
+<h2><a href="#reverberation"><span class="header-section-number">2.3</span> Reverberation</a></h2>
+<p>Reverberation (or reverb) generally seems like something you would worry about as one of the very last things in the music production. However, it is mentioned at this early stage in the guide because it is vital for the operation of the ELIAS engine. The engine's mixer ships with a high quality reverb effect that is applied as a core part of the mixing process. This is done in order to achieve smooth, natural transitions between different audio sources.</p>
+<p>Imagine that you had two synchronized audio files, and you wanted to switch between them using a crossfade. If reverb had been applied to both of the files before they were exported from the digital audio workstation (DAW), the transition would not sound particularly smooth. The reason for this is simple. The reverb would crossfade along with the rest of the material in both files, and we could therefore compare it to a transition from one room into an entirely different one. If, however, you crossfaded the two files without reverb and then applied the effect to the resulting mix, the reverb would effectively follow the transition and it would sound as though the two audio sources were being heard in the same virtual space. This is not only effective as a means of hiding any unnatural side effects caused by the crossfade, but also preserves the notion of a natural space in which the ensemble or orchestra resides. If we were crossfading from a loud audio source to a quiet one, the reverberation of the louder signal would linger for a while even after the original sound had stopped and the quiet signal had taken over. This would not be the case if the audio files were mixed down with reverb already applied to them. This becomes especially obvious when the engine is able to use smart fades along with the reverb, as this produces transitions that are absolutely seamless. ELIAS lets you customize the settings for the reverb on an individual track basis, allowing the creation of truly astounding environmental effects.</p>
+</div>
+<div id="modes-of-operation" class="section level2">
+<h2><a href="#modes-of-operation"><span class="header-section-number">2.4</span> Modes of Operation</a></h2>
+<p>The engine currently has two modes in which it can operate. These are called objective and exploration. In section 2.1, the objective mode was described. In objective mode, each trigger has a weight which corresponds to its number. In other words, the triggers are considered to be a rising sequence and therefore their ordering is important. In exploration mode, however, the triggers do not have a weight and their ordering is not important at all. The idea is that while the triggers in objective mode are generally different in terms of dynamics and intensity, the triggers in an exploration theme should not be. They should simply be different takes on the same track, with roughly the same dynamic level. Contrary to what happens in objective mode, when the user requests a change in the music this does not refer to the trigger level that is desired. Instead, it refers to how many of the total number of tracks that should be changed. Since all triggers are considered to be equal in terms of musical dynamics and intensity, the engine randomly selects any trigger on one or more of the tracks chosen at random based on the track count for which the change is requested. In short, which tracks are changed and what triggers they switch to is randomized in order to achieve the greatest possible variety. This way, the same theme can play for a long time provided that the game requests a change at regular intervals. This is intended to solve the problem of a statically looped background music theme that plays while the player is exploring some vast area that may take anything from a few minutes to several hours to traverse. Since the music constantly changes in exploration mode without really changing in its dynamics, the perceived effect is that of a background track with infinite variety but still entirely logical from a musical perspective.</p>
+</div>
+<div id="urgency" class="section level2">
+<h2><a href="#urgency"><span class="header-section-number">2.5</span> Urgency</a></h2>
+<p>When a change in the music is needed during gameplay, it is important to be able to control how quickly this change actually occurs. Therefore, a percentage value called urgency is always passed along with the level that indicates the change. The urgency determines, among other things, how quickly the fades and crossfades occur. When configuring these, you are able to specify both a minimum and maximum value for the given fade type (fade in, crossfade and fade out). Based on the urgency setting of the transition, an appropriate value is selected within the specified range. For example, if you specify a minimum fade in time of 100 milliseconds and a maximum of 400 milliseconds, you have a range of 300 milliseconds spanning from 100 to 400. If a change then occurs with an urgency setting of 50%, the actual fade in time would be 250 milliseconds. 50% of 300 is 150, to which is added the minimum time of 100 which gives a final result of 250.</p>
+<p>The urgency setting also controls when the various tracks affected by a given transition actually make their changes. The lower the urgency, the more freely ELIAS will pick an appropriate time for each track to switch. If you use an urgency setting of 100%, ELIAS will switch all affected tracks as quickly as possible where as if the setting is lower, it may decide to switch one or two of the tracks first and then wait a little while before it switches the rest. This is merely an example; the rules that ELIAS uses to determine appropriate switch times are much more involved than this and will not be described in detail. However, it is important to mention that the order in which the tracks will switch is determined not only by rules but also by a certain amount of carefully controlled randomness, making each transition unique.</p>
+</div>
+<div id="immediate-versus-queued-transitions" class="section level2">
+<h2><a href="#immediate-versus-queued-transitions"><span class="header-section-number">2.6</span> Immediate versus Queued Transitions</a></h2>
+<p>When switching to a new level at run-time, there is an additional setting called &quot;immediately&quot; that you will need to specify. ELIAS maintains an internal queue of events that grows whenever immediately is set to false. The engine traverses this queue in the background, and processes the next item in the queue only when the previous transition is finished. This is used to create very smooth transitions where the music might go from one level to another, stopping for a short time on all the levels in between the starting point and the destination. Note that there is absolutely no need for the items in the queue to be in any kind of order or sequence; the jumps can be entirely arbitrary.</p>
+<p>When immediately is set to true, however, the behavior is different. First the queue is erased, so that if there was previously a backlog of events this will now be gone. The engine is then instructed to go to the new level immediately, with the appropriate urgency setting. Note that when immediately is true (call this an immediate command), ELIAS will do its best to start the transition as soon as possible. The length of the actual transition will depend on the urgency setting, but the engine will make an effort to at least start the new transition as soon as possible. This means, for instance, that if a previous transition has just started when the immediate command is received, the tracks that are able will skip the old transition and start the one specified in the immediate command at once. A track is able to do this when it has received a command to go to a new level but has not yet started its fade in, fade out or crossfade but is merely waiting for an opportunity to do so. In this scenario, it makes much more sense to forget about the old command and go directly to the level specified in the immediate command. This is the strategy that ELIAS employs to make sure that immediately means just that; go immediately to this new level and worry as little as possible about any prior commands.</p>
+</div>
+<div id="keys" class="section level2">
+<h2><a href="#keys"><span class="header-section-number">2.7</span> Keys</a></h2>
+<p>On all tracks in an ELIAS theme, there are always one or more keys containing a list of triggers as described above. Each key contains its own unique set of triggers, and they are not linked to one another in any way which means that you may have triggers with the same value as long as they reside in different keys.</p>
+<p>You may visualize an ELIAS theme as a 3-dimensional grid. The first dimension is the track, the second is the key and the third is the list of triggers. The idea is that the contents in a given key does not have to match musically with the contents in any other key. This means that while the keys are primarily intended to contain the same theme in different musical keys, there is nothing preventing you from using keys to store entirely different themes as long as the number of bars, the tempo and the time signature are the same.</p>
+<p>Each key has a unique ID, which is defined as the number of semitones above C. The lowest C is 0, the D above would be 2, and C sharp an octave higher would be 13.</p>
+</div>
+<div id="stingers" class="section level2">
+<h2><a href="#stingers"><span class="header-section-number">2.8</span> Stingers</a></h2>
+<p>In addition to regular loop tracks with triggers, an ELIAS theme can also contain what we call stinger tracks. A stinger is simply a little audio segment that is used to emphasize a particular event in the game,or to go along with a level transition to make it sound more smooth by hiding artifacts resulting from fades. Just like a loop track, a stinger track contains a set of keys and each of these keys contain individual stingers. An individual stinger is considered a variation of the same stinger type. When the engine is told to play a stinger (either on its own or as part of a level change), it is not given a specific stinger source on a given stinger track. it is simply given the ID of a particular stinger track, and the engine then selects one of the provided variations of that stinger in the appropriate key. How the engine selects a stinger variation depends on the so called progression setting that is specified for the given stinger track, but all variations on the same track are considered equal by the engine in terms of when it is appropriate to play them. In other words, the stinger variations should all fill the same function. If you have a stinger that is meant to be played on top of a drastic level change, for instance, you may want to use a large cymbal hit. If you include several variations of this stinger in a given key on the stinger track, you would simply alter the sound of the cymbal in various ways (perhaps accompany it with a drum-roll in one variation and a large timpani in another).</p>
+<p>One useful attribute found on stinger tracks is called pickup. This is the number of pickup beats that the stinger track has, and it can be used to control how the engine starts playing a given variation of that stinger. To continue with the above example of the large cymbal hit, rather than just playing the hit immediately the stinger might start with a slow reverse cymbal for one bar and then finally go on to play the hit as the reverse cymbal reaches its peak. When a stinger is included in a level change request, the other tracks take the pickup beats of the accompanying stinger track into account when transitioning. In our example scenario this means that all the tracks will wait for the reverse cymbal to reach its peak before they even begin considering making their changes, resulting in the audible change in the music occuring right as the stinger goes from the reverse cymbal build-up to its large hit. This works even though the reverse cymbal and the hit are in the same file.</p>
+<p>When we refer to the contents of the tracks in an ELIAS theme, we usually call it individual sources. This means that we can be referring either to the stinger variations on a stinger track, or to the triggers on an audio loop track. Only when a particular operation applies only to audio loop tracks or audio stinger tracks will we use the words trigger and stinger, respectively.</p>
+</div>
+<div id="rendezvous-transitions" class="section level2">
+<h2><a href="#rendezvous-transitions"><span class="header-section-number">2.9</span> Rendezvous Transitions</a></h2>
+<p>Most of the time, it is preferable that the various loop tracks in the theme are allowed to change with a certain amount of controlled variability. It makes the music come alive since no two transitions sound exactly the same. However, it is sometimes essential to be able to decide precisely when and how a transition should occur. When changing from one key to another, for instance, a variable transition where all the tracks switch a little as they see fit would not sound good. In this situation you need the change to occur quickly, and on all tracks at the exact same time. The engine offers a feature called rendezvous transitions to solve this problem.</p>
+<p>The settings for the rendezvous transitions are specified globally for the entire theme, rather than individually on each track. You can specify the length of the fade that should occur during a rendezvous transition, as well as when in the theme such transitions are allowed to take place. There are many scenarios in which rendezvous transitions will be triggered implicitly by the engine; a key change is only one example of such a situation. Therefore, spending some time adjusting the rendezvous settings for your theme will ensure that even the most drastic and abrupt transitions are carried out smoothly without disrupting the flow of the music. Note that it is very often a good idea to accompany a rendezvous transition with a stinger in order to hide the often very noticeable jump which occurs as a result of all the tracks transitioning at once with the exact same fade length.</p>
+</div>
+</div>
+<div id="composing-for-elias" class="section level1">
+<h1><a href="#composing-for-elias"><span class="header-section-number">3</span> Composing for ELIAS</a></h1>
+<p>This chapter is aimed at composers working with the ELIAS engine. It assumes that the reader has knowledge of music composition, knowledge of how to work with a DAW, and a basic understanding of how ELIAS operates (see the chapter called functionality for more details).</p>
+<div id="the-difference-between-linear-and-loop-based-composing" class="section level2">
+<h2><a href="#the-difference-between-linear-and-loop-based-composing"><span class="header-section-number">3.1</span> The Difference Between Linear and Loop Based Composing</a></h2>
+<p>When composing for a non-linear environment such as a computer game you always have to think in loops. You as a composer can never know when a certain event will occur and you can't compose the music like you do in for example film scoring. For instance, in a movie scene when you enter a haunted house and there's a monster of some kind in a room way down a corridor, the music in the movie will build up as you come closer to the room. The composer will score the scene with an exactitude of plus/minus 4 frames. In a game with the same scenario, the composer needs to make the music &quot;elastic&quot; in time so that whatever the player chooses to do the music will automatically adapt itself based on these choices. If the player stops and waits in the middle of the corridor for instance, the music has to be on the same &quot;level&quot; until the player starts moving again. All game music is loop based and that is also true for ELIAS. The thing that separates ELIAS from existing music engines is that it doesn't only use simple crossfades between different musical stems. It creates the impression of actually having an orchestra in front of you where the player is the director. The main purpose of ELIAS is to make loop based music sound linear and more like film scores. That is the most crucial difference between ELIAS and other solutions available on the market today.</p>
+</div>
+<div id="initial-planning" class="section level2">
+<h2><a href="#initial-planning"><span class="header-section-number">3.2</span> Initial Planning</a></h2>
+<p>Irrespective of which digital audio workstation (DAW) you are using, the first step when composing for ELIAS is in fact outside the DAW. You have to plan the scoring. The main points that you have to consider are:</p>
+<ul>
+<li>How many tracks do you need? A.k.a stems.</li>
+<li>How many triggers are needed over-all in the specific game scenario?</li>
+<li>How many triggers/versions do you want for each track?</li>
+</ul>
+<p>In objective mode a trigger often is the same as dynamic variation, and in exploration mode a trigger represents some variation of the given track but in the same dynamic range.</p>
+<p>When you have made your decisions for the points above, the way you proceed depends on what mode you are composing for. When composing in objective mode it is often a good idea to make what we call a dynamic map, usually on a piece of paper to start with. The dynamic map indicates how the various triggers on the different tracks are arranged, and might look as follows:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Trigger</th>
+<th align="left">Strings</th>
+<th align="left">Brass</th>
+<th align="left">Winds</th>
+<th align="left">Perc</th>
+<th align="left">Synth</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">no</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td align="left">yes</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+</tr>
+</tbody>
+</table>
+<p>Etc...</p>
+<p>In the short example above, the music will start on trigger 1 with just strings &amp; woodwinds. On trigger 2 percussion will be added. On trigger 3 the strings track will play a different variation, and the synth track will start. Both the woodwinds and percussion stay the same. On trigger 4 the brass track will start, and new woodwind &amp; percussion variations start. On trigger 5 both the woodwinds and the synth change.</p>
+<p>Instead of just using yes or no to indicate when changes occur, it could be helpful for you as the composer to make the dynamic map look something like this:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Trigger</th>
+<th align="left">Strings</th>
+<th align="left">Brass</th>
+<th align="left">Winds</th>
+<th align="left">Perc</th>
+<th align="left">Synth</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">pp</td>
+<td align="left">no</td>
+<td align="left">pp</td>
+<td align="left">no</td>
+<td align="left">no</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="left">p</td>
+<td align="left">no</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">mf</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="left">mf</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="left">no</td>
+<td align="left">f</td>
+<td align="left">f</td>
+<td align="left">f</td>
+<td align="left">no</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="left">ff</td>
+<td align="left">no</td>
+<td align="left">ff</td>
+</tr>
+</tbody>
+</table>
+<p>Etc...</p>
+<p>In this map, the dynamics of every trigger are specified with a range from pianissimo to fortissimo. This makes it very clear how the dynamic development of the theme is organized. However, it's entirely up to you to decide whether you wish to use this method. It is merely a suggestion for how you might plan your work. Note that the dynamic map isn't essential for making music with ELIAS, it just makes the process easyer; especially if you are using the engine for the first time.</p>
+<p>In exploration mode there's no need for a dynamic map. You can just continue to the next step.</p>
+</div>
+<div id="the-daw" class="section level2">
+<h2><a href="#the-daw"><span class="header-section-number">3.3</span> The DAW</a></h2>
+<p>Regardless of what DAW you are using, the workflow is the same. Let's start by composing an objective theme as described in the example above:</p>
+<p>For trigger 1, we decided to use two tracks (strings and woodwinds). In your DAW you probably have multiple string tracks or woodwind tracks, but you'll want to combine them into reasonable stems (one for the strings and another for the woodwinds). How you organize your stems is up to you. When you've composed the first trigger all of the other triggers must have the same length and the same harmonic structure as the first. Of course, You don't necessarily have to start composing the first trigger. It works just as well to start with the fifth or any other, as long as you understand that the first one you compose will determine some rules for the other ones. When you have composed all of the triggers it is a good idea to try moving them around just to check that they sound good with each other in various combinations. (ELIAS will do this for you in real-time when you test your theme (see below) but it can be advantageous to check this in the composing stage as well)</p>
+<p>In exploration mode the procedure is nearly identical, with the main difference being that the various triggers on a given track have to have the same dynamic level but still with some kind of variation. Additionally, all triggers on all tracks have to sound good with all other triggers on all other tracks since the engine will select triggers for the tracks completely at random.</p>
+<p>When all tracks/triggers are composed and you are satisfied with your work, it's time to mix them down. Start by checking all the levels, making sure that the audio never clips. Minimize the reverb as much as you can, since the engine will apply its own internal reverb and will also make better choices regarding transitions if the triggers include some silence from time to time. Mix down each stem (strings, brass, woodwinds, percussion, synth etc) with each trigger in a separate file. Remember to keep all of the &quot;tales&quot; for each trigger. If the music ends on bar number 32 it's wise to set the export range to the end of 33 or 34. When you export in this way, your files will not actually loop when you play them back due to the tail. Unlike other tools, however, this is not a problem for ELIAS. If your audio files contain tails, ELIAS will recognize this and automatically make sure that the tails are mixed on top of the loop when it wraps around. In other words, there is no need to manually mix the tail on top of the beginning of the actual file as is usually done when making traditional loops. ELIAS does this for you automatically behind the scenes! This not only saves you the time that you would normally have had to spend manually trimming and editing your loops; you also get a much more natural start of your theme since you don't hear the tail when the loop begins playing the first time around.</p>
+</div>
+</div>
+<div id="programming-guide" class="section level1">
+<h1><a href="#programming-guide"><span class="header-section-number">4</span> Programming Guide</a></h1>
+<p>ELIAS ships as a precompiled library, and exports a C interface. All function declarations, enums, constants and typedefs in the API are found in elias.h and optionally elias_high.h if you make use of the high level API (see below). All functions start with the prefix elias_, and return an int which corresponds to a set of predefined error codes. This was done in order to unify the error handling somewhat, as you don't need to deal with different types of return values from different functions.</p>
+<p>The ELIAS engine ships in two flavors: a low level and a high level layer. The low level layer strives to be very lightweight, and therefore deliberately excludes a lot of higher level features. The high level layer is built on top of the low level one, extending its functionality with convenience features intended to make it easier to get up and running quickly. In short, the high level layer is a superset of the low level layer. The high level layer remains lightweight, while providing features intended to simplify the work of integrating ELIAS into a new game engine and/or audio framework. It is a little larger and not quite as generic as the low level layer, but continues to give the user the ability to extend the API with custom functionality as needed.</p>
+<div id="high-level-layer-features" class="section level2">
+<h2><a href="#high-level-layer-features"><span class="header-section-number">4.1</span> High Level Layer Features</a></h2>
+<ul>
+<li>Built-in decoders</li>
+</ul>
+<p>The low level layer deals exclusively with raw audio samples. It has no notion of files, the disk drive or different audio formats. The high level layer can decode audio files transparently behind the scenes and feed them to ELIAS for processing. It contains an implementation of the data callback that the low level layer uses to retrieve the audio for the individual sources.</p>
+<ul>
+<li>Channel conversions</li>
+</ul>
+<p>The low level layer processes audio with a fixed number of channels. It requires all the individual audio sources to be delivered with the same channel configuration. Conversion of the sources must be done in user code before handing them off to the data callback. The high level layer automatically converts the audio source files to the channel mapping that the engine requires.</p>
+<ul>
+<li>Output format conversions</li>
+</ul>
+<p>The low level layer delivers its finished audio with the same sample rate and number of channels as it uses for its internal mixing. Many audio frameworks and game engines will accept this and convert automatically, but others require the user to deliver the audio with the exact settings used by the sound card (particularly when low latency is desired). The high level layer can be configured to convert its output to a sample rate and channel configuration of your choice, irrespective of what settings the engine uses to do its internal mixing. This should generally be configured before the engine starts rendering audio, but can also be changed at run-time if necessary.</p>
+<ul>
+<li>Custom data sources</li>
+</ul>
+<p>When the high level layer decodes audio files on the fly, it will use the disk drive by default. However, it can also be configured to read the data from files stored in zip archives, from a set of user supplied callbacks, or a combination of the two. In short, you can eliminate use of the disk completely (even the zip file itself can be read from a callback and the individual files retrieved from it without ever touching the disk). The callback functionality is intended to allow you to retrieve your data from any source (such as a cache or custom I/O mechanism), and to perform additional processing on it (such as decryption) before the data is sent on to the ELIAS engine.</p>
+<ul>
+<li>Loading strategies</li>
+</ul>
+<p>The high level layer will read the individual source audio files as a stream of small chunks by default. However, it can also be configured to preload the original file data for all the sources and then decode the audio from memory in chunks. Note that it is not the decoded audio that is kept in memory in its entirety - it is the content of the original file. If you use Ogg Vorbis, for instance, then only the compressed Vorbis data is preloaded. Little chunks of it are then decoded to raw audio on the fly.</p>
+</div>
+<div id="which-layer-should-i-use" class="section level2">
+<h2><a href="#which-layer-should-i-use"><span class="header-section-number">4.2</span> Which layer should I use?</a></h2>
+<p>Use the low level layer when:</p>
+<ul>
+<li>You need a great amount of control over how audio sources are retrieved or generated</li>
+<li>You are integrating ELIAS into a framework that already provides decoding and streaming audio facilities</li>
+<li>Binary size is crucial</li>
+</ul>
+<p>Use the high level layer when:</p>
+<ul>
+<li>You want to get up and running quickly</li>
+<li>You are integrating ELIAS into a framework with limited or no support for low level audio decoding and streaming</li>
+<li>You are calling ELIAS from a language with limited or no support for C callbacks and/or threading primitives</li>
+</ul>
+</div>
+<div id="audio-formats-supported-by-the-high-level-layer" class="section level2">
+<h2><a href="#audio-formats-supported-by-the-high-level-layer"><span class="header-section-number">4.3</span> Audio Formats Supported by the High Level Layer</a></h2>
+<ul>
+<li>PCM Wave with signed 16, 24 and 32 bit, as well as 32 bit floating point samples</li>
+<li>Ogg Vorbis</li>
+</ul>
+</div>
+<div id="current-limitations-of-the-high-level-layer" class="section level2">
+<h2><a href="#current-limitations-of-the-high-level-layer"><span class="header-section-number">4.4</span> Current Limitations of the High Level Layer</a></h2>
+<ul>
+<li>All the audio source files must be at the same sample rate as the theme (i.e. the sample rate at which the engine does its internal mixing). Only the engine's final output can currently be resampled.</li>
+<li>The only type of archive that is currently supported is .zip.</li>
+<li>When reading data from a zip archive which uses compression, seeking operations are extremely slow. Avoid storing audio files with zip compression at all cost. The audio files themselves should be compressed using a format such as Ogg Vorbis, but no additional compression should be used for the audio files in the zip archive.</li>
+</ul>
+</div>
+<div id="getting-started" class="section level2">
+<h2><a href="#getting-started"><span class="header-section-number">4.5</span> Getting Started</a></h2>
+<p>For this guide, we assume that you already have a piece of music with which to test ELIAS. The below instructions refer exclusively to the technical aspects of getting ELIAS integrated and running in your application.</p>
+<p>First you must link with the provided shared library (elias.lib, .dylib, .so etc depending on your platform), and #include &quot;elias.h&quot; in your application if you are using the low level layer. To access the features in the high level layer, link to the version of the library for your platform that is found in the high_level subdirectory. In your code, include elias_high.h. elias_high.h includes elias.h so you don't need to include both. All the same conventions apply in the high level API as in the low level one. For example, when you create a theme you will get a handle of type elias_theme_handle back. This handle is used when calling functions in both the low and the high level API. Additionally, the elias_error_codes enum found in elias.h contains error codes for both the low and the high level API.</p>
+<p>When you have linked to the appropriate library and included the header, it is a good time to read through the API reference. All functions referred to in this guide are explained in detail in the reference, so having that available while following these instructions is recommended.</p>
+<div id="themes-and-tracks" class="section level3">
+<h3><a href="#themes-and-tracks"><span class="header-section-number">4.5.1</span> Themes and Tracks</a></h3>
+<p>To begin you will want to set up your theme and your tracks, so that you have some music with which to test. You do this by creating a theme object and then adding tracks to it using a track object. To create a theme, use the function called elias_theme_create. Then make a track object using one of the elias_track_create_* functions depending on what type of track you want, and then populate it with content using functions such as elias_track_add_trigger or elias_track_add_stinger as appropriate. There are many other functions that are used to specify settings for a given track, but the most important one is elias_track_add_trigger. You can also specify additional information for each source such as its filename if appropriate (see elias_track_set_source_filename for more information).</p>
+<p>When you've completed a track, you add it to the theme by calling elias_theme_add_track. The contents of the track is then copied to internal storage in the theme object, and you may thus reuse the same track object to create all the tracks of the given type in your theme as long as you match each call to elias_theme_add_track with a call to elias_track_clear.</p>
+<p>Alternatively, if you don't want to add tracks manually in your code you may use a higher level function that will automatically create and populate an elias_theme object for you based on the contents of an XML stream. This function is called elias_theme_create_from_xml. When you have finished populating your theme with tracks (either by hand or by using the higher level XML reader), you will want to set up some lower level details.</p>
+</div>
+<div id="low-level-only-the-input-data-callback" class="section level3">
+<h3><a href="#low-level-only-the-input-data-callback"><span class="header-section-number">4.5.2</span> (Low Level Only) The Input Data Callback</a></h3>
+<p>This section applies only when you are using the low level layer of the ELIAS engine. When using the low level layer, the most important thing that you need to do while integrating ELIAS initially into your project is to write the input data callback. The declaration looks like this:</p>
+<pre><code>int my_data_callback(int action, const elias_source* source, elias_sample* buffer, size_t count, void* user_data);</code></pre>
+<p>This callback is used to read the data for all the tracks in your theme. How you retrieve this data depends on how you are storing it, such as whether you are using Wave files or a compressed file format like Ogg Vorbis. The output from your data callback should be signed 16 bit samples, with the same sample rate and number of channels as you indicate when calling elias_theme_create. The callback has quite a few parameters, but the one you'll want to care about first is called action. This is an integer which specifies what action the callback should take. There are four actions, which are listed in the elias_actions enum. The most important ones are elias_action_read and elias_action_seek. If the callback action is elias_action_seek, you must seek in the source so that you reach the position specified by count (starting from the beginning). In other words, the offset specified by count is absolute. elias_action_read means that you should read the number of samples specified by the count parameter, and store them in the memory location pointed to by buffer. You should always read from the point where you stopped in the previous invocation, or from the point indicated by a prior elias_action_seek request. It is important that you always read or seek by exactly as many samples as count indicates. If you read or seek by a different amount then the behavior is undefined.</p>
+<p>The elias_source pointer points to a structure containing information about the source for which the callback is being invoked. This structure has many elements, but the most important ones are called track_id, key and source. track_id corresponds to the ID that you provided when you called elias_theme_add_track, and the remaining three correspond to a set of arguments that you specified when adding contents to the track indicated by track_id. If the track is an audio loop track, source refers to a trigger. If it is an audio stinger track, it refers to a stinger instead. In your callback you must determine which data source to access based on the values of these elements in the elias_source structure. ELIAS guarantees that no duplicate entries can exist which is to say instances of the elias_source structure that contain the exact same content.</p>
+<p>If your theme contains filenames (specified either manually while constructing your tracks or inserted automatically by the XML reader), the elias_source structure contains an element called filename which you can use to retrieve the filename (if any) for each source. This is a NULL terminated, UTF-8 encoded string. If no filename was provided for the given source, this pointer will be NULL.</p>
+<p>If you do not wish to determine what source to access based on the track_id, key and source elements of the structure in each data callback invocation, another way in which you may solve the problem is by assigning a void* pointer to each individual source in the theme. This is done before you start rendering music, which is to say before the data callback is ever invoked. You may use this source specific void* pointer to store file handles, for instance, so that no lookup needs to be done in the data callback each time. You assign this pointer by calling elias_theme_enumerate_sources, and assigning the source specific pointers from inside the elias_source_enumeration callback function. See the API reference documentation for the elias_source_enumeration_callback and the elias_theme_enumerate_sources function for more information.</p>
+<p>If you have chosen to assign source specific data using elias_theme_enumerate_sources, you may access it from within the data callback using the source_user_data member found in the elias_source structure. For more detailed information about each member of the elias_source structure, consult its documentation in the API reference.</p>
+<p>The action parameter in the data callback can also indicate two other operations that you might want to perform, though these are optional. They are called elias_action_open and elias_action_close. elias_action_open is an indication that subsequent invocations are likely to be made where ELIAS will want to read or seek in the indicated source. Similarly, elias_action_close is issued when ELIAS no longer has a need for the given source. Whether or not you choose to act on these commands is up to you. If you are accessing data files on disk it may be a good idea to open and close them as a response to these commands, where as if you are merely accessing memory you may want to do something entirely different or nothing at all. Naturally you will always want to clean up any resources used to read data, even if you choose to do so at a later time than the callback suggests. When the callback is invoked with either elias_action_open or elias_action_close as the command, then the buffer and count parameters are not used.</p>
+<p>The final argument to the callback is a void* pointer called user_data that you provide when calling elias_theme_start. You may use this pointer to pass any additional information of your choice to the callback. The library does not use or attempt to dereference this pointer in any way, it merely passes it along.</p>
+<p>Depending on how ELIAS is configured, the callback may or may not need to be thread-safe. If ELIAS is set up to make use of multiple threads then the callback does need to be thread-safe, but does not if ELIAS is only allowed to use one thread.</p>
+<p>Note that you may not call any functions in the ELIAS library from inside the callback. Doing so results in undefined behavior.</p>
+<p>When you have performed the requested work in the callback, you return a non-zero value on success or 0 on failure. A failed callback does not cause the theme to stop, it simply silences the buffer for the given track and continues. You must call the elias_theme_stop method explicitly from outside the callback in order to stop the theme.</p>
+</div>
+<div id="high-level-only-configuring-decoders" class="section level3">
+<h3><a href="#high-level-only-configuring-decoders"><span class="header-section-number">4.5.3</span> (High Level Only) Configuring Decoders</a></h3>
+<p>When using the high level layer, you do not need to implement the data callback mentioned above. Instead, you should call elias_theme_prepare_playback_decoders (see the high level API reference for more details). This function takes, among other things, a path where the audio files in your theme reside. The high level layer assumes that all the sources in your theme have an associated filename, and uses this filename to resolve the final location in which it looks for the audio files for your theme. Once you have called this function successfully, the procedure for the high level layer is the same as for the low level one.</p>
+</div>
+<div id="final-configuration-steps" class="section level3">
+<h3><a href="#final-configuration-steps"><span class="header-section-number">4.5.4</span> Final Configuration Steps</a></h3>
+<p>We're almost there. There are just a couple of minor things that you need to adjust before it is time to actually start playing the music. The first, and also the simplest setting is the mode in which the theme should operate. You specify this with a call to elias_theme_set_mode. If you don't call this function, objective mode is chosen by default. However this may change in future versions of ELIAS, so it is a good idea to always specify the mode explicitly. Note that if your theme is constructed automatically for you by the XML reader, the mode does not need to be specified manually - it is set by the xML reader directly.</p>
+<p>The last thing you need to configure is the prebuffer amount. ELIAS always mixes its audio a little ahead of time. This is done to ensure that if the CPU should stall temporarily, the music playback won't be affected. Simply put, the further ahead the ELIAS mixer is allowed to go the more stable the output will be. On the other hand, if you let ELIAS mix too far ahead then you will no longer have real-time control over the music. Also keep in mind that ELIAS needs space in which to store the audio it has mixed, so the further it is allowed to mix ahead the more memory it will use. Therefore you should balance these pros and cons very carefully based on your specific circumstances when deciding an appropriate setting. To specify the number of milliseconds that ELIAS is allowed to mix ahead, simply invoke elias_theme_set_prebuffer_length_in_milliseconds. Alternatively if you wish to specify this value in samples rather than milliseconds, invoke elias_theme_set_prebuffer_length_in_samples instead. If you don't call either of these functions, an unspecified default is used which may change without notice between minor versions of the library. It is therefore a good idea to always specify a prebuffer amount explicitly just like with the mode setting mentioned above.</p>
+</div>
+<div id="playing-and-controlling-the-music" class="section level3">
+<h3><a href="#playing-and-controlling-the-music"><span class="header-section-number">4.5.5</span> Playing and Controlling the Music</a></h3>
+<p>Once you have set up your theme, it is time to begin playing and interacting with the music. Simply call elias_theme_start, and ELIAS will begin rendering audio. If you are using the high level layer, the input data callback parameter in elias_theme_start should be set to NULL.</p>
+<p>When the theme has started rendering, there are only a few functions that you generally need to worry about. One of these is called elias_theme_read_samples.</p>
+<p>elias_theme_read_samples is used to continuously pull new data from the ELIAS mixer. If you have a callback in your audio subsystem that is invoked whenever new audio needs to be handed to the output device, calling elias_theme_read_samples from inside that callback would be the easiest approach. Alternatively you could call it from a different thread and maintain your own queue, but that is beyond the scope of this guide. One important thing to note is that elias_theme_read_samples is non-blocking. It does not wait for new samples to be mixed by ELIAS, it merely checks whether any new audio is available at the moment of invocation and returns that data to you. If there is no data, it returns immediately and indicates that 0 samples were written to your buffer. If you don't call this function often enough, ELIAS will eventually reach its prebuffer limit and will pause until you pull some samples from the mixer's queue. As soon as you retrieve some of the accumulated samples, the engine will start rendering again. This ensures that ELIAS always stays ahead to as great an extent as it can, without going too far and losing the real-time aspect as a result.</p>
+<p>Now we get to the most interesting part of the engine; requesting real-time changes. Depending on the mode in which the engine has been configured you will want to call functions such as elias_theme_set_level for objective mode, or elias_theme_request_change for exploration mode. These functions instruct the engine to make various types of changes in the music as a direct response to the events occurring in the game world. You can also use elias_theme_silence when it is time to stop the music, which could come in handy when you reach the end of a level for instance.</p>
+</div>
+</div>
+<div id="multithreading" class="section level2">
+<h2><a href="#multithreading"><span class="header-section-number">4.6</span> Multithreading</a></h2>
+<p>The ELIAS theme object is thread-safe. You may invoke any function relating to the same theme object instance from any thread, and ELIAS will use locks when appropriate to ensure proper synchronization. Note that this thread-safety guarantee refers only to the theme object. The track object, for instance, is not thread-safe. The API reference lists the thread-safety guarantee for each object individually.</p>
+<p>ELIAS endeavors to make as few assumptions about your host environment as possible, but one assumption that it does make is that the memory allocation routines in the C standard library (malloc and free) are thread-safe. If this is not the case, then you must replace the default routines with your own custom thread-safe ones (see the chapter on tuning ELIAS below).</p>
+<p>ELIAS uses a background thread to do its mixing. This thread is idle most of the time, however, as it stops rendering music as soon as the prebuffer amount is reached. Since ELIAS works significantly faster than real-time, this waiting will make up most of the execution time provided that the prebuffer amount is not set to a very large value. If you feel that ELIAS is not rendering music fast enough and you are willing to give it some more CPU power to do its work, you can achieve a significant performance boost by configuring the engine to make use of multiple background threads rather than just one. By default, ELIAS is setup to use one background thread only. If you wish to allow it to use more, call the elias_theme_set_suggested_thread_count function. ELIAS will then create a pool of worker threads, between which it distributes the tasks that can be run in parallel.</p>
+<p>Note that the engine is free to deviate from the thread count that you suggest. It is permitted to use fewer threads if appropriate, but it will never use more threads than you specify in a call to elias_theme_set_suggested_thread_count. You may therefore view this suggestion as an upper limit to the number of threads that you are allowing ELIAS to utilize. As a rule of thumb, it often doesn't make sense to use more threads than you have cores available and certainly never more threads than you have tracks in your theme. You should run tests on your specific platform to determine the ideal number of threads.</p>
+<p>If you replace one or more of the internal routines in the engine you must read the instructions in the appropriate section of the chapter that describes tuning below, in order to find out whether a given routine has to be thread-safe. The memory allocation routines, for instance, always need to be thread-safe as mentioned previously.</p>
+</div>
+<div id="tuning" class="section level2">
+<h2><a href="#tuning"><span class="header-section-number">4.7</span> Tuning</a></h2>
+<p>ELIAS has been designed to be very flexible and extendable. Below is a list of possible changes you can make in order to tune the performance and memory usage of the engine to your exact needs.</p>
+<div id="replacing-the-memory-allocator" class="section level3">
+<h3><a href="#replacing-the-memory-allocator"><span class="header-section-number">4.7.1</span> Replacing the Memory Allocator</a></h3>
+<p>ELIAS makes an effort to allocate as much of its required memory as possible before it actually starts to render the music. This is done in order to reduce the number of allocations during the actual streaming to a bare minimum. However, if you have particularly strict policies on how memory may be allocated then you will probably want to replace the malloc and free routines with your own custom functions. By default, ELIAS uses the malloc and free functions provided in the C standard library. Your custom functions must match the same signatures, which are as follows:</p>
+<pre><code>void* malloc(size_t bytes);
+
+void free(void* ptr);</code></pre>
+<p>To replace the malloc and free functions used by ELIAS with your own, simply invoke elias_set_memory_allocator. This must be done while no ELIAS objects are initialized, since the routines are global and will affect all the data structures managed by ELIAS. Invoking elias_set_memory_allocator while one or more ELIAS objects are in existance results in undefined behavior. It is recommended that you call elias_set_memory_allocator once at the start of your program and then never again, unless you have a good reason to do otherwise.</p>
+<p>Your malloc and free routines must always be thread-safe. ELIAS assumes that the malloc and free implementations provided by the C standard library are thread-safe. If this is not the case, then replacing malloc and free is a requirement.</p>
+</div>
+<div id="replacing-the-floating-point-to-integer-converter" class="section level3">
+<h3><a href="#replacing-the-floating-point-to-integer-converter"><span class="header-section-number">4.7.2</span> Replacing the Floating Point to Integer Converter</a></h3>
+<p>Internally, ELIAS does all its processing and mixing using 32 bit floating point numbers. After a segment of music has been mixed and is ready for output, it needs to be converted to signed 16 bit samples to be suitable for playback on all soundcards. Converting floating point numbers to integers can be done in many ways, and the fast ways usually depend heavily on the architecture. ELIAS includes a built-in conversion routine that works everywhere, but is usually very slow and inefficient. It does a direct cast from float to a 16 bit integer. This will be fast if the processor has SSE2 instructions, but if not, it will be a very expensive operation. It is therefore highly recommended that you replace the internal function with your own optimized routine that is suitable for your specific architecture. You do this by calling elias_set_float_to_int_converter. That function takes a callback as its only argument, which has the following signature:</p>
+<pre><code>void elias_float_to_int(float* input, elias_sample* output, size_t count);</code></pre>
+<p>In your routine, simply loop through all the samples indicated by count and put the contents of input into output, converted to a 16 bit signed integer. No scaling needs to be done on the input; ELIAS handles this internally.</p>
+<p>This routine must always be thread-safe.</p>
+</div>
+</div>
+</div>
+<div id="low-level-c-api-reference" class="section level1">
+<h1><a href="#low-level-c-api-reference"><span class="header-section-number">5</span> Low Level C API Reference</a></h1>
+<div id="enums-and-typedefs" class="section level2">
+<h2><a href="#enums-and-typedefs"><span class="header-section-number">5.1</span> Enums and Typedefs</a></h2>
+<pre><code>  
+
+typedef int elias_error;</code></pre>
+<p>This is used as the return type in all functions exposed by the ELIAS engine.</p>
+<pre><code>  
+
+typedef void* elias_track_handle;
+typedef void* elias_theme_handle;</code></pre>
+<p>The above typedefs are used to pass handles to various ELIAS objects around. These handles are opaque and should not be manipulated in any way.</p>
+<pre><code>  
+
+typedef int16_t elias_sample;</code></pre>
+<p>This is a typedef that is used whenever audio samples are passed. This must be a signed integer and hold 16 bits.</p>
+<pre><code>  
+
+enum elias_modes
+{
+elias_mode_objective=1,
+elias_mode_exploration
+};</code></pre>
+<p>The above enum specifies the various modes in which the engine can operate. For a detailed description of each, see the functionality chapter in the manual.</p>
+<pre><code>  
+
+enum elias_track_types
+{
+elias_track_audio_loop=1,
+elias_track_audio_stinger
+};</code></pre>
+<p>The above enum specifies the various types of tracks that ELIAS supports.</p>
+<pre><code>  
+
+enum elias_stinger_progressions
+{
+elias_stinger_progression_sequential,
+elias_stinger_progression_random,
+elias_stinger_progression_shuffle
+};</code></pre>
+<p>This enum lists the various ways in which the engine can select a new stinger to be played on a given stinger track.</p>
+<pre><code>  
+
+enum elias_data_callback_actions
+{
+elias_action_read = 1 - Read samples from the source into the buffer.
+elias_action_seek - Seek to a specific absolute offset in the source.
+elias_action_open - Open the source.
+elias_action_close - Close the source.
+};
+
+typedef struct elias_source
+{
+elias_theme_handle theme; - The theme to which this source belongs.
+int track_type; - The type of the track to which this source belongs (see the elias_track_types enum above).
+int track_id; - The ID of the track to which this source belongs.
+int key; - The key on the given track to which the source belongs, specified as the number of semitones above C.
+int source; - The ID of the source on the given track in the specified key.
+const char* filename; - A NULL terminated, UTF-8 encoded string. This pointer is NULL if no filename was specified for the source.
+unsigned long length_in_samples; - The length of the source data, in samples.
+void* source_user_data; - This pointer contains application data that is specific to the given source. It is set to 0 by default.
+int dummy; - This is non-zero if this is a dummy source, which is to say a source that is silent.
+} elias_source;</code></pre>
+<p>This structure contains all the information needed to identify a particular source in a theme. Not all the elements need to be considered in order to determine what source the given instance is referring to, but additional information is given for convenience purposes.</p>
+<p>Instances of this structure are always managed by the ELIAS engine. You should never make instances of this structure manually, or manipulate the contents in any way.</p>
+<pre><code>  
+
+typedef int (*elias_data_callback)(int action, const elias_source* source, elias_sample* buffer, size_t count, void* user_data);</code></pre>
+<p>This is the input data callback. It is implemented by the application to read raw audio samples from a source, such as the disk drive.</p>
+<p>action refers to what should be done by the callback (see the elias_actions enum above). elias_action_open and elias_action_close are only suggestions. You may ignore them if you wish to open data sources earlier, or defer the closing of them until a later time. Note that after an open request, ELIAS expects the reading cursor for that particular data source to be at 0 (the beginning). elias_action_read and elias_action_seek must be obeyed unconditionally.</p>
+<p>source points to an elias_source structure which contains the information needed to determine what data source to access. See the elias_source structure definition above for more information.</p>
+<p>buffer is the memory to which the samples should be written. count specifies the number of samples. If action is elias_action_seek, count is the absolute number of samples to seek to from the beginning. If action is elias_action_read, count specifies the number of samples to read from the current position. The application must never read or seek by a lesser or greater amount than count specifies. If action is elias_action_open or elias_action_close, buffer and count are not used.</p>
+<p>The user_data pointer is not used by the library, but merely passed along.</p>
+<p>The return value should be 0 (false) on failure and anything else (true) on success.</p>
+<p>Depending on how ELIAS is configured, the callback may or may not need to be thread-safe. If ELIAS is set up to make use of multiple threads then the callback does need to be thread-safe, but does not if ELIAS is only allowed to use one thread.</p>
+<p>Note that you may not call any functions in the ELIAS library from inside the callback. Doing so results in undefined behavior.</p>
+<pre><code>  
+
+typedef int (*elias_source_enumeration_callback)(const elias_source* source, void** source_user_data, void* user_data);</code></pre>
+<p>This is the source enumeration callback. It is used to enumerate all the sources present in a given theme.</p>
+<p>source points to an elias_source structure which contains the information needed to determine what data source that is currently being referred to. See the elias_source structure definition above for more information.</p>
+<p>source_user_data is an output parameter which allows you to assign a void* pointer to the given source for future use. If you assign a pointer to source_user_data, this pointer will be stored in the user_data field of the elias_source structure whenever it is used subsequently. Other than being passed as the user_data member in the elias_source structure for the given source, the engine does not attempt to dereference or use the pointer in any way.</p>
+<p>The user_data pointer is not used by the library, but merely passed along. It is the user_data pointer that was given in the call to elias_theme_enumerate_sources, and is the same for all invocations of this callback.</p>
+<p>If the callback returns 0 (false), the enumeration will be aborted and no more invocations of the callback will be made. In this case, elias_theme_enumerate_sources will return elias_error_usercancelled. If the callback returns anything other than 0 (true), the enumeration will continue.</p>
+<p>This callback does not need to be thread-safe.</p>
+<p>Note that you may not call any functions in the ELIAS library from inside the callback. Doing so results in undefined behavior.</p>
+<pre><code>  
+
+enum elias_notification_flags
+{
+elias_notification_music_change=0x1 - The engine is about to act upon a request to change the music in some way.</code></pre>
+<p>Please note that such a change can include, but is not limited to, changing the level, playing a stinger, going to silence, etc.</p>
+<pre><code>  
+
+elias_notification_buffer_full=0x2 - The output sample buffer is full.
+elias_notification_buffer_empty=0x4 - The output sample buffer is empty. This notification will be sent from an
+application thread during a call to elias_theme_read_samples.
+elias_notification_samples_available=0x8 - There is data available to be read from the output sample buffer.
+elias_notification_thread_created=0x10 - The engine has just created a new thread intended for internal use.
+elias_notification_thread_destroyed=0x20 - The engine is about to destroy one of its internal threads.</code></pre>
+<p>Please note that the two notifications above are always delivered from the thread in question, which is to say the thread that the given notification refers to.</p>
+<pre><code>  
+
+};</code></pre>
+<p>The above is a list of all of the notifications that you can elect to receive through the notification callback (see below). Note that in all cases where the above descriptions of the constants do not specify from which thread a given notification is sent, it will be sent from one of the engine's internal worker threads.</p>
+<pre><code>  
+
+typedef void (*elias_notification_callback)(elias_theme_handle theme, int notification, void* user_data);</code></pre>
+<p>This callback is invoked in real-time by the engine. There are many scenarios in which this callback is invoked, all of which can be chosen in a call to elias_theme_register_notifications. The notification parameter indicates the event that the notification callback is being invoked for. This corresponds to one of the elias_notification_* constants above. You must not invoke any functions from the ELIAS engine from inside this callback. Doing so results in undefined behavior. Note that if this callback takes a long time to execute, the rendering of the music may potentially stall. It is therefore recommended that this callback returns as quickly as possible, especially if you have elected to receive many types of notifications.</p>
+<p>This callback must always be thread-safe.</p>
+<pre><code>  
+
+const int elias_max_keys = 240;</code></pre>
+<p>This represents the maximum number of keys that can be in a given theme (20 octaves).</p>
+<pre><code>  
+
+enum elias_error_codes
+{
+elias_error_success=0 - All is well.
+elias_error_unknown - An unknown error condition.
+elias_error_badhandle - An invalid handle was given.
+elias_error_invalidinput - One or more invalid parameters.
+elias_error_outofmemory - Out of memory.
+elias_error_running - Cannot perform this operation while the engine is running.
+elias_error_notrunning - Cannot perform this operation while the engine isn't running.
+elias_error_notracks - No tracks have been added.
+elias_error_nocontent - No content has been added to the given track.
+elias_error_invalidfortracktype - The given operation cannot be performed for this type of track.
+elias_error_invalidinmode - The given operation cannot be performed in the current mode.
+elias_error_invalidagility - An invalid agility setting was specified for the given track.
+elias_error_invalidpickup - An invalid pickup beats setting was specified for the given track.
+elias_error_threading - Could not start one or more of the internal thread/synchronization subsystems.
+elias_error_duplicate - Duplicate entries are not allowed.
+elias_error_usercancelled - The operation was cancelled by you.
+
+- The following error codes are only returned by functions in the high level layer API.
+
+elias_error_filenotfound=100 - File not found.
+elias_error_missingfilename - One or more sources in the theme have no associated filename.
+elias_error_invalidpath - One or more sources in the theme have an invalid file path.
+elias_error_unknownformat - Unknown format.
+elias_error_invalidformat - Invalid format.
+elias_error_reading - Reading error.
+elias_error_differentsamplerate - The sample rate is different from what is expected.
+elias_error_unsupportedchannelmapping - Unsupported channel mapping.
+elias_error_unsupportedsamplerate - Unsupported sample rate.
+elias_error_unsupportedbitdepth - Unsupported bit depth.
+};
+
+typedef void* (*elias_malloc)(size_t size);
+typedef void (*elias_free)(void* ptr);</code></pre>
+<p>These typedefs are used to define the signatures for the custom memory allocation functions. It is possible to replace the default malloc and free implementations with your own custom implementations. These must have the same signature as malloc and free, and must be thread-safe. See the elias_set_memory_allocator function and the chapter about tuning in the programming guide for more information.</p>
+<p>Note that you may not call any functions in the ELIAS library from inside either of these routines. Doing so results in undefined behavior.</p>
+<pre><code>  
+
+typedef void (*elias_float_to_int)(float* input, elias_sample* output, size_t count);</code></pre>
+<p>This typedef defines the signature for the float to int conversion callback function. Floating point to integer conversions are tricky. There are many ways to do it, and they all depend on the architecture. ELIAS allows you to insert your own routine for doing this so that you may optimize for your particular environment. The routine must fill the output buffer with the contents of the input buffer, converted from float to elias_sample (int16). This routine must be thread-safe. See the elias_set_float_to_int_converter function and the chapter about tuning in the programming guide for more information.</p>
+<p>Note that you may not call any functions in the ELIAS library from inside this routine. Doing so results in undefined behavior.</p>
+</div>
+<div id="api-conventions" class="section level2">
+<h2><a href="#api-conventions"><span class="header-section-number">5.2</span> API Conventions</a></h2>
+<p>There are a few conventions that are used in the API to make it more uniform.</p>
+<ol style="list-style-type: decimal">
+<li><p>All of the functions exported by ELIAS return elias_error, which contains one of the error codes listed above.</p></li>
+<li><p>Whenever a value is retrieved a pointer argument is passed, into which the data is copied. This is done in order to avoid breaking the convention of always returning an error code.</p></li>
+</ol>
+</div>
+<div id="instance-independent-functions" class="section level2">
+<h2><a href="#instance-independent-functions"><span class="header-section-number">5.3</span> Instance Independent Functions</a></h2>
+<p>These functions affect all objects currently in use by ELIAS. Call them with care, and pay attention to thread-safety.</p>
+<div id="memory-allocation" class="section level3">
+<h3><a href="#memory-allocation"><span class="header-section-number">5.3.1</span> Memory Allocation</a></h3>
+<pre><code>  
+
+elias_error elias_set_memory_allocator(elias_malloc malloc_instance, elias_free free_instance);</code></pre>
+<p>Both of these pointers may be NULL, in which case the default malloc and free functions will be used. However, if one of the pointers is not NULL then the other one must not be NULL either.</p>
+<p>These routines must be thread-safe. ELIAS assumes that the default malloc and free implementations on your platform are thread-safe. If this is not the case, replacing them is a requirement. It is important that you call elias_set_memory_allocator before creating any ELIAS object. You must also remember not to call this function with new parameters before you have destroyed all preexisting ELIAS objects. If a different malloc and free pair are used for allocation and deallocation of a given ELIAS object, the behavior is undefined.</p>
+<p>This function is not thread-safe.</p>
+</div>
+<div id="float-to-integer-conversions" class="section level3">
+<h3><a href="#float-to-integer-conversions"><span class="header-section-number">5.3.2</span> Float to Integer Conversions</a></h3>
+<pre><code>  
+
+elias_error elias_set_float_to_int_converter(elias_float_to_int converter_instance);</code></pre>
+<p>The conversion routine that you provide is used among all ELIAS objects. It must be thread-safe. If this function is not called, ELIAS uses its own conversion routine which is inefficient but guaranteed to work everywhere. Similarly, the inefficient routine is used subsequently if this function is called with a NULL argument. You must not call this function while any ELIAS theme object is rendering music.</p>
+<p>This function is not thread-safe.</p>
+</div>
+</div>
+<div id="the-track-object" class="section level2">
+<h2><a href="#the-track-object"><span class="header-section-number">5.4</span> The Track Object</a></h2>
+<p>This object is a generic container used to specify all the information for the various track types in a theme.</p>
+<div id="thread-safety" class="section level3">
+<h3><a href="#thread-safety"><span class="header-section-number">5.4.1</span> Thread-safety</a></h3>
+<p>This object is not thread-safe. Separate instances may be used from different threads, as long as the same instance is never accessed by more than one thread simultaneously.</p>
+</div>
+<div id="construction-and-destruction" class="section level3">
+<h3><a href="#construction-and-destruction"><span class="header-section-number">5.4.2</span> Construction and Destruction</a></h3>
+<pre><code>  
+
+elias_error elias_track_create_audio_loop_track(elias_track_handle* track);</code></pre>
+<p>This function creates a track object instance intended to contain an audio loop track, and puts its handle in the memory location pointed to by track. A successful call to this function must always be followed by a call to elias_track_destroy when the object is no longer needed.</p>
+<pre><code>  
+
+elias_error elias_track_create_audio_stinger_track(elias_track_handle* track);</code></pre>
+<p>This function creates a track object instance intended to contain an audio stinger track, and puts its handle in the memory location pointed to by track. A successful call to this function must always be followed by a call to elias_track_destroy when the object is no longer needed.</p>
+<pre><code>  
+
+elias_error elias_track_destroy(elias_track_handle track);</code></pre>
+<p>This function deallocates all resources associated with the object and renders the handle invalid. Any use of the object after a call to this function results in undefined behavior.</p>
+</div>
+<div id="adding-and-removing-content" class="section level3">
+<h3><a href="#adding-and-removing-content"><span class="header-section-number">5.4.3</span> Adding and Removing Content</a></h3>
+<pre><code>  
+
+elias_error elias_track_add_trigger(elias_track_handle track, int key, int trigger, unsigned long length_in_samples);</code></pre>
+<p>This function adds a new trigger to the track. The key is expressed as the number of semitones above C. C is 0. The value must be &gt;=0, and &lt;= elias_max_keys. The trigger must be &gt;= 1, and must be unique in a given key. No duplicates in the same key are allowed. length_in_samples specifies how long this particular trigger is. If set to 0, it is assumed to be the same length as the theme. If length_in_samples is greater than the length of the theme (converted to samples), the engine will automatically mix anything following the end of the loop on top of the audio after the loop has wrapped around the first time. This means that if the loop has a so called tail, this will be included in the second and all subsequent rounds of the loop while still keeping playback synchronized.</p>
+<p>This function applies to audio loop tracks.</p>
+<pre><code>  
+
+elias_error elias_track_add_dummy_trigger(elias_track_handle track, int key, int trigger);</code></pre>
+<p>This function adds a new dummy trigger to the track. A dummy trigger is a trigger that is silent. The key is expressed as the number of semitones above C. C is 0. The value must be &gt;=0, and &lt;= elias_max_keys. The trigger must be &gt;= 1, and must be unique in a given key. No duplicates in the same key are allowed.</p>
+<p>A dummy trigger source will never be passed to the input data callback, as it has no data associated with it.</p>
+<p>This function applies to audio loop tracks.</p>
+<pre><code>  
+
+elias_error elias_track_add_stinger(elias_track_handle track, int key, int stinger, unsigned long length_in_samples);</code></pre>
+<p>This function adds a new stinger to the track. The key is expressed as the number of semitones above C. C is 0. The value must be &gt;=0, and &lt;= elias_max_keys. The stinger must be &gt;= 1, and must be unique in a given key. No duplicates in the same key are allowed. length_in_samples specifies how long this particular stinger is. It must always be greater than 0.</p>
+<p>This function applies to audio stinger tracks.</p>
+<pre><code>  
+
+elias_error elias_track_set_source_filename(elias_track_handle track, int key, int source, const char* filename);</code></pre>
+<p>This function adds a filename string to the given source. The key and source parameters should correspond to a set of parameters that were used in a previous call to either elias_track_add_trigger or elias_track_add_stinger. In other words, the given source must already have been added to the track. It will not be created if it does not exist, and the function will fail in this scenario.</p>
+<p>filename should be a NULL terminated, UTF-8 encoded string. The engine makes a copy of the filename and manages the memory for it internally, which means that you do not need to keep the original filename buffer around after a successful call to this function.</p>
+<p>If filename is a NULL pointer, the filename that is currently associated with the source (if any) will be cleared.</p>
+<pre><code>  
+
+elias_error elias_track_get_source_filename(elias_track_handle track, int key, int source, char* filename, size_t* count);</code></pre>
+<p>This function retrieves the filename for a given source. The key and source parameters should correspond to a set of parameters that were used in a previous call to either elias_track_add_trigger or elias_track_add_stinger.</p>
+<p>filename should point to an array containing at least *count bytes, which will be filled in with the requested filename after a successful call to this function.</p>
+<p>If filename is NULL, *count will be set to the number of bytes that the filename contains (including the NULL terminator). This is useful if you do not know the length of the string in advance and you need to know how much memory to allocate, for instance.</p>
+<p>If filename is non-NULL and the function succeeds, *count is updated to indicate how many bytes that were actually written into the memory pointed to by filename. This is true even if filename is too small to contain the entire string, in which case the number of bytes that were successfully copied will be indicated by *count. In this scenario the result will always be NULL terminated, and this NULL terminator will be included in the byte count given in *count.</p>
+<p>count must always be non-NULL.</p>
+<p>Note that since the string is encoded as UTF-8, the number of bytes is not necessarily the same as the number of actual characters in the string.</p>
+<pre><code>  
+
+elias_error elias_track_set_stinger_agility_beat_points(elias_track_handle track, int key, int stinger, uint32_t* beat_points, size_t count);</code></pre>
+<p>This function specifies a list of exact agility beat points for a given stinger source. The key and stinger parameters should correspond to a set of parameters that were used in a previous call to elias_track_add_stinger. In other words, the given stinger source must already have been added to the track. It will not be created if it does not exist, and the function will fail in this scenario.</p>
+<p>When individual sources on a stinger track have exact agility beat points specified and the stinger track is requested to play, the engine will select the source that is closest in time to the current playback position in the theme. In short, the stinger sources can be configured such that they may be started only when certain chords are being used in the theme. This means that it is possible to have tonal stingers that are aware of the musical progression at any given time.</p>
+<p>beat_points should point to an array of count elements that store every beat on which the given stinger source is allowed to start playing. The beats are absolute, starting at 1.</p>
+<p>If beat_points is NULL or count is 0, the stinger source is configured to have no exact agility beat points.</p>
+<p>This function replaces any previously specified beat points for the stinger. In short, all beat points that are to be in effect at once must be provided in a single call to this function.</p>
+<p>None of the beat point values may be greater than the total number of beats in the theme. if this is the case, the theme object that the track will eventually be copied into will return an error.</p>
+<pre><code>  
+
+elias_error elias_track_get_stinger_agility_beat_points(elias_track_handle track, int key, int stinger, uint32_t* beat_points, size_t* count);</code></pre>
+<p>This function retrieves the current list of exact agility beat points for the given stinger source. The key and stinger parameters should correspond to a set of parameters that were used in a previous call to elias_track_add_stinger.</p>
+<p>beat_points should point to an array containing at least *count elements, which will be filled in with the current list of agility beat points for the given stinger source after a successful call to this function.</p>
+<p>If beat_points is NULL, *count will be set to the number of beat points that are currently set for the stinger. This is useful if you do not know the number of beat points in advance and you need to know how much memory to allocate, for instance.</p>
+<p>If beat_points is non-NULL and the function succeeds, *count is updated to indicate how many elements that were actually written into the memory pointed to by beat_points. This is true even if beat_points is too small to contain the entire list, in which case the number of beat points that were successfully copied will be indicated by *count.</p>
+<p>count must always be non-NULL.</p>
+<pre><code>  
+
+elias_error elias_track_clear(elias_track_handle track);</code></pre>
+<p>This function removes all added content and clears all other settings in the track. It resets the track to its initial state (as it was after construction), making it suitable for reuse.</p>
+</div>
+<div id="reverb-settings" class="section level3">
+<h3><a href="#reverb-settings"><span class="header-section-number">5.4.4</span> Reverb Settings</a></h3>
+<p>The following getters and setters are all in percent. They apply to audio loop tracks and audio stinger tracks.</p>
+<pre><code>  
+
+elias_error elias_track_set_reverb_size(elias_track_handle track, unsigned int size);
+elias_error elias_track_get_reverb_size(elias_track_handle track, unsigned int* size);</code></pre>
+<p>The size refers to the size of the virtual space (or room) in which the instrument plays. A small size gives the impression of a living room or a bathroom, while a greater size would sound more like a concert hall. Note that setting the size close to 100 gives a long enough decay to make the output nearly unusable.</p>
+<pre><code>  
+
+elias_error elias_track_set_reverb_damping(elias_track_handle track, unsigned int damping);
+elias_error elias_track_get_reverb_damping(elias_track_handle track, unsigned int* damping);</code></pre>
+<p>Damping affects the perceived material on the walls of the virtual space. A low setting gives a clear, crisp and somewhat sharp effect, while higher settings make for a rather dull and muffled sound.</p>
+<pre><code>  
+
+elias_error elias_track_set_reverb_mix(elias_track_handle track, unsigned int mix);
+elias_error elias_track_get_reverb_mix(elias_track_handle track, unsigned int* mix);</code></pre>
+<p>The mix parameter refers to the relation in volume between the reverberated and the original signal. For a natural effect, these two signals are mixed together to form the final output. The mix setting determines how much of the original, dry signal versus the reverberated signal that is heard. A value of 0 keeps the dry signal unmodified and without reverb, while a value of 100 causes only the reverberated signal to remain. The greater the mix level is, in other words, the further away in the virtual space the instrument will be.</p>
+</div>
+<div id="fade-settings" class="section level3">
+<h3><a href="#fade-settings"><span class="header-section-number">5.4.5</span> Fade Settings</a></h3>
+<p>The following getters and setters are all in milliseconds. The maximum and minimum are the extreme settings, corresponding to 0% and 100% urgency respectively. If a transition is made with 100% urgency then the minimum fade is used. If the transition is made with 50% urgency instead, then the value that is halfway between the minimum and maximum is used. In short, the appropriate value is calculated within the given range based on the urgency percentage.</p>
+<p>These functions apply to audio loop tracks.</p>
+<pre><code>  
+
+elias_error elias_track_set_fade_in_minimum(elias_track_handle track, unsigned int minimum);
+elias_error elias_track_get_fade_in_minimum(elias_track_handle track, unsigned int* minimum);
+elias_error elias_track_set_fade_in_maximum(elias_track_handle track, unsigned int maximum);
+elias_error elias_track_get_fade_in_maximum(elias_track_handle track, unsigned int* maximum);</code></pre>
+<p>A fade in is applied when a track goes from silence to having some audio on it.</p>
+<pre><code>  
+
+elias_error elias_track_set_crossfade_minimum(elias_track_handle track, unsigned int minimum);
+elias_error elias_track_get_crossfade_minimum(elias_track_handle track, unsigned int* minimum);
+elias_error elias_track_set_crossfade_maximum(elias_track_handle track, unsigned int maximum);
+elias_error elias_track_get_crossfade_maximum(elias_track_handle track, unsigned int* maximum);</code></pre>
+<p>A crossfade is applied when a track transitions from one trigger to another. The old trigger audio is faded out at the same time as the new one is faded in. The crossfade determines the length of that transition.</p>
+<pre><code>  
+
+elias_error elias_track_set_fade_out_minimum(elias_track_handle track, unsigned int minimum);
+elias_error elias_track_get_fade_out_minimum(elias_track_handle track, unsigned int* minimum);
+elias_error elias_track_set_fade_out_maximum(elias_track_handle track, unsigned int maximum);
+elias_error elias_track_get_fade_out_maximum(elias_track_handle track, unsigned int* maximum);</code></pre>
+<p>A fade out is applied when a track goes from having audio on it, down to silence.</p>
+</div>
+<div id="agility" class="section level3">
+<h3><a href="#agility"><span class="header-section-number">5.4.6</span> Agility</a></h3>
+<p>Agility is used to control at what points in time the track is permitted to begin a transition during playback. The agility settings apply to audio loop tracks and audio stinger tracks. For audio stinger tracks, the agility determines when a stinger belonging to the given track is allowed to start playing.</p>
+<p>There are two types of agility that can be specified. Regular agility and exact beat points agility. The regular agility setting is specified as a beat period, counting from the beginning of the theme. Whenever the specified number of beats have elapsed starting from the beginning of the theme, the engine allows a change. More information can be found in the description of the function called elias_track_set_agility (see below).</p>
+<p>Exact beat points agility allows you to specify a list of absolute beats where the engine is allowed to either switch a trigger or start a new stinger. This provides precise control over when changes may occur in the theme and may be any arbitrary beat locations, as opposed to the regular agility setting which is only a beat period that applies to the entire length of the theme. For more information, see the function called elias_track_set_agility_beat_points.</p>
+<pre><code>  
+
+elias_error elias_track_set_agility(elias_track_handle track, int agility);</code></pre>
+<p>This function sets the agility for the given track, as a beat period. The agility must always be either a factor or a multiple of the number of beats in a bar in the given time signature, as well as a factor of the total length of the theme in beats. It must not be greater than the number of beats in the theme. If the time signature is 4/4, for instance, then some permitted values are 1, 2, 4, 8, 16, etc. This depends on the length of the theme as well, however. Some examples of illegal values given the time signature are 3, 5, 6, 7, 9 and so on. Other values may also be illegal depending on the length of the theme (see below). If an agility of 4 is specified for example, the track is allowed to begin a transition every four beats (which is to say on the first beat of every bar). Similarly if the agility is 8, then the track is only permitted to switch once every two bars. If the theme has 32 bars, then a value of 12 would not be allowed for instance since it would not divide evenly when it was time for the loop to wrap around. In this case, allowed values would be 1, 2, 4, 8, 16, 32 etc. The largest hypothetically allowed value would be 128 (resulting in transitions being permitted to begin on the first beat of the theme). If an illegal value is specified, the theme will return an error when you try to add the track to it later.</p>
+<p>If a value of 0 is specified, the track is allowed to switch at any time irrespective of the tempo and time signature. If agility is set to -1 or not explicitly specified for a given track, the theme object that the track will eventually be copied into will set the agility to the number of beats in a bar based on the time signature. In short, if the time signature of the theme is 3/4 and -1 is specified for the agility setting, it will be set to 3 internally which means that transitions may begin on the first beat of every bar.</p>
+<p>This function applies to audio loop tracks and audio stinger tracks.</p>
+<pre><code>  
+
+elias_error elias_track_get_agility(elias_track_handle track, int* agility);</code></pre>
+<p>This function retrieves the current agility setting. If the pointer given to this function is NULL, the information will not be filled in. If the function returns an error, the pointer memory remains unmodified.</p>
+<pre><code>  
+
+elias_error elias_track_set_agility_beat_points(elias_track_handle track, uint32_t* beat_points, size_t count);</code></pre>
+<p>This function specifies a list of exact agility beat points. beat_points should point to an array of count elements that store every beat on which the track is either allowed to switch triggers or start playing a stinger depending upon the type of the given track. The beats are absolute, starting at 1. Please note that exact beat points always take priority over the regular agility setting described above.</p>
+<p>If beat_points is NULL or count is 0, the track is configured to have no exact agility beat points and the regular agility setting will start to apply again.</p>
+<p>This function replaces any previously specified beat points on the track. In short, all beat points that are to be in effect at once must be provided in a single call to this function.</p>
+<p>None of the beat point values may be greater than the total number of beats in the theme. if this is the case, the theme object that the track will eventually be copied into will return an error.</p>
+<pre><code>  
+
+elias_error elias_track_get_agility_beat_points(elias_track_handle track, uint32_t* beat_points, size_t* count);</code></pre>
+<p>This function retrieves the current list of exact agility beat points. beat_points should point to an array containing at least *count elements, which will be filled in with the current list of agility beat points on the track after a successful call to this function.</p>
+<p>If beat_points is NULL, *count will be set to the number of beat points that are currently present on the track. This is useful if you do not know the number of beat points in advance and you need to know how much memory to allocate, for instance.</p>
+<p>If beat_points is non-NULL and the function succeeds, *count is updated to indicate how many elements that were actually written into the memory pointed to by beat_points. This is true even if beat_points is too small to contain the entire list, in which case the number of beat points that were successfully copied will be indicated by *count.</p>
+<p>count must always be non-NULL.</p>
+<pre><code>  
+
+elias_error elias_track_set_agility_strict(elias_track_handle track, int strict);</code></pre>
+<p>This function changes the agility strict setting, which applies to both the regular agility setting and exact beat points agility. If strict is 0 (false), the engine will treat the agility settings on the track as a recommendation rather than a requirement. It will ignore the agility settings if it determines that a transition would work extremely well at a given time (such as when both triggers are silent during a crossfade on an audio loop track). If strict is anything other than 0 (true), the engine will unconditionally obey the agility settings at all times. If strict is not explicitly specified for a given track, it is set to false by default.</p>
+<p>If the regular agility setting applies and is set to 0, the agility strict setting is ignored and assumed to be false internally. For audio stinger tracks, strict is ignored and is assumed to be true internally.</p>
+<p>As mentioned above, the agility strict setting affects tracks that use the regular agility setting as well as those that use exact beat points agility.</p>
+<pre><code>  
+
+elias_error elias_track_get_agility_strict(elias_track_handle track, int* strict);</code></pre>
+<p>This function retrieves the current agility strict setting (0 means false and anything else means true). If the pointer given to this function is NULL, the information will not be filled in. If the function returns an error, the pointer memory remains unmodified.</p>
+</div>
+<div id="stinger-progression" class="section level3">
+<h3><a href="#stinger-progression"><span class="header-section-number">5.4.7</span> Stinger Progression</a></h3>
+<p>When the engine is instructed to play a stinger, it automatically selects one from the given stinger track. The way in which it does this is customizeable.</p>
+<p>Stinger progressions apply to audio stinger tracks.</p>
+<pre><code>  
+
+elias_error elias_track_set_stinger_progression(elias_track_handle track, int progression);</code></pre>
+<p>This function sets the progression mode for the given stinger track. The progression setting must be one of the constants defined in the elias_stinger_progressions enum. If no progression setting is specified, the track is configured to select stingers at random.</p>
+<pre><code>  
+
+elias_error elias_track_get_stinger_progression(elias_track_handle track, int* progression);</code></pre>
+<p>This function retrieves the progression mode for the given stinger track. If the function returns an error, the pointer memory remains unmodified.</p>
+</div>
+<div id="stinger-pickup-beats" class="section level3">
+<h3><a href="#stinger-pickup-beats"><span class="header-section-number">5.4.8</span> Stinger Pickup Beats</a></h3>
+<p>Stingers can be used very effectively to lead in to a transition. To make this easy to configure, the engine allows you to specify a number of pickup beats present in all the variations on a given stinger track. When determining the appropriate time to start a stinger, the engine first looks at the agility settings for the track and then subtracts the pickup beats in order to calculate the final starting time.</p>
+<p>Stinger pickup beats apply to audio stinger tracks.</p>
+<pre><code>  
+
+elias_error elias_track_set_stinger_pickup_beats(elias_track_handle track, unsigned int pickup_beats);</code></pre>
+<p>This function sets the number of pickup beats for the given stinger track. If 0 is specified or if this function is not invoked for a given track, the track is configured to contain no pickup beats. The number of pickup beats must never be greater than the total number of beats in the theme. if this is the case, the theme object that the track will eventually be copied into will return an error.</p>
+<pre><code>  
+
+elias_error elias_track_get_stinger_pickup_beats(elias_track_handle track, unsigned int* pickup_beats);</code></pre>
+<p>This function retrieves the number of pickup beats specified for the given stinger track. If the function returns an error, the pointer memory remains unmodified.</p>
+</div>
+<div id="miscellaneous" class="section level3">
+<h3><a href="#miscellaneous"><span class="header-section-number">5.4.9</span> Miscellaneous</a></h3>
+<pre><code>  
+
+elias_error elias_track_set_volume(elias_track_handle track, int volume);
+elias_error elias_track_get_volume(elias_track_handle track, int* volume);</code></pre>
+<p>This setting adjusts the output volume of all audio that is rendered on the given track. The volume is specified in millibel. This means that if you wanted a reduction of 6 dB, for instance, you would pass -600. A setting of 0 means that no volume adjustments should be made. Note that while it is possible to specify values greater than 0, this should be done with care as it can easily cause distortion.</p>
+<p>The volume of each track is relative to the volume setting specified for the entire theme. If the theme's volume is set to -600, for instance, setting the volume of a given track to -300 would cause the final volume of that track to be -900.</p>
+<pre><code>  
+
+elias_error elias_track_get_type(elias_track_handle track, int* type);</code></pre>
+<p>This function checks what type the given track instance has. The type is one of the constants defined in the elias_track_types enum. If the function returns an error, the pointer memory remains unmodified.</p>
+</div>
+</div>
+<div id="the-theme-object" class="section level2">
+<h2><a href="#the-theme-object"><span class="header-section-number">5.5</span> The Theme Object</a></h2>
+<p>This object represents a theme of music.</p>
+<div id="thread-safety-1" class="section level3">
+<h3><a href="#thread-safety-1"><span class="header-section-number">5.5.1</span> Thread-safety</a></h3>
+<p>This object is thread-safe. The same instance may be used across multiple threads simultaneously, and separate instances may also be used by multiple threads at the same time.</p>
+</div>
+<div id="construction-and-destruction-1" class="section level3">
+<h3><a href="#construction-and-destruction-1"><span class="header-section-number">5.5.2</span> Construction and Destruction</a></h3>
+<pre><code>  
+
+elias_error elias_theme_create(elias_theme_handle* theme, int bpm, int timesig_numerator, int timesig_denominator, int bars, long sample_rate, int channels);</code></pre>
+<p>This function creates a theme object instance and puts its handle in the memory location pointed to by theme.</p>
+<p>bpm refers to the number of beats per minute in the composition. timesig_numerator and timesig_denominator indicate the time division, such as 4/4 or 3/4. bars specifies how long the track is in bars, calculated based on the time division. sample_rate is the number of samples rendered per second. 44100 is the most common. channels is the number of audio channels used, usually set to 2 (stereo).</p>
+<p>A successful call to this function must always be followed by a call to elias_theme_destroy when the object is no longer needed.</p>
+<pre><code>  
+
+elias_error elias_theme_destroy(elias_theme_handle theme);</code></pre>
+<p>This function deallocates all resources associated with the object and renders the handle invalid. Any use of the object after a call to this function results in undefined behavior.</p>
+</div>
+<div id="adding-and-removing-tracks" class="section level3">
+<h3><a href="#adding-and-removing-tracks"><span class="header-section-number">5.5.3</span> Adding and Removing Tracks</a></h3>
+<pre><code>  
+
+elias_error elias_theme_add_track(elias_theme_handle theme, int track_id, elias_track_handle track);</code></pre>
+<p>The data is copied from the track, so the track object may be reused or even destroyed without problems after this call. track_id must be greater than 0, and must be unique. It will be used to refer to the track later when the input data callback is invoked.</p>
+<p>Note that since the track object is not thread-safe, you must make sure that the given track object instance is not modified by any other thread while this function is in the process of copying data from it. This function does not modify the contents of the given track object instance.</p>
+<pre><code>  
+
+elias_error elias_theme_remove_track(elias_theme_handle theme, int track_id);</code></pre>
+<p>This function removes the specified track from the theme. track_id should refer to one of the tracks previously added with a call to elias_theme_add_track. A track can only be removed while the theme is not being rendered.</p>
+<pre><code>  
+
+elias_error elias_theme_remove_all_tracks(elias_theme_handle theme);</code></pre>
+<p>This function removes all the tracks from the theme. This can only be done while the theme is not being rendered.</p>
+</div>
+<div id="buffering" class="section level3">
+<h3><a href="#buffering"><span class="header-section-number">5.5.4</span> Buffering</a></h3>
+<pre><code>  
+
+elias_error elias_theme_set_prebuffer_length_in_milliseconds(elias_theme_handle theme, unsigned int milliseconds);
+elias_error elias_theme_set_prebuffer_length_in_samples(elias_theme_handle theme, unsigned int samples);</code></pre>
+<p>This is specified either in milliseconds or samples (depending on which function you call), and determines how far ahead the engine should buffer its data. The greater this value is (within reason), the more reliable the rendering will be in low resource situations. On the other hand, prebuffering too much causes the music to respond less rapidly to requested changes. Note also that the larger this buffer is, the more memory is consumed.</p>
+<p>The following getter functions retrieve the prebuffer length in milliseconds or samples, converting the value as needed. You might want to use them while calculating your ideal streaming audio buffer size for example.</p>
+<pre><code>  
+
+elias_error elias_theme_get_prebuffer_length_in_milliseconds(elias_theme_handle theme, unsigned int* milliseconds);
+elias_error elias_theme_get_prebuffer_length_in_samples(elias_theme_handle theme, unsigned int* samples);
+
+elias_error elias_theme_set_processing_period_in_milliseconds(elias_theme_handle theme, unsigned int milliseconds);
+elias_error elias_theme_set_processing_period_in_samples(elias_theme_handle theme, unsigned int samples);</code></pre>
+<p>This is specified either in milliseconds or samples (depending on which function you call), and determines how much data the engine processes in each iteration of its mixer loop. This may be greater or smaller than the total prebuffering length (see above), but it is preferable if it is smaller. This is because the engine is unable to put any samples in the final output buffer until enough data has been processed to fill at least one entire processing period size block. You may get a slight performance boost if the prebuffer length is a multiple of the processing period, since the engine has to halt if there is not enough space in the final output buffer to contain all the processed data. It continues filling the output buffer again only when you have read some data from it using elias_theme_read_samples. A reasonable range for this value is between 20 and 100 milliseconds, depending on the prebuffer length.</p>
+<p>The following getter functions retrieve the processing period in milliseconds or samples, converting the value as needed.</p>
+<pre><code>  
+
+elias_error elias_theme_get_processing_period_in_milliseconds(elias_theme_handle theme, unsigned int* milliseconds);
+elias_error elias_theme_get_processing_period_in_samples(elias_theme_handle theme, unsigned int* samples);
+</code></pre>
+</div>
+<div id="mode-of-operation" class="section level3">
+<h3><a href="#mode-of-operation"><span class="header-section-number">5.5.5</span> Mode of Operation</a></h3>
+<pre><code>  
+
+elias_error elias_theme_set_mode(elias_theme_handle theme, int mode);
+elias_error elias_theme_get_mode(elias_theme_handle theme, int* mode);</code></pre>
+<p>mode refers to one of the constants in the elias_modes enum. A detailed explanation of the meaning of the various modes can be found in the functionality chapter in the manual.</p>
+</div>
+<div id="threading" class="section level3">
+<h3><a href="#threading"><span class="header-section-number">5.5.6</span> Threading</a></h3>
+<pre><code>  
+
+elias_error elias_theme_set_suggested_thread_count(elias_theme_handle theme, int count);
+elias_error elias_theme_get_suggested_thread_count(elias_theme_handle theme, int* count);</code></pre>
+<p>The suggested thread count is an indication to the engine how much parallel processing you would like it to attempt. You specify the number of threads that you are allowing the engine to use, which must be at least 1. The engine will sometimes choose to use fewer threads than you indicate, but will never use more. You must not call this function while the theme object is already rendering music.</p>
+</div>
+<div id="starting-and-stopping" class="section level3">
+<h3><a href="#starting-and-stopping"><span class="header-section-number">5.5.7</span> Starting and Stopping</a></h3>
+<pre><code>  
+
+elias_error elias_theme_start(elias_theme_handle theme, elias_data_callback callback, void* user_data, int key, int minimum_level, int maximum_level, int urgency, int stinger, int rendezvous);</code></pre>
+<p>This function tells the engine to begin rendering the given theme.</p>
+<p>key specifies the starting key as the number of semitones above C. It must be one of the values given when adding sources to the tracks in the theme. If -1 is specified, the lowest available key is selected.</p>
+<p>The minimum_level, maximum_level, urgency, stinger and rendezvous parameters have the same meaning and behavior as the corresponding ones in the elias_theme_set_level function (see below). They refer to the initial settings that are desired when the theme starts playing.</p>
+<p>Note that in exploration mode, minimum_level and maximum_level are not used by the engine. Their values are completely ignored.</p>
+<p>callback is the function used to read data while the theme is rendering audio. user_data is passed along to this callback by the engine, but is not dereferenced or otherwise manipulated in any way. If you are using the high level layer, callback should be NULL. user_data is ignored in this case.</p>
+<pre><code>  
+
+elias_error elias_theme_start_from_action_preset(elias_theme_handle theme, elias_data_callback callback, void* user_data, int key, const char* preset_name);</code></pre>
+<p>This function tells the engine to begin rendering the given theme, retrieving the settings based on which the music should begin from the specified action preset.</p>
+<p>key specifies the starting key as the number of semitones above C. It must be one of the values given when adding sources to the tracks in the theme. If -1 is specified, the lowest available key is selected.</p>
+<p>preset_name must be a NULL terminated, UTF-8 encoded string and must correspond to an action preset that was previously added to the theme (see the section on action presets below).</p>
+<p>callback is the function used to read data while the theme is rendering audio. user_data is passed along to this callback by the engine, but is not dereferenced or otherwise manipulated in any way. If you are using the high level layer, callback should be NULL. user_data is ignored in this case.</p>
+<pre><code>  
+
+elias_error elias_theme_stop(elias_theme_handle theme);</code></pre>
+<p>This function stops the rendering of the music, but does not destroy the theme. It may be started again at a later time.</p>
+</div>
+<div id="real-time" class="section level3">
+<h3><a href="#real-time"><span class="header-section-number">5.5.8</span> Real-time</a></h3>
+<pre><code>  
+
+elias_error elias_theme_set_level(elias_theme_handle theme, int minimum_level, int maximum_level, int urgency, int stinger, int immediately, int rendezvous);</code></pre>
+<p>This function requests a change in the music, optionally with a stinger attached to the given transition. The function is applicable only in objective mode.</p>
+<p>minimum_level and maximum_level are used to specify a range from which the engine randomizes a level for each track. If you specify 1 as the minimum and 10 as the maximum, for instance, each track will be given a random level within this range which will most likely be different for each of the tracks. If you wish to set an exact level, simply specify the same value for both the minimum and the maximum. Both minimum_level and maximum_level are expressed as trigger values. The smallest permitted value is 1.</p>
+<p>The urgency parameter is expressed in percent, between 0 and 100 (inclusive).</p>
+<p>stinger is the track id of one of the stinger tracks in the theme (as provided when calling elias_theme_add_track). If this is set to 0, no stinger is attached to the given transition. If it is set to a valid stinger track id, a stinger will automatically be selected from that track based on its progression setting. The stinger will start playing as soon as the transition begins, with the agility setting on the stinger track determining the exact point at which it is actually allowed to start.</p>
+<p>If immediately is 0 (false), the new settings are appended to the end of the list of events that should occur in the future. The engine traverses this list gradually, making a new switch as soon as the current one completes. If immediately is any value other than 0 (true), the switch happens as soon as possible. In this case the list of future events is also cleared.</p>
+<p>If rendezvous is any value other than 0 (true), all the tracks will make their changes at the exact same time using the rendezvous specific fade and agility settings. Note also that urgency is ignored for rendezvous transitions (the transition always happens as soon as possible). If rendezvous is 0 (false), the engine will perform a regular transition with all the track specific settings and with urgency taken into account.</p>
+<pre><code>  
+
+elias_error elias_theme_request_change(elias_theme_handle theme, int track_count, int urgency, int stinger, int immediately, int rendezvous);</code></pre>
+<p>This function requests a random change in the music on a given number of randomly selected tracks, optionally with a stinger attached to the given transition. The function is applicable only in exploration mode.</p>
+<p>track_count determines the number of tracks that should be changed. The minimum allowed value is 1. The tracks that are actually affected by the transition are selected at random. track_count simply determines how many tracks that should be changed, but not which ones.</p>
+<p>The parameters urgency, stinger, immediately and rendezvous have the same meaning and behave identically to the corresponding ones in elias_theme_set_level (see above).</p>
+<pre><code>  
+
+elias_error elias_theme_silence(elias_theme_handle theme, int urgency, int stinger, int immediately, int rendezvous);</code></pre>
+<p>This function instructs all tracks to go from their current trigger (if any), into silence. The function is applicable both in objective and exploration mode.</p>
+<p>The parameters have the same meaning as the corresponding ones in the elias_theme_set_level function, and the behavior is the same based on their settings with the exception that the intended destination is silence rather than an actual trigger level. Note that audio stinger tracks are not silenced by this function.</p>
+<p>If a stinger is included in the transition, it will be selected from the given stinger track using the key that is active at the time when the transition to silence begins.</p>
+<pre><code>  
+
+elias_error elias_theme_play_stinger(elias_theme_handle theme, int stinger);</code></pre>
+<p>This function plays a stinger which is not attached to any particular event. stinger is the track id of one of the stinger tracks in the theme (as provided when calling elias_theme_add_track). A stinger will be automatically selected from the given stinger track based on its progression setting.</p>
+<p>The stinger will start playing as soon as possible, with the agility setting on the stinger track determining the exact point at which it is actually allowed to begin.</p>
+<pre><code>  
+
+elias_error elias_theme_change_key(elias_theme_handle theme, int key, int immediately);</code></pre>
+<p>This function tells the engine to change the key in which the music should play. The key is specified as the number of semitones above C, and must be one of the values given while adding content to the track(s) in the theme.</p>
+<p>Note that no audible change occurs as a direct response to this call; the new key will come into effect the next time a level change is requested. The first time a level change occurs in the new key, it will automatically become a rendezvous transition.</p>
+<p>The immediately setting behaves the same way in this function call as it does in elias_theme_set_level (see above).</p>
+<pre><code>  
+
+elias_error elias_theme_trigger_action_preset(elias_theme_handle theme, const char* preset_name, int immediately);</code></pre>
+<p>This function triggers an action preset indicated by the preset_name string. preset_name must be a NULL terminated, UTF-8 encoded string and must correspond to an action preset that was previously added to the theme (see the section on action presets below).</p>
+<p>The function is applicable both in objective and exploration mode, but the preset that is being triggered may only contain events that are compatible with the mode in which the engine is rendering audio at the time of this call.</p>
+<p>The immediately parameter has the same meaning as the corresponding one in the elias_theme_set_level function.</p>
+<pre><code>  
+
+elias_error elias_theme_read_samples(elias_theme_handle theme, elias_sample* buffer, size_t* buffer_size);</code></pre>
+<p>Reads the next chunk of mixed audio ready for playback. When calling this function, the value pointed to by buffer_size should be the maximum number of samples that you wish to read. After the call, buffer_size is modified to contain the number of samples actually written to the buffer (may be 0). If there are no samples to be retrieved, the function returns immediately. It does not wait for samples.</p>
+<pre><code>  
+
+elias_error elias_theme_is_transitioning(elias_theme_handle theme, int* transitioning);</code></pre>
+<p>This function checks whether the engine is currently in the process of switching, or preparing to switch, one or more tracks. 0 means no, anything else means yes.</p>
+<p>This function is guaranteed to report true immediately after a call to any function that instigates a transition, irrespective of whether the internal mixer thread has actually had time to begin processing the new request.</p>
+<p>If the function returns an error, the pointer memory remains unmodified.</p>
+<pre><code>  
+
+elias_error elias_theme_get_last_started_event(elias_theme_handle theme, int* completed, int* key, int* minimum_level, int* maximum_level, int* urgency, int* stinger, int* immediately, int* rendezvous, int* action_preset_index);</code></pre>
+<p>This function retrieves information about the last event that the engine acted upon. It is only applicable while the engine is rendering audio. The function is usable both in objective and exploration mode, but some of the parameters have slightly different meanings (see below).</p>
+<p>Note that this function reflects the very latest state of the engine at the exact time of the current call. Separate calls to this function, even if performed in quick succession, may give entirely different results.</p>
+<p>If one or more of the pointers given to this function are NULL, that particular piece of information will not be filled in. If the function returns an error, the pointer memory remains unmodified.</p>
+<p>completed is a boolean which indicates whether the event in question has finished processing or if it is still in progress. If set to 0 (false) the engine is still processing the event, and if set to anything else (true) the event has been fully processed.</p>
+<p>key indicates the key to which the current event belongs, specified as the number of semitones above C.</p>
+<p>In objective mode, minimum_level and maximum_level correspond to the parameters with the same names given to elias_theme_set_level (either directly via an explicit function call or indirectly by an action preset). In exploration mode, minimum_level and maximum_level indicate the number of tracks that are being changed. In this case, they always contain the same value.</p>
+<p>If the event is a transition to silence, minimum_level and maximum_level are set to 0 (this is true in both objective and exploration mode).</p>
+<p>urgency, immediately and rendezvous have the same meanings as the parameters with the same names as given to elias_theme_set_level and elias_theme_request_change in objective and exploration mode respectively.</p>
+<p>Note that all parameters are not applicable in all cases. If the event plays a stinger that is not part of a level change event for instance (see elias_theme_play_stinger), minimum_level, maximum_level, urgency, rendezvous and immediately are all unapplicable. If a given parameter is unapplicable, it is set to -1.</p>
+<p>action_preset_index (if applicable) is set to the index of the action preset to which the event belongs. You may retrieve the name of the preset based on this index by calling elias_theme_get_action_preset_name). If the current event is not part of an action preset, action_preset_index is set to -1.</p>
+<p>Please note that the information retrieved by this function reflects the events as the engine processes them internally. For example, the first level change that takes place after a key change will automatically be converted to a rendezvous transition. The output from this function reflects all such implicit engine decisions.</p>
+<pre><code>  
+
+elias_error elias_theme_get_cursor_position_in_milliseconds(elias_theme_handle theme, unsigned long* cursor_position);
+elias_error elias_theme_get_cursor_position_in_samples(elias_theme_handle theme, unsigned long* cursor_position);</code></pre>
+<p>These functions retrieve the current position of the mixing cursor, either in milliseconds or samples depending on which version you call. The cursor is advanced by the processing period size each time, and wraps around to the beginning of the music loop as needed. Note that the cursor position reported by these functions does not take things such as audio tails into account. It will indicate that it has wrapped around even while audio tails are being read simultaneously.</p>
+<pre><code>  
+
+elias_error elias_theme_get_cursor_position_in_beats(elias_theme_handle theme, unsigned long* cursor_position);</code></pre>
+<p>This function retrieves the current position of the mixing cursor in beats. The cursor is advanced by the processing period size each time, and wraps around to the beginning of the music loop as needed. The reported beat position is that of the beat that the cursor was last on, or is currently exactly on. In other words, it always rounds down to the closest beat below when needed.</p>
+<p>Note that the cursor position reported by this function does not take things such as audio tails into account. It will indicate that it has wrapped around even while audio tails are being read simultaneously.</p>
+<pre><code>  
+
+elias_error elias_theme_get_active_triggers_on_track(elias_theme_handle theme, int track_id, int* current_trigger, int* current_trigger_key, int* pending_trigger, int* pending_trigger_key);</code></pre>
+<p>This function queries what triggers that are currently active on a given audio loop track. It does not work for audio stinger tracks. track_id should correspond to one of the track id's that were specified when calling elias_theme_add_track. current_trigger and pending_trigger are the trigger numbers as specified in a call to elias_track_add_trigger.</p>
+<p>current_trigger_key and pending_trigger_key indicate the keys that current_trigger and pending_trigger belong to, respectively. They are specified as the number of semitones above C. pending_trigger and pending_trigger_key are only useful while the track is involved in a transition, during which current_trigger indicates the trigger that is being switched away from (if applicable) and pending_trigger indicates the one that is being switched to. If a trigger is not currently active, it will be set to 0. The corresponding key will be set to -1.</p>
+<p>current_trigger and pending_trigger indicate different things at different times. The possible scenarios are these:</p>
+<ol style="list-style-type: decimal">
+<li><p>The track is fading in from silence to a trigger with audio on it. In this case pending_trigger and pending_trigger_key are valid, current_trigger and current_trigger_key are not.</p></li>
+<li><p>The track is transitioning from one trigger to another. In this case all four values are valid. As mentioned previously, pending_trigger is the trigger that is being switched to and current_trigger is the one that is being switched away from in this scenario.</p></li>
+<li><p>The track is fading out from a trigger with audio on it, into silence. In this case pending_trigger and pending_trigger_key are valid, current_trigger and current_trigger_key are not.</p></li>
+<li><p>The track is not transitioning but is playing a trigger with audio on it. In this case current_trigger and current_trigger_key are valid, pending_trigger and pending_trigger_key are not.</p></li>
+<li><p>The track is not currently playing any trigger with audio on it, and is not transitioning. In this case, none of the four values are valid.</p></li>
+</ol>
+<p>If one or more of the pointers given to this function are NULL, that particular piece of information will not be filled in. If the function returns an error, the pointer memory remains unmodified.</p>
+<pre><code>  
+
+elias_error elias_theme_get_active_stinger_on_track(elias_theme_handle theme, int track_id, int* current_stinger, int* current_stinger_key);</code></pre>
+<p>This function queries what stinger that is currently active on a given audio stinger track. It does not work for audio loop tracks. track_id should correspond to one of the track id's that were specified when calling elias_theme_add_track. current_stinger is the actual stinger number as specified in a call to elias_track_add_stinger.</p>
+<p>current_stinger_key indicates the key that current_stinger belongs to. It is specified as the number of semitones above C. If a stinger is not currently active on the given track, current_stinger is set to 0 and current_stinger_key is set to -1.</p>
+<p>If one or more of the pointers given to this function are NULL, that particular piece of information will not be filled in. If the function returns an error, the pointer memory remains unmodified.</p>
+</div>
+<div id="rendezvous-settings" class="section level3">
+<h3><a href="#rendezvous-settings"><span class="header-section-number">5.5.9</span> Rendezvous Settings</a></h3>
+<p>In situations where all traks in a theme must switch at the exact same time and where this must happen quickly, a rendezvous transition occurs. Special settings to control the behavior of rendezvous transitions can be specified for the theme. None of these settings may be modified while the theme is in the process of rendering audio.</p>
+<p>Note that when a rendezvous transition takes place, the fade and agility settings specified for each individual track are not taken into consideration by the engine. The rendezvous specific settings are used exclusively.</p>
+<pre><code>  
+
+elias_error elias_theme_set_rendezvous_fade(elias_theme_handle theme, unsigned int fade);</code></pre>
+<p>This function sets the length of the fade that is used during a rendezvous transition, as a millisecond value. Since rendezvous transitions are not affected by urgency, there is no minimum and maximum range for this fade.</p>
+<pre><code>  
+
+elias_error elias_theme_get_rendezvous_fade(elias_theme_handle theme, unsigned int* fade);</code></pre>
+<p>This function retrieves the current rendezvous fade setting. If the pointer given to this function is NULL, the information will not be filled in. If the function returns an error, the pointer memory remains unmodified.</p>
+<pre><code>  
+
+elias_error elias_theme_set_rendezvous_agility(elias_theme_handle theme, int agility);</code></pre>
+<p>This function sets the rendezvous agility for the theme, as a beat period. The agility must always be either a factor or a multiple of the number of beats in a bar in the given time signature, as well as a factor of the total length of the theme in beats. It must not be greater than the number of beats in the theme. If the time signature is 4/4, for instance, then some permitted values are 1, 2, 4, 8, 16, etc. This depends on the length of the theme as well, however. Some examples of illegal values given the time signature are 3, 5, 6, 7, 9 and so on. Other values may also be illegal depending on the length of the theme (see below). If an agility of 4 is specified for example, the theme is allowed to begin a rendezvous transition every four beats (which is to say on the first beat of every bar). Similarly if the agility is 8, then the theme is only permitted to perform a rendezvous transition once every two bars. If the theme has 32 bars, then a value of 12 would not be allowed for instance since it would not divide evenly when it was time for the loop to wrap around. In this case, allowed values would be 1, 2, 4, 8, 16, 32 etc. The largest hypothetically allowed value would be 128 (resulting in rendezvous transitions being permitted to begin on the first beat of the theme).</p>
+<p>If a value of 0 is specified, the theme is allowed to perform a rendezvous transition at any time irrespective of the tempo and time signature. If agility is set to -1 or not explicitly specified, it will be set to the number of beats in a bar based on the time signature. In short, if the time signature of the theme is 3/4 and -1 is specified for the rendezvous agility setting, it will be set to 3 internally which means that rendezvous transitions may begin on the first beat of every bar.</p>
+<pre><code>  
+
+elias_error elias_theme_get_rendezvous_agility(elias_theme_handle theme, int* agility);</code></pre>
+<p>This function retrieves the current rendezvous agility setting. If the pointer given to this function is NULL, the information will not be filled in. If the function returns an error, the pointer memory remains unmodified.</p>
+<pre><code>  
+
+elias_error elias_theme_set_rendezvous_agility_beat_points(elias_theme_handle theme, uint32_t* beat_points, size_t count);</code></pre>
+<p>This function specifies a list of exact agility beat points where rendezvous transitions are permitted. beat_points should point to an array of count elements that store every beat on which the theme is allowed to perform a rendezvous transition. The beats are absolute, starting at 1. Please note that exact beat points always take priority over the regular rendezvous agility setting described above.</p>
+<p>If beat_points is NULL or count is 0, the theme is configured to have no exact rendezvous agility beat points and the regular rendezvous agility setting will start to apply again.</p>
+<p>This function replaces any previously specified rendezvous beat points in the theme. In short, all rendezvous beat points that are to be in effect at once must be provided in a single call to this function.</p>
+<p>None of the beat point values may be greater than the total number of beats in the theme.</p>
+<pre><code>  
+
+elias_error elias_theme_get_rendezvous_agility_beat_points(elias_theme_handle theme, uint32_t* beat_points, size_t* count);</code></pre>
+<p>This function retrieves the current list of exact rendezvous agility beat points. beat_points should point to an array containing at least *count elements, which will be filled in with the current list of rendezvous agility beat points after a successful call to this function.</p>
+<p>If beat_points is NULL, *count will be set to the number of rendezvous beat points that are currently present in the theme. This is useful if you do not know the number of beat points in advance and you need to know how much memory to allocate, for instance.</p>
+<p>If beat_points is non-NULL and the function succeeds, *count is updated to indicate how many elements that were actually written into the memory pointed to by beat_points. This is true even if beat_points is too small to contain the entire list, in which case the number of beat points that were successfully copied will be indicated by *count.</p>
+<p>count must always be non-NULL.</p>
+</div>
+<div id="action-presets" class="section level3">
+<h3><a href="#action-presets"><span class="header-section-number">5.5.10</span> Action Presets</a></h3>
+<p>An action preset is a list of events that can be preconfigured and then triggered at run-time based on its name. The functions below add different types of events to an action preset, with parameters corresponding to the real-time event triggering functions above (elias_theme_set_level, elias_theme_silence and so on). All the parameters such as minimum_level, maximum_level, urgency, stinger, rendezvous etc have the same meaning as in the run-time event triggering functions.</p>
+<p>All the functions below accept a parameter called preset_name. This UTF-8 string is a unique identifier for an action preset. If you call one or more of the below functions several times with the same identifier name, these events will be added to the end of the list belonging to the existing action preset.</p>
+<p>The immediately parameter is not applicable on an individual event basis in action presets; immediately is specified when actually triggering the given preset at run-time (see elias_theme_trigger_action_preset).</p>
+<p>The engine allows the creation of separate action presets that contain events that are only compatible with certain modes, but no single action preset may contain events that create a conflict between modes.</p>
+<pre><code>  
+
+elias_error elias_theme_action_preset_add_set_level_event(elias_theme_handle theme, const char* preset_name, int minimum_level, int maximum_level, int urgency, int stinger, int rendezvous);
+
+elias_error elias_theme_action_preset_add_request_change_event(elias_theme_handle theme, const char* preset_name, int track_count, int urgency, int stinger, int rendezvous);
+
+elias_error elias_theme_action_preset_add_silence_event(elias_theme_handle theme, const char* preset_name, int urgency, int stinger, int rendezvous);
+
+elias_error elias_theme_action_preset_add_play_stinger_event(elias_theme_handle theme, const char* preset_name, int stinger);
+
+elias_error elias_theme_action_preset_add_change_key_event(elias_theme_handle theme, const char* preset_name, int key);
+</code></pre>
+<p>The below functions perform other tasks related to action presets.</p>
+<pre><code>  
+
+elias_error elias_theme_action_preset_exists(elias_theme_handle theme, const char* preset_name, int* exists);</code></pre>
+<p>This function checks whether the given action preset exists (0 means false and anything else means true). If the pointer given to this function is NULL, the information will not be filled in. If the function returns an error, the pointer memory remains unmodified.</p>
+<pre><code>  
+
+elias_error elias_theme_action_preset_valid_in_mode(elias_theme_handle theme, const char* preset_name, int mode, int* valid);</code></pre>
+<p>This function checks whether the given action preset is valid in the specified mode (0 means false and anything else means true). mode refers to one of the constants in the elias_modes enum. If the pointer given to this function is NULL, the information will not be filled in. If the function returns an error, the pointer memory remains unmodified.</p>
+<pre><code>  
+
+elias_error elias_theme_action_preset_remove(elias_theme_handle theme, const char* preset_name);</code></pre>
+<p>This function removes an action preset. preset_name must refer to an existing action preset.</p>
+<p>Please note that action presets cannot be removed while the engine is rendering audio.</p>
+<pre><code>  
+
+elias_error elias_theme_get_action_preset_count(elias_theme_handle theme, size_t* count);</code></pre>
+<p>This function retrieves the total number of action presets in the theme. If the pointer given to this function is NULL, the information will not be filled in. If the function returns an error, the pointer memory remains unmodified.</p>
+<pre><code>  
+
+elias_error elias_theme_get_action_preset_name(elias_theme_handle theme, size_t preset_index, char* name, size_t* count);</code></pre>
+<p>This function retrieves the name of the action preset indicated by preset_index. preset_index must be between 0 and the total number of action presets in the theme -1 (see elias_theme_get_action_preset_count).</p>
+<p>name should point to an array containing at least *count bytes, which will be filled in with the requested name after a successful call to this function.</p>
+<p>If name is NULL, *count will be set to the number of bytes that the name contains (including the NULL terminator). This is useful if you do not know the length of the string in advance and you need to know how much memory to allocate, for instance.</p>
+<p>If name is non-NULL and the function succeeds, *count is updated to indicate how many bytes that were actually written into the memory pointed to by name. This is true even if name is too small to contain the entire string, in which case the number of bytes that were successfully copied will be indicated by *count. In this scenario the result will always be NULL terminated, and this NULL terminator will be included in the byte count given in *count.</p>
+<p>count must always be non-NULL.</p>
+<p>Note that since the string is encoded as UTF-8, the number of bytes is not necessarily the same as the number of actual characters in the string.</p>
+</div>
+<div id="miscellaneous-1" class="section level3">
+<h3><a href="#miscellaneous-1"><span class="header-section-number">5.5.11</span> Miscellaneous</a></h3>
+<pre><code>  
+
+elias_error elias_theme_get_basic_info(elias_theme_handle theme, int* bpm, int* timesig_numerator, int* timesig_denominator, int* bars, long* sample_rate, int* channels);</code></pre>
+<p>This function retrieves the information passed to the elias_theme_create function. If one or more of the pointers given to this function are NULL, that particular piece of information will not be filled in. If the function returns an error, the pointer memory remains unmodified.</p>
+<pre><code>  
+
+elias_error elias_theme_get_theme_length_in_milliseconds(elias_theme_handle theme, unsigned long* milliseconds);
+elias_error elias_theme_get_theme_length_in_samples(elias_theme_handle theme, unsigned long* samples);</code></pre>
+<p>These functions retrieve the length of the theme, either in milliseconds or samples depending on which version you call.</p>
+<pre><code>  
+
+elias_error elias_theme_get_greatest_trigger(elias_theme_handle theme, int* greatest_trigger);</code></pre>
+<p>This function retrieves the greatest trigger found among all the tracks and keys present in the theme. Only audio loop tracks are searched while retrieving this value. if no triggers were found, the function puts a result of 0 in the memory pointed to by greatest_trigger. If the function returns an error, the pointer memory remains unmodified.</p>
+<pre><code>  
+
+elias_error elias_theme_enumerate_sources(elias_theme_handle theme, elias_source_enumeration_callback callback, void* user_data);</code></pre>
+<p>This function is used to enumerate all the sources present in the given theme. The source enumeration callback instance pointed to by callback will be invoked once for each source in the theme. A source is any data source, such as a trigger or a stinger, present in any of the keys on any of the tracks in the theme.</p>
+<p>In addition to simply enumerating the sources in the theme, the callback can also be used to assign a separate source_user_data pointer to each individual source which is useful as a means of storing file handles or other resources specific to the given source. See the elias_source_enumeration_callback description above for more information.</p>
+<p>The callback should return 0 (false) if it wants to abort the enumeration prematurely. In this case the engine will cancel the enumeration process and not make any more callback invocations. When the callback interrupts the enumeration prematurely in this way, this function returns elias_error_usercancelled. The callback should return anything other than 0 (true) in order to proceed to the next source.</p>
+<p>The callback does not need to be thread-safe.</p>
+<p>user_data is passed along to the callback on every invocation by the engine, but is not dereferenced or otherwise manipulated in any way.</p>
+<pre><code>  
+
+elias_error elias_theme_get_source_count(elias_theme_handle theme, unsigned int* count);</code></pre>
+<p>This function retrieves the total number of sources found in all the keys on all the tracks in the theme. If the pointer given to this function is NULL, the information will not be filled in. If the function returns an error, the pointer memory remains unmodified.</p>
+<pre><code>  
+
+elias_error elias_theme_get_audio_loop_track_count(elias_theme_handle theme, unsigned int* count);</code></pre>
+<p>This function retrieves the number of audio loop tracks currently present in the theme. If the pointer given to this function is NULL, the information will not be filled in. If the function returns an error, the pointer memory remains unmodified.</p>
+<pre><code>  
+
+elias_error elias_theme_get_audio_stinger_track_count(elias_theme_handle theme, unsigned int* count);</code></pre>
+<p>This function retrieves the number of audio stinger tracks currently present in the theme. If the pointer given to this function is NULL, the information will not be filled in. If the function returns an error, the pointer memory remains unmodified.</p>
+<pre><code>  
+
+elias_error elias_theme_get_keys(elias_theme_handle theme, int* keys, size_t* count);</code></pre>
+<p>This function retrieves a list of all the keys that are present among all the tracks in the theme. keys should point to an array containing at least *count elements, which will be filled in with the current list of keys after a successful call to this function.</p>
+<p>If keys is NULL, *count will be set to the number of keys that are currently present in the theme. This is useful if you do not know the number of keys in advance and you need to know how much memory to allocate, for instance.</p>
+<p>If keys is non-NULL and the function succeeds, *count is updated to indicate how many elements that were actually written into the memory pointed to by keys. This is true even if keys is too small to contain the entire list, in which case the number of keys that were successfully copied will be indicated by *count.</p>
+<p>count must always be non-NULL.</p>
+<pre><code>  
+
+elias_error elias_theme_set_volume(elias_theme_handle theme, int volume);
+elias_error elias_theme_get_volume(elias_theme_handle theme, int* volume);</code></pre>
+<p>This setting adjusts the output volume for the entire theme. The volume is specified in millibel. This means that if you wanted a reduction of 6 dB, for instance, you would pass -600. A setting of 0 means that no volume adjustments should be made. Note that while it is possible to specify values greater than 0, this should be done with care as it can easily cause distortion.</p>
+<p>This function may only be invoked while the theme is not in the process of rendering audio.</p>
+</div>
+<div id="notifications" class="section level3">
+<h3><a href="#notifications"><span class="header-section-number">5.5.12</span> Notifications</a></h3>
+<pre><code>  
+
+elias_error elias_theme_register_notifications(elias_theme_handle theme, int notifications, elias_notification_callback callback, void* user_data);</code></pre>
+<p>This function instructs the engine to invoke a callback when specific events occur in real-time. The notifications parameter is a bitmask of flags which specifies the types of notifications that you wish to receive. In order to specify the notification types you are interested in, simply combine the elias_notification_* constants listed above using the | operator. If you wish to receive no notifications, specify 0. You may also pass NULL as the callback pointer if you wish to disable all notifications.</p>
+<p>Keep in mind that the more types of notifications you elect to receive, the larger the overhead will be due to the increased number of callback invocations that take place. Note also that while the absolute majority of the notifications are sent from the engine's primary mixer thread, this is not guaranteed. The engine is free to send notifications from any of its own threads, as well as from an application thread that invokes one of the engine's functions. For specific details about notifications that are delivered from threads other than the engine's main mixer thread, see the descriptions corresponding to the notification constants above.</p>
+<p>Please note that this function can only be invoked when the engine is not rendering audio.</p>
+<p>The notification callback function that you provide must always be thread-safe.</p>
+</div>
+<div id="xml-reading" class="section level3">
+<h3><a href="#xml-reading"><span class="header-section-number">5.5.13</span> XML Reading</a></h3>
+<p>It is possible to create and populate a theme object from an XML stream. For detailed information about the syntax of such an XML document, see the standalone XML specification provided in this package.</p>
+<pre><code>  
+
+elias_error elias_theme_create_from_xml(elias_theme_handle* theme_handle, const char* xml, char* error, size_t error_length, int flags);</code></pre>
+<p>The xml parameter is assumed to be a UTF-8 encoded, NULL terminated string containing the entire XML document.</p>
+<p>error is a string which will be filled in with a human readable error description if parsing fails. If error is NULL, no error description is filled in and error_length is ignored. If error is not NULL, error_length should indicate the maximum number of characters storable in error. This includes the NULL terminator, so if error_length is 20 then error can store 19 characters plus the terminator. If the error description is too long to fit in error, it'll be truncated but will always be NULL terminated.</p>
+<p>Note that even though this function fills in an error description string, you should still handle the returned error code. This function calls many other ELIAS API functions internally, and if one of them returns an error then this error is propagated. You should therefore examine both in order to retrieve all available information concerning an error condition.</p>
+<p>The theme_handle pointer will be filled in with an initialized theme if the function succeeds in parsing the XML document. Just like with a theme created by a call to elias_theme_create, this handle must be destroyed using elias_theme_destroy.</p>
+<p>flags is reserved for future use and should always be set to 0.</p>
+</div>
+</div>
+</div>
+<div id="high-level-c-api-reference" class="section level1">
+<h1><a href="#high-level-c-api-reference"><span class="header-section-number">6</span> High Level C API Reference</a></h1>
+<div id="preparing-decoders" class="section level2">
+<h2><a href="#preparing-decoders"><span class="header-section-number">6.1</span> Preparing Decoders</a></h2>
+<pre><code>  
+
+elias_error elias_theme_prepare_playback_decoders(elias_theme_handle theme, const char* archive_filename, const char* theme_directory, elias_decoder_callback_reader* reader_callbacks, uint32_t flags);</code></pre>
+<p>This function prepares the theme for use with the high level decoders. It iterates through all the sources in the theme that have filenames associated with them, and prepares each of them for playback. If there are non-dummy triggers in the theme that do not contain filenames, this function will fail.</p>
+<p>This function resets any previously configured decoders. Also, the decoders in the theme are reset automatically whenever sources are added or removed (such as when a new track is added or removed), necessitating a new call to this function to make sure the internal decoder configuration reflects the state of the theme.</p>
+<p>archive_filename is a NULL terminated, UTF-8 encoded string which specifies the name of an archive (such as .zip) in which the files reside. The pointer may be NULL, or an empty string may be given if the audio sources should not be read from an archive.</p>
+<p>theme_directory is a NULL terminated, UTF-8 encoded string which specifies a base directory from which the relative paths for the files will be resolved based on the filename of each individual source, which may in turn contain a relative path. If the files are being read from an archive, theme_directory refers to the directory structure inside the archive rather than the disk drive.</p>
+<p>The pointer may be NULL, or an empty string may be given if the audio sources reside directly in the path (either on disk or in the given archive) indicated by the filenames of the sources. If the files are being read from disk and one of the filenames is audio/brass.ogg for instance, then the current working directory is expected to contain a folder called audio, inside of which brass.ogg must reside.</p>
+<p>reader_callbacks is a pointer to an instance of the elias_decoder_callback_reader structure, intended to permit reading of files from sources other than the disk drive. This structure must be populated with a set of user provided callback functions to handle file reading. The structure instance does not need to remain valid after this call, as the engine makes a copy of all the content in it. However, the functions pointed to by the members of the structure must be usable either until the theme is destroyed or until the next call to this function (whichever comes first). If the reader_callbacks pointer is NULL, all files will be read from disk. For more information about the required callback functions, see the section on the elias_decoder_callback_reader structure below.</p>
+<p>flags may be one or more of the constants in the elias_decoder_flags enum (see below), combined with the | operator as needed. Please note that not all combinations are valid (see the elias_decoder_flags enum for more details). 0 may be specified if you wish to use the default settings.</p>
+<div id="decoder-preparation-flags" class="section level3">
+<h3><a href="#decoder-preparation-flags"><span class="header-section-number">6.1.1</span> Decoder Preparation Flags</a></h3>
+<pre><code>  
+
+enum elias_decoder_flags
+{
+elias_decoder_default=0 - Defaults to elias_decoder_stream | elias_decoder_verify.
+elias_decoder_stream=0x1 - Stream the audio sources.
+elias_decoder_preload=0x2 - Preload the audio sources into memory before playback starts.
+elias_decoder_verify=0x4 - Verify that all audio sources can be opened successfully before returning from elias_theme_prepare_playback_decoders.
+};</code></pre>
+<p>Note the purpose of the elias_decoder_verify flag. If only elias_decoder_stream is specified and one or more of the source files cannot be opened, this will not be detected until an attempt to open the given file is made at run-time inside the internal data callback. This data callback runs in a separate thread, and it is therefore difficult to report errors in a deterministic and consistent fashion. Instead, the engine just outputs silence for that source. It is highly recommended that the verify flag is used (at least during testing). It will open and close each source, and elias_theme_prepare_playback_decoders will only report success if no errors were encountered.</p>
+</div>
+<div id="custom-data-readers" class="section level3">
+<h3><a href="#custom-data-readers"><span class="header-section-number">6.1.2</span> Custom Data Readers</a></h3>
+<pre><code>  
+
+struct elias_decoder_callback_reader
+{
+void* ( *open ) ( const char* filename, void* user );  - filename is a NULL terminated, UTF-8 encoded string. Return NULL on failure.
+void ( *close ) ( void* handle, void* user );
+unsigned int ( *read ) ( void* handle, char* buffer, unsigned int bytes, void* user ); - Return the number of bytes read.
+int ( *seek ) ( void* handle, unsigned int absolute_offset, void* user ); - Return nonzero on success.
+unsigned int ( *get_size ) ( void* handle, void* user );
+void* user; - Anything you want to have sent along to the above functions.
+};</code></pre>
+<p>This structure is used to specify a set of custom data reading callback functions for use with the decoders. You must implement all of these functions, populate an instance of this structure with pointers to them, and then pass a pointer to the structure instance to elias_theme_prepare_playback_decoders. Note that all amounts and offsets are specified in bytes (the seek function receives an offset in bytes from the beginning of the data source to which it should seek, the get_size function should return the total size of the source in bytes and so on).</p>
+<p>The functions do not need to be thread-safe when used for different source handles. ELIAS guarantees never to call any of these functions with the same handle from more than one thread at a time, but depending on how the engine is configured it may call these functions with different handles in several threads simultaneously. In short, your functions only need to be thread-safe if independent handles share some global state.</p>
+<p>Note that you may not invoke any functions in the ELIAS library from inside these callbacks. Doing so results in undefined behavior.</p>
+</div>
+</div>
+<div id="output-settings" class="section level2">
+<h2><a href="#output-settings"><span class="header-section-number">6.2</span> Output Settings</a></h2>
+<p>The format of the ELIAS output stream (e.g. the sample rate and the number of channels) can be configured to suit your needs. We strongly recommend that you set these parameters before you start rendering the theme. It is possible to change them at run-time, but this will potentially result in higher CPU usage due to buffering requirements and it will most likely cause a glitch in the audio for a short period, since you will often end up retrieving some samples with the old format until the engine's buffers have been flushed and the new settings take effect. In other words, changing the settings at run-time is something you should only do as a last resort.</p>
+<pre><code>  
+
+elias_error elias_theme_set_output_sample_rate(elias_theme_handle theme, long sample_rate);
+elias_error elias_theme_get_output_sample_rate(elias_theme_handle theme, long* sample_rate);</code></pre>
+<p>The sample rate must be between 8000 and 192000 Hz (inclusive). 44100 and 48000 are the most common and are recommended.</p>
+<pre><code>  
+
+elias_error elias_theme_set_output_channels(elias_theme_handle theme, int channels);
+elias_error elias_theme_get_output_channels(elias_theme_handle theme, int* channels);</code></pre>
+<p>The number of channels must be between 1 and 32 (inclusive), but we recommend that you stay at or below 8 channels (7.1 surround) for performance reasons.</p>
+</div>
+</div>
+<div id="frequently-asked-questions" class="section level1">
+<h1><a href="#frequently-asked-questions"><span class="header-section-number">7</span> Frequently Asked Questions</a></h1>
+<div id="q-if-i-have-many-traks-and-all-of-them-have-reverb-turned-on-will-this-result-in-a-lot-of-cpu-usage" class="section level2">
+<h2><a href="#q-if-i-have-many-traks-and-all-of-them-have-reverb-turned-on-will-this-result-in-a-lot-of-cpu-usage"><span class="header-section-number">7.1</span> Q: If I have many traks and all of them have reverb turned on, will this result in a lot of CPU usage?</a></h2>
+<p>A: Not necessarily. The key factor is not the number of tracks you have, but rather how many of these tracks that have different reverb settings. ELIAS figures out which tracks (if any) that have the same reverb settings and creates sub-mixes internally, applying reverb only to these mixes rather than to each individual track. Therefore, even if you have eight tracks in your theme, if all of these tracks have the same reverb settings you will still be paying only for one reverb processing step. If you have three tracks and one of them has different reverb settings from the two others, you will be paying for two reverb processing steps and not three. In short, the more you customize the reverb settings for each track individually the more processing the engine has to do. It is adviseable to test the performance with the ideal reverb settings that you would like to use for the theme, in order to determine whether the amount of processing performed is acceptable or not.</p>
+</div>
+<div id="q-what-is-the-maximum-number-of-tracks-that-i-can-have-in-a-given-theme" class="section level2">
+<h2><a href="#q-what-is-the-maximum-number-of-tracks-that-i-can-have-in-a-given-theme"><span class="header-section-number">7.2</span> Q: What is the maximum number of tracks that I can have in a given theme?</a></h2>
+<p>A: The ELIAS engine imposes no arbitrary limitation on this; it comes down to the available resources on the target machine (CPU and memory). Keep in mind that the number of tracks used in ELIAS is not the same thing as the number of tracks that you might want in your DAW. When using a DAW you usually have a powerful computer that is dedicated entirely to musical composition, which means that you can afford to have a large number of tracks in order to achieve finer control over your mix. In a gaming context, this is not the case. The music is generally only allowed to use a small fraction of the available power, and so you will want to stick to as few tracks as possible without compromising the quality of the final listening experience. As stated in the previous answer it is highly recommended to test different configurations to see how much CPU power and memory that is being used up, and then determine on a case by case basis whether or not this is reasonable.</p>
+</div>
+<div id="q-what-sample-rate-should-i-use" class="section level2">
+<h2><a href="#q-what-sample-rate-should-i-use"><span class="header-section-number">7.3</span> Q: What sample rate should I use?</a></h2>
+<p>A: 44100 is the most common. This is the sample rate that is used for CD's, and you can be almost 100% certain that all soundcards in use today will support it. You achieve very little at higher sample rates, unless the listener has high-end playback equipment. Consider also that the music will seldom play on its own. It will nearly always have a lot of sound effects mixed on top of it, which sadly means that the finer details are lost anyway. Of course, if the game for which you are composing has a set sample rate that everybody uses, you should be using that as well.</p>
+</div>
+</div>
+<div id="version-history" class="section level1">
+<h1><a href="#version-history"><span class="header-section-number">8</span> Version History</a></h1>
+<div id="version-1.7---december-10-2015" class="section level2">
+<h2><a href="#version-1.7---december-10-2015"><span class="header-section-number">8.1</span> Version 1.7 - December 10, 2015</a></h2>
+<p><em>ELIAS</em></p>
+<ul>
+<li>There is now a higher level layer available which simplifies the work of integrating ELIAS, by providing things such as built-in audio file decoders and output format conversions.</li>
+<li>It is now possible to configure lists of commands (known as action presets), which may contain any of the run-time commands available in the C API that may then be run automatically by specifying the name of the desired preset.</li>
+<li>The engine now allows stingers to overlap whenever possible, in order to reduce the delay between stingers and other events.</li>
+</ul>
+<p><em>ELIAS Studio</em></p>
+<ul>
+<li>It is now possible to configure lists of commands (known as action presets), which may contain any of the run-time commands available in the player that may then be run automatically by specifying the name of the desired preset. This can also be done on the fly in the player.</li>
+<li>It is now possible to copy and paste lists of agility beat points to and from any location in the theme where custom agility beat points are used (tracks, individual stingers, theme settings etc).</li>
+<li>Audio loop- and stinger tracks now have constant, unique IDs in the .epro file during their lifetime. Previously an ID could change if other tracks were created or removed.</li>
+<li>Custom agility beat point lists for tracks, default agility and default rendezvous agility settings will now persist in the theme across sessions even if they are not active.</li>
+<li>When the player is active but obstructed by the main window, pressing F5 or choosing &quot;Play Theme&quot; in the menu bar will now raise the player window and set focus to it.</li>
+<li>Fixed a bug related to silent triggers when saving a project to a new location.</li>
+<li>Fixed a bug where previewing an audio source could cut off the playback too early or generate feedback.</li>
+<li>Fixed a bug that would cause the studio not to throw an error if one or more of the audio files had a different number of channels or a different sample rate from that specified in &quot;Theme Settings&quot;.</li>
+</ul>
+</div>
+<div id="version-1.6---august-20-2015" class="section level2">
+<h2><a href="#version-1.6---august-20-2015"><span class="header-section-number">8.2</span> Version 1.6 - August 20, 2015</a></h2>
+<p><em>ELIAS</em></p>
+<ul>
+<li>Added support for specific agility settings for each stinger variation on a given track, which allows individual stinger variations to have their own custom beat points that determine what variation plays when the stinger is triggered.</li>
+<li>Added a new stinger selection progression mode called shuffle.</li>
+<li>Fixed a bug that would cause custom agility beat points to be ignored for rendezvous transitions.</li>
+</ul>
+<p><em>ELIAS Studio</em></p>
+<ul>
+<li>Added support for playback of Ogg Vorbis audio sources (triggers/stingers).</li>
+<li>Added support for stinger specific agility beat points.</li>
+<li>Added support for the shuffle stinger progression mode.</li>
+<li>The studio can now automatically convert all audio files in the project to Ogg Vorbis when exporting a delivery package, if desired.</li>
+<li>The project open dialog now remembers the last directory from which the user successfully opened a project.</li>
+<li>The player now shows minutes and seconds in addition to bars and beats for the current playback position.</li>
+<li>It is now possible to rewind the theme by clicking to the left of the cursor in the progress bar in the player.</li>
+<li>Increased the number of possible stinger variations per track to 100.</li>
+<li>Changed the sample rate spinbox to a combo box with predefined values.</li>
+<li>Added a link to the online tutorials in the help menu.</li>
+<li>Fixed a bug that prevented the user from exporting delivery packages if the theme contained silent triggers.</li>
+<li>Fixed inconsistencies between the settings for agility and rendezvous in theme settings.</li>
+</ul>
+</div>
+<div id="version-1.5---april-1-2015" class="section level2">
+<h2><a href="#version-1.5---april-1-2015"><span class="header-section-number">8.3</span> Version 1.5 - April 1, 2015</a></h2>
+<p><em>ELIAS</em></p>
+<ul>
+<li>The engine now takes buffering latency into account when retrieving cursor positions.</li>
+</ul>
+<p><em>ELIAS Studio</em></p>
+<ul>
+<li>Custom agility beat point positions can now be recorded by pressing space during playback.</li>
+<li>Added a help menu with &quot;player help&quot; and &quot;about&quot;.</li>
+<li>Added a trigger context menu which offers the choice to add or remove silent triggers.</li>
+<li>Clearer description on the choice for &quot;per track strict agility&quot; (on or off).</li>
+<li>Added the possibility to fast forward in the player by clicking to the right of the current position in the progress bar during playback.</li>
+<li>It is now possible to save the output from the player to a Wave file.</li>
+<li>The audio file reader is now much more forgiving of unusual Wave files.</li>
+<li>Fixed a bug which would cause stinger previews to sometimes fail.</li>
+<li>Updated the visuals, including the new logo.</li>
+</ul>
+</div>
+<div id="version-1.1---june-25-2014" class="section level2">
+<h2><a href="#version-1.1---june-25-2014"><span class="header-section-number">8.4</span> Version 1.1 - June 25, 2014</a></h2>
+<p><em>ELIAS</em></p>
+<ul>
+<li>Introduced a new error code called elias_error_usercancelled, which is currently returned by elias_theme_enumerate_sources if the callback interrupts the enumeration prematurely by returning 0.</li>
+<li>Added a new member called dummy to the elias_source structure, which indicates whether or not the given source is a dummy (which is to say silent).</li>
+<li>Made sure that a stinger accompanying a transition can never be ignored. If the given stinger is already playing, the engine will now wait unconditionally for the stinger to be playable again and then proceed.</li>
+</ul>
+<p><em>ELIAS Studio</em></p>
+<ul>
+<li>Reworked the player to use SDL audio rather than the multimedia framework in QT, resulting in significantly improved playback performance.</li>
+<li>Added the ability to fast forward in the player by pressing Ctrl+Shift+Right arrow.</li>
+<li>The recent projects list now holds the last 10 items rather than the last 5.</li>
+</ul>
+<p><em>Miscellaneous</em></p>
+<ul>
+<li>Added some example code that demonstrates how ELIAS can be used in combination with various audio libraries (currently Bass and FMOD). These examples can be found in a subdirectory called examples in the ELIAS installation folder.</li>
+</ul>
+</div>
+<div id="version-1.0---april-24-2014" class="section level2">
+<h2><a href="#version-1.0---april-24-2014"><span class="header-section-number">8.5</span> Version 1.0 - April 24, 2014</a></h2>
+<ul>
+<li>Initial release.</li>
+</ul>
+</div>
+</div>
+<div id="credits-and-contact" class="section level1">
+<h1><a href="#credits-and-contact"><span class="header-section-number">9</span> Credits and Contact</a></h1>
+<p>The ELIAS engine is developed and maintained by Elias Software.</p>
+<p>If you wish to reach us, please visit <a href="http://eliassoftware.com">http://eliassoftware.com</a>. There you will find our contact information as well as information about licensing, upcoming versions and more.</p>
+</div>
+</body>
+</html>

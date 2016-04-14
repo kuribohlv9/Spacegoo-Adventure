@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GitDNet : MonoBehaviour {
 
-
+    public int Number;
     public Color glowColor = new Vector4(0.569F, 1, 1, 1);
     private Light glowLight;
 
@@ -20,6 +20,10 @@ public class GitDNet : MonoBehaviour {
 	
 	}
 
+    //make one function for handling light, call it when movement on shroom 1 is detected
+    //do below, shader emission and light enable on each shroom, based on a timer assigned to each shroom's number like case: Number == 2, wait 1s, case: Number ==3, wait 2.5s and so on
+    //if no movement then turn off, OR wait first and then turn off?? I think the latter...
+
     void OnTriggerEnter(Collider col)                   //CHANGE THIS TO ONSTAY, GLOWS WHEN PLAYER MOVES ON IT for 1.5s
     {
         if(col.tag == "Player")
@@ -30,6 +34,7 @@ public class GitDNet : MonoBehaviour {
             rend.material.SetColor("_EmissionColor", glowColor);
 
            glowLight.enabled = !glowLight.enabled;               //THIS IS THE LIGHT FROM THE SHROOM. NECESSARY. DO NOT KILL
+                                                                   //make this on a timer
 
         }
     }
