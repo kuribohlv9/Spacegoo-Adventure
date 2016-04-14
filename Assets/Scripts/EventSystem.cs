@@ -3,12 +3,12 @@ using System.Collections;
 
 public class EventSystem : MonoBehaviour {
 
-    public delegate void Derp();
-    public static event Derp derp;
+    public delegate void OnDoubleJump();
+    public static event OnDoubleJump ondoublejump;
 
-    public static void ActivateDerp()
+    public static void ActivateOnDoubleJump()
     {
-        if (derp != null)
-            derp();
+        if (ondoublejump != null)
+            ondoublejump();
     }
 }
