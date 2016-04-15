@@ -227,8 +227,6 @@ public class SuperCharacterController : MonoBehaviour
         if (debugGrounding)
             currentGround.DebugGround(true, true, true, true, true);
 
-        SimonDebug();
-
     }
 
     void ProbeGround(int iter)
@@ -637,8 +635,8 @@ public class SuperCharacterController : MonoBehaviour
                 RaycastHit nearHit;
                 RaycastHit farHit;
 
-                Physics.Raycast(farPoint, down, out farHit, Mathf.Infinity, walkable);
                 Physics.Raycast(nearPoint, down, out nearHit, Mathf.Infinity, walkable);
+                Physics.Raycast(farPoint, down, out farHit, Mathf.Infinity, walkable);
 
                 nearGround = new GroundHit(nearHit.point, nearHit.normal, nearHit.distance);
                 farGround = new GroundHit(farHit.point, farHit.normal, farHit.distance);
@@ -673,7 +671,7 @@ public class SuperCharacterController : MonoBehaviour
                 // If we are currently standing on a ledge then the face nearest the center of the
                 // controller should be steep enough to be counted as a wall. Retrieve the ground
                 // it is connected to at it's base, if there exists any
-                if (Vector3.Angle(nearHit.normal, up) > superColType.StandAngle && nearHit.distance > Tolerance)
+                if (Vector3.Angle(nearHit.normal, up) > superColType.StandAngle || nearHit.distance > Tolerance)
                 {
                     var col = nearHit.collider.gameObject.GetComponent<SuperCollisionType>();
 
@@ -907,9 +905,6 @@ public class SuperCharacterController : MonoBehaviour
             }
         }
     }
-    private void SimonDebug()
-    {
-    }
 }
 
 [Serializable]
@@ -935,4 +930,3 @@ public struct SuperCollision
     public Vector3 point;
     public Vector3 normal;
 }
-

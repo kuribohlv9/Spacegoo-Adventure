@@ -6,7 +6,7 @@ public class VenusPortal : MonoBehaviour {
     public GameObject TeleTarget;
     public GameObject Player;
 
-    public float timing = 1.0f;
+    public float timing = 0.3f;
 
     private float count = 0.0f;
     private bool onIt = false;
