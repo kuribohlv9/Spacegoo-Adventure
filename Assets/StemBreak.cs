@@ -7,7 +7,7 @@ public class StemBreak : MonoBehaviour {
     public float Height = 10;
 
     public Rigidbody target1;
-    public Rigidbody target2;
+    //public Rigidbody target2;
 
     bool colSolid = false;
 
@@ -15,22 +15,22 @@ public class StemBreak : MonoBehaviour {
     void Start()
     {
         audio = GetComponent<AudioSource>();
+        target1.useGravity = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (colSolid == true) target1.useGravity = true;
-        if (colSolid == true) target2.useGravity = true;
+        //if (colSolid == true) target2.useGravity = true;
     }
 
     void OnTriggerEnter(Collider col)
     {
         if (col.tag == "Player")
         {
-            //audio.Play();
-            //col.GetComponentInParent<PlayerMachine>().ChangeMovement(Vector3.up * Height);
-            colSolid = true;
+            target1.useGravity = true;
+            target1.isKinematic = false;
         }
     }
 
