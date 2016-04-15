@@ -23,12 +23,18 @@ public class PlayerInputController : MonoBehaviour {
         Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
         bool jumpInput = Input.GetButtonDown("Jump");
+        bool continuousJumpInput = Input.GetButton("Jump");
+        bool sticky = Input.GetButtonDown("Fire2");
+        bool debug = Input.GetButtonDown("Fire3");
 
         Current = new PlayerInput()
         {
             MoveInput = moveInput,
             MouseInput = mouseInput,
-            JumpInput = jumpInput
+            JumpInput = jumpInput,
+            ContinuousJumpInput = continuousJumpInput,
+            Sticky = sticky,
+            Debug = debug
         };
 	}
 }
@@ -38,4 +44,7 @@ public struct PlayerInput
     public Vector3 MoveInput;
     public Vector2 MouseInput;
     public bool JumpInput;
+    public bool ContinuousJumpInput;
+    public bool Sticky;
+    public bool Debug;
 }

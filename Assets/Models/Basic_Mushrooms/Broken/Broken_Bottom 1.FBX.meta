@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 76f1c36c0aed3d44b992ae2dd9311471
-timeCreated: 1459780943
+guid: 233a33ee80a3f0948a9b1d41e1e45984
+timeCreated: 1460041348
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -14,7 +14,6 @@ ModelImporter:
     2300000: BrokenBottom_PH
     3300000: BrokenBottom_PH
     4300000: BrokenBottom_PH
-    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -73,7 +72,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
