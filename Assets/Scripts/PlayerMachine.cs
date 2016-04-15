@@ -193,7 +193,8 @@ public class PlayerMachine : SuperStateMachine {
     {
         //Handle both double jump and stick to walls
         HandleHoppy();
-        HandleSticky();
+        if (HandleSticky())
+            return;
 
         //This is unneccesary and should be rewritten :p :p :p
         Vector3 planarMoveDirection = Math3d.ProjectVectorOnPlane(controller.up, moveDirection);
@@ -282,7 +283,8 @@ public class PlayerMachine : SuperStateMachine {
         AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
 
         //We push the slime towards the wall so it actually looks like we're sticking
-        controller.transform.position -= StickWall.normal * StickWall.distance;
+        //controller.transform.position -= StickWall.normal * StickWall.distance;
+        int derp = 0;
     }
     void Sticky_SuperUpdate()
     {
@@ -357,7 +359,7 @@ public class PlayerMachine : SuperStateMachine {
         }
         return verticalmovement;
     }
-    private void HandleSticky()
+    private bool HandleSticky()
     {
         //First we check the input and if we can stick
         if (input.Current.Sticky && EnableSticky)
@@ -382,12 +384,13 @@ public class PlayerMachine : SuperStateMachine {
                         {
                             StickWall = hit;
                             currentState = PlayerStates.Sticky;
-                            return;
+                            return true;
                         }
                     }
                 }
             }
         }
+        return false;
     }
 
     //Get functions
