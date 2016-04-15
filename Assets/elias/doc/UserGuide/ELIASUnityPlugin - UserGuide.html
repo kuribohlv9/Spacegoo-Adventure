@@ -1,0 +1,709 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice 4.1.1  (Win32)">
+	<META NAME="AUTHOR" CONTENT="Gemma">
+	<META NAME="CREATED" CONTENT="20151125;15280000">
+	<META NAME="CHANGEDBY" CONTENT="Bj&ouml;rn Trollmo Rogetzky">
+	<META NAME="CHANGED" CONTENT="20160316;13102816">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 8.27in 11.69in; margin-left: 0.79in; margin-right: 0.79in; margin-top: 0.5in; margin-bottom: 0.5in }
+		P { margin-bottom: 0.1in; line-height: 120% }
+		H1 { margin-bottom: 0.08in }
+		H1.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt }
+		H1.cjk { font-family: "Microsoft YaHei", sans-serif; font-size: 14pt }
+		H1.ctl { font-family: "Mangal", serif; font-size: 14pt }
+		H2 { margin-top: 0.14in; margin-bottom: 0in }
+		H2.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt }
+		H2.cjk { font-family: "Microsoft YaHei", sans-serif; font-size: 14pt }
+		H2.ctl { font-family: "Mangal", serif; font-size: 14pt }
+		H3 { margin-top: 0.1in; margin-bottom: 0in; color: #808080 }
+		H3.western { font-family: "Liberation Sans", sans-serif }
+		H3.cjk { font-family: "Microsoft YaHei", sans-serif }
+		H3.ctl { font-family: "Mangal", serif }
+		A.western:visited { so-language: en-GB }
+		A.cjk:visited { so-language: zh-CN }
+		A.ctl:visited { so-language: hi-IN }
+		CODE.cjk { font-family: "NSimSun", monospace }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-GB" DIR="LTR">
+<P ALIGN=CENTER STYLE="margin-top: 0.17in; margin-bottom: 0.08in; line-height: 100%; page-break-before: always; page-break-after: avoid">
+<FONT FACE="Liberation Sans, sans-serif"><FONT SIZE=6 STYLE="font-size: 28pt"><B><FONT FACE="Mangal, serif">The
+ELIAS Unity Plugin - </FONT><FONT FACE="Mangal, serif"><FONT SIZE=5>Version
+1.5</FONT></FONT></B></FONT></FONT></P>
+<P ALIGN=CENTER STYLE="margin-top: 0.17in; margin-bottom: 0.08in; line-height: 100%; page-break-after: avoid">
+<FONT FACE="Liberation Sans, sans-serif"><FONT SIZE=4>User's Guide</FONT></FONT></P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P><IMG SRC="ELIASUnityPlugin%20-%20UserGuide_html_5e5b3d2c.jpg" NAME="grafik1" ALIGN=LEFT BORDER=0><BR CLEAR=LEFT><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<H1 CLASS="western" STYLE="page-break-before: always"></H1>
+<DIV ID="Table of Contents1" DIR="LTR">
+	<DIV ID="_TOC0_Head" DIR="LTR">
+		<P STYLE="margin-top: 0.17in; margin-bottom: 0.08in; line-height: 100%; page-break-after: avoid">
+		<FONT FACE="Liberation Sans, sans-serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Table
+		of Contents</B></FONT></FONT></P>
+	</DIV>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__418_210052648">Overview</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__421_471763085">Changes</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__845_456339169">Version
+	1.5</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__669_1711726609">Version
+	1.4 (Matches ELIAS SDK 1.7)</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__671_1711726609">Version
+	1.3.1</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__423_471763085">Version
+	1.3</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__673_1711726609">Version
+	1.2</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__675_1711726609">Version
+	1.0.1</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__677_1711726609">Version
+	1.1</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__420_210052648">Supported
+	Platforms</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__422_210052648">Supported
+	Audio Formats</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__424_210052648">Installation</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__597_755670593">The
+	ELIAS library files.</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__679_1711726609">Unity
+	Settings for the ELIAS library file</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__426_210052648">Package
+	Contents by Folder</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__681_1711726609">Editor
+	and StandardAssets</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__683_1711726609">StreamingAssets
+	(ELIAS)</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__685_1711726609">elias
+	(ELIAS)</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__501_755670593">Unity
+	C# Scripts</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__687_1711726609">elias/Elias.cs</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__689_1711726609">elias/Theme.cs</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__691_1711726609">elias/Track.cs</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__693_1711726609">elias/Editor/ExitOnPlayModeScriptCompile.cs</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__572_755670593">Platform
+	specifics</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__695_1711726609">IOS</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__697_1711726609">Android</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__558_471763085">Demo</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__699_1711726609">Materials
+	and Textures</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__701_1711726609">Prefabs
+	(ELIAS)</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__703_1711726609">elias/Demo/DemoPlayer.cs</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__705_1711726609">elias/Demo/Scripts/ELIASMusicSwitcher.cs</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__707_1711726609">elias/Demo/Scripts/ExampleTrigger.cs</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__709_1711726609">elias/Demo/Scripts/ThemeGeometry.cs</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__428_210052648">ELIAS
+	Unity GameObjects</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__711_1711726609">MusicSwitcher</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__713_1711726609">ELIAS_Component</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__432_210052648">About
+	the Demo Scene</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__434_210052648">Current
+	Limitations</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__593_755670593"><BR>Further
+	documentation</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__425_471763085">Licensing</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__715_1711726609">Demo
+	Theme</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__717_1711726609">ELIAS
+	and third-party licenses</A></P>
+	<P STYLE="margin-bottom: 0in; line-height: 100%"><A CLASS="western" HREF="#__RefHeading__438_210052648">Music,
+	Composer's Studio and the web site</A></P>
+</DIV>
+<P><BR><BR>
+</P>
+<H1 CLASS="western" STYLE="page-break-before: always"><A NAME="__RefHeading__418_210052648"></A>
+Overview</H1>
+<P STYLE="margin-bottom: 0in; line-height: 100%">Thank you for
+downloading the ELIAS Unity plugin!</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">ELIAS, Elastic
+Lightweight Integrated Audio System, is a music engine which attempts
+to change the way we perceive and experience interactive music in
+video games today.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">With the ELIAS music
+engine, composers and game developers can easily collaborate to
+create musical scores that adapt based on the player&rsquo;s actions
+in the virtual world.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">With the ELIAS
+engine, the music is just as dynamic and flexible as the
+corresponding composition would have been in a movie.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">This package
+contains the following:</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">C# wrapper code to
+simplify usage of ELIAS within Unity. (Theme.cs, Track.cs and
+Elias.cs)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">A DemoPlayer made to
+handle playback of ELIAS themes. (We suggest that you use this even
+outside our demo scene).</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">A Demo scene and
+associated scripts to provide an example of how ELIAS can be used and
+to test themes.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">Native libraries for
+Mac, Windows, iOS and Android. (These are not the same as the ones in
+the ELIAS SDK downloadable from our website, as these have more
+functionality to simplify using ELIAS in Unity. (Read more in the
+chapter <A CLASS="western" HREF="#7.The ELIAS library files.|outline" TARGET="_top">The
+ELIAS library files</A>).</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">An example theme
+that can be used to test and demonstrate ELIAS, but may not be
+distributed. (How to get a license may be found in the chapter
+&ldquo;<A CLASS="western" HREF="#18.Licensing|outline" TARGET="_top">Licensing</A>&rdquo;).
+If you need libraries for other platforms please contact us at
+<A CLASS="western" HREF="mailto:support@eliassoftware.com" TARGET="_top">support@eliassoftware.com</A>.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">For bug reporting
+please email us at <A CLASS="western" HREF="mailto:bugs@eliassoftware.com" TARGET="_top">bugs@eliassoftware.com</A>,
+and other support questions should be directed to
+<A CLASS="western" HREF="mailto:support@eliassoftware.com" TARGET="_top">support@eliassoftware.com</A>.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">For licensing or
+other questions please email <A CLASS="western" HREF="mailto:sales@eliassoftware.com" TARGET="_top">sales@eliassoftware.com</A>.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">If you have a
+question and you&rsquo;re not sure where to send it, don't worry, we
+will handle it even if it comes to the wrong place!</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">More themes and
+commercial licenses can be purchased at our website
+<A CLASS="western" HREF="https://www.eliassoftware.com/shop/">www.</A><A CLASS="western" HREF="https://www.eliassoftware.com/shop/">eliassoftware.com/</A><A CLASS="western" HREF="https://www.eliassoftware.com/shop/">shop</A></P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"> 
+</P>
+<H1 CLASS="western"><A NAME="__RefHeading__421_471763085"></A>Changes</H1>
+<H1 CLASS="western"><A NAME="__RefHeading__845_456339169"></A>Version
+1.5</H1>
+<UL>
+	<LI><P>Added StartTheme functions so the theme can now be started
+	from other scripts. Either with the pre-set parameters or sent in
+	parameters.</P>
+	<LI><P>Added a StopTheme function to stop the theme from other
+	scripts without having to destroy the component.</P>
+	<LI><P>Fixed a bug with the OS X elias.bundles.</P>
+	<LI><P>Minor documentation fixes.</P>
+</UL>
+<H2 CLASS="western"><A NAME="__RefHeading__669_1711726609"></A>Version
+1.4 (Matches ELIAS SDK 1.7)</H2>
+<UL>
+	<LI><P>Fixed a potential bug if using non ASCII characters, now all
+	strings passed from the wrapper are guaranteed to be UTF-8. WARNING:
+	This breaks Elias.Source.filename usage, it was previously a string,
+	and is now an IntPtr. To get the string version use
+	Elias.UTF8MarshallingHelpers.ConvertFromNativeUTF8(sourceObject.filename)
+	.</P>
+	<LI><P>Added support for Action Presets. Both for creating and
+	modifying them from code, and for calling them via the DemoPlayer.</P>
+	<LI><P>Action Presets can now be set in the Inspector to be used
+	when the theme is started.</P>
+	<LI><P>Added the ability to not start the theme on Start. (This can
+	be set from the inspector).</P>
+	<LI><P>Added the ability to set more starting parameters. The
+	parameters:</P>
+	<UL>
+		<LI><P>Key (Always applied unless an action preset is used that
+		overrides it)</P>
+		<LI><P>Action Preset (Excludes the following)</P>
+		<LI><P>Min Level</P>
+		<LI><P>Max Level</P>
+		<LI><P>Stinger</P>
+		<LI><P>Rendezvous</P>
+		<LI><P>(Already existing) Urgency</P>
+	</UL>
+	<LI><P>Renamed DemoPlayer.urgency to DemoPlayer.startUrgency as that
+	is how it is used in the DemoPlayer.</P>
+	<LI><P>Added Android support.</P>
+	<LI><P>Updated DemoPlayer code with support for reading the sound
+	files from within the .apk file.</P>
+	<LI><P>Added interface code LoadSourcesFromApk(string theme_URI,
+	Decoder_Flags flags) to make it easy to load sources from within an
+	.apk file. Use this function when targeting an android device or
+	emulator.</P>
+	<LI><P>Added interface code LoadSourcesFromArchive(string
+	pathToArchive, string pathToThemeDirectory, Decoder_Flags flags) to
+	handle when sound files are within an archive.  PathToThemeDirectory
+	is relative within the archive.</P>
+	<LI><P>Removed RegisterNotifications as it could potentially be
+	causing crashes! (Due to being called from a different thread.)</P>
+	<LI><P>Getting PrebufferLengthMS now works properly.</P>
+	<LI><P>Added support to use Decoder_Flags when loading sources.
+	(Options are: decoder_default, decoder_stream, decoder_preload and
+	decoder_verify). The Decoder_Flags enum is located in Elias.cs</P>
+	<LI><P>Added StingerProgressions.Shuffle</P>
+	<LI><P>Demo player can now output a different audio configuration
+	than what the theme uses. SetOutputChannels(int channels), and
+	GetOutputChannels, both of these can be used while the theme is
+	running.</P>
+	<LI><P>ELIAS will now handle a different sample rate compared to
+	what the theme uses. SetOutputSampleRate(int sampleRate) and
+	GetOutputSampleRate. Both of these can be used while the theme is
+	running.</P>
+	<LI><P>DemoPlayer now listens to
+	AudioSettings.OnAudioConfigurationChanged and will change ELIAS's
+	output samerate and output channels whenever it is called.</P>
+	<LI><P>DemoPlayer now uses a different way of setting the Prebuffer
+	and ProcessingPeriod from the inspector. This utilizes a multiple of
+	Unity's DSP buffer, (settable in the projects AudioSettings), to
+	provide minimal latency.</P>
+	<LI><P>Better error message when the DemoPlayer fails to start a
+	theme.</P>
+	<LI><P>DemoPlayer now disables itself if something goes wrong, this
+	is to prevent errors from constantly popping up.</P>
+	<LI><P>The &ldquo;ExitOnPlayModeScriptCompile.cs&rdquo; now only
+	exits in play mode if ELIAS is using the streamed AudioClip
+	solution.</P>
+	<LI><P>The DemoPlayer now only shows the &ldquo;Pending Trigger
+	Change&rdquo; box if enabled from the inspector.</P>
+</UL>
+<H2 CLASS="western"><A NAME="__RefHeading__671_1711726609"></A>Version
+1.3.1</H2>
+<UL>
+	<LI><P>Fixed a major delay flaw with our implementation of sound
+	playback. This removes approximately 600ms of latency from ELIAS!<BR>We
+	now rely on the monobehavior of the DemoPlayer being a &ldquo;post
+	process&rdquo; to the audio. This is done by implementing the
+	function &ldquo;<A CLASS="western" HREF="http://docs.unity3d.com/ScriptReference/MonoBehaviour.OnAudioFilterRead.html" TARGET="_top">OnAudioFilterRead</A>&rdquo;
+	and not having any AudioClip on the AudioSource.</P>
+	<LI><P>If the output is not using the same number of channels as the
+	theme is, we currently use a &ldquo;streamed&rdquo; audioClip and
+	ReadSamplesBlocking to allow Unity to handle the problem which
+	results in additional latency. This will be fixed in a later
+	version!</P>
+	<LI><P>Changed from being able to set prebuffer and processingperiod
+	in milliseconds to a simplified 4 option dropdown. Default is &ldquo;Low
+	Latency.&rdquo; When streaming a Wave (uncompressed) theme you will
+	most likely get crackling due to limited disk I/O speed, but this
+	should not be an issue when using Ogg Vorbis.</P>
+	<LI><P>Added an internal resampler to the engine, allowing it to
+	deliver its output at any sample rate. Use SetOutputSampleRate(long
+	sampleRate) to set it before starting the theme.</P>
+	<LI><P>Added ReadFloatSamplesBlocking which waits for the specified
+	number of samples to be available before returning. This blocks the
+	thread from which the function is invoked.</P>
+</UL>
+<H2 CLASS="western"><A NAME="__RefHeading__423_471763085"></A>Version
+1.3</H2>
+<UL>
+	<LI><P>Changed the file structure so now all ELIAS scripts and demo
+	assets are located inside the ELIAS folder.</P>
+	<LI><P>Added ExitPlayModeOnScriptCompile.cs, this will stop play
+	mode if you attempt to do a hot-reload, as it may otherwise crash
+	the editor.</P>
+	<LI><P>Fixed a bug where sounds that had &ldquo;play on awake&rdquo;
+	would not play when the scene started.</P>
+	<LI><P>Fixed a bug where the clip length in the demo player was 1
+	second, instead of a more reasonable amount. It is now prebuffer
+	length + processing period to reduce potential delay and memory
+	usage.</P>
+	<LI><P>Fixed a bug with the demo player editor where if a folder in
+	the Assets/StreamingAssets/ELIAS_Themes folder had a file with the
+	same name, but was not an .epro file, it would still list it as a
+	possible theme.</P>
+	<LI><P>Minor clean-up of the demo code.</P>
+</UL>
+<H2 CLASS="western"><A NAME="__RefHeading__673_1711726609"></A>Version
+1.2</H2>
+<UL>
+	<LI><P>Using version 1.6 of the ELIAS Engine. See section &ldquo;Version
+	History&rdquo; in the supplied &ldquo;manual.html&rdquo; for
+	details.</P>
+</UL>
+<H2 CLASS="western"><A NAME="__RefHeading__675_1711726609"></A>Version
+1.0.1</H2>
+<UL>
+	<LI><P>Minor fix of initial release.</P>
+</UL>
+<H2 CLASS="western"><A NAME="__RefHeading__677_1711726609"></A>Version
+1.1</H2>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in; line-height: 100%">Added a visual
+	interface which simplifies the process of importing and configuring
+	themes.</P>
+	<LI><P STYLE="margin-bottom: 0in; line-height: 100%">Added an
+	example scene which demonstrates how ELIAS may be integrated into a
+	game.</P>
+	<LI><P STYLE="margin-bottom: 0in; line-height: 100%">Fixed a bug in
+	the binding that caused problems on Mac.</P>
+	<LI><P STYLE="margin-bottom: 0in; line-height: 100%">Fixed some
+	resource leaks.</P>
+</UL>
+<H1 CLASS="western"><A NAME="__RefHeading__420_210052648"></A>Supported
+Platforms</H1>
+<P STYLE="margin-bottom: 0in; line-height: 100%">Microsoft Windows</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">Mac OS X</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">Android: ArmV7 and
+x86, the same platforms that Unity currently supports and we have the
+plugins for more on our homepage.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">iOS: Armv7, Armv7s,
+Arm64, x86 simulator, x86_64 simulator.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<H1 CLASS="western"><A NAME="__RefHeading__422_210052648"></A>Supported
+Audio Formats</H1>
+<P STYLE="margin-bottom: 0in; line-height: 100%">The plugin supports
+audio files in Wave format and Ogg Vorbis format. The supported
+sample bit depths are 16, 24 and 32.</P>
+<H1 CLASS="western"><A NAME="__RefHeading__424_210052648"></A>Installation</H1>
+<P STYLE="margin-bottom: 0in; line-height: 100%">The plugin is
+delivered as a unitypackage-file. Download it from our web site at
+<A CLASS="western" HREF="http://www.eliassoftware.com/product/unity-plugin-all-platforms/">www.eliassoftware.com/product/unity-plugin-all-platforms/</A>
+and save the file in a convenient place.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">In the Unity editor,
+create a new project and choose</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><FONT FACE="Arial, sans-serif">Assets-&gt;Import
+Package-&gt;Custom Package...,</FONT></P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">and choose the
+unitypackage-file.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">Note that the
+inclusion of Unity's standard assets is only required for using the
+Demo Scene.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">The operating system
+and architecture specific settings with respect to the ELIAS library
+file should already be correctly configured when you have imported
+the Unity package, but in case of any issue you might want to check
+that they are okay. The following two sections give information on
+plugin settings for the native binary.</P>
+<H1 CLASS="western"><A NAME="__RefHeading__597_755670593"></A><A NAME="7.The ELIAS library files.|outline"></A>
+The ELIAS library files.</H1>
+<P STYLE="margin-bottom: 0in; line-height: 100%">In the instructions
+below, the engine shared, (for non iOS, iOS uses a static), library
+file which you will use is referred to as &quot;the ELIAS file&quot;.
+There are several different versions, and the one you should choose
+depends on your (target/working) operating system and architecture.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">The plugin file is a
+shared library which means that on Microsoft Windows it is called
+elias.dll, on Mac OS X it's called elias.bundle, for Android it's
+called elias.so and on iOS it's called libelias.a</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">For both MS Windows
+and Mac OS X, the ELIAS file comes in both a 64- and 32-bit version.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">For iOS it comes as
+a single &ldquo;FAT&rdquo; library where it contains armv7, armv7s,
+arm64, i386 (x86) and x86_64 architectures. (This can be split apart
+again if you wish to minimize the release size of your product using
+the lipo command line tool.)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">For Android it comes
+as two libraries, however because <B>Unity3D currently only supports
+armeabi-v7 and x86</B>, so we are only shipping these with the Unity
+package, all of them are downloadable from our website.)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">When you follow the
+instructions below, choose the version of the library that is
+applicable to your operating system and Unity editor version.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<H2 CLASS="western"><A NAME="__RefHeading__679_1711726609"></A>Unity
+Settings for the ELIAS library file</H2>
+<P STYLE="margin-bottom: 0in; line-height: 100%">Navigate to the
+&ldquo;Assets/Plugins&rdquo; subfolder depending on what library
+you&rsquo;re looking for in the Unity Project view, click on &quot;the
+ELIAS file&quot; (see the description in the previous section) and
+set the corresponding properties in the Import Settings in Inspector
+view.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">Under &quot;Select
+platforms for plugin&quot;, check &quot;Standalone&quot;.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">If you use the
+32-bit version of the Unity editor, check &quot;Editor&quot; for
+elias.dll in the x86 folder.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">If you use the
+64-bit version of the Unity editor, check &quot;Editor&quot; for
+elias.dll/elias.bundle in the x86_64 folder.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">Under &quot;Platform
+settings&quot;, choose the correct CPU and OS. Use a similar approach
+if you need to set or change the other libraries manually.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<H1 CLASS="western"><A NAME="__RefHeading__426_210052648"></A>Package
+Contents by Folder</H1>
+<P>In the description below, the folder names which are specific to
+ELIAS will be marked with (ELIAS).</P>
+<H2 CLASS="western"><A NAME="__RefHeading__681_1711726609"></A>Editor
+and StandardAssets</H2>
+<P STYLE="margin-bottom: 0in; line-height: 100%">These are standard
+Unity asset folders and not part of the ELIAS integration. Here is
+for example the Unity 5 first person character.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">They are included in
+this package just so we could provide a working test scene.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<H2 CLASS="western"><A NAME="__RefHeading__683_1711726609"></A>StreamingAssets
+(ELIAS)</H2>
+<P STYLE="margin-bottom: 0in; line-height: 100%">This folder contains
+a subdirectory named <B>ELIAS_Themes</B>.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">(<B>The following in
+this paragraph only applies if you&rsquo;re using our DemoPlayer</B>)</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">In ELIAS_Themes you
+can drop one or several theme folders and the themes should then be
+selectable in the Unity interface via the ELIAS_Component GameObject.
+Note that the name of the theme folder must be the same as the name
+of the theme definition file (but without the .epro suffix) in order
+for the Unity interface to find it and make it available as a
+suggestion in the drop down menu.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">Example path to an
+ELIAS theme file: Assets/StreamingAssets/ELIAS_Themes/demo/demo.epro.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><B>Important note:
+</B><SPAN STYLE="font-weight: normal">Any themes that you do not want
+to ship with your game </SPAN><B>must be removed </B><SPAN STYLE="font-weight: normal">from
+the StreamingAssets folder and any of it's subfolders. This also
+applies to the Demo Theme that we send along. If you wish to use it
+see the licensing part at the bottom.</SPAN></P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">More on this under
+the section about the ELIAS_Component below.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<H2 CLASS="western"><A NAME="__RefHeading__685_1711726609"></A>elias
+(ELIAS)</H2>
+<P>Here are the C# binding scripts to the ELIAS native library,
+together with an example player demonstrating how to interact with
+the ELIAS music engine (e.g. loading an ELIAS adaptive theme,
+starting and stopping the engine, issuing a trigger level change or
+playing a stinger).</P>
+<H1 CLASS="western"></H1>
+<H1 CLASS="western"><A NAME="__RefHeading__501_755670593"></A>Unity
+C# Scripts</H1>
+<P><A NAME="__RefHeading__430_210052648"></A>In this section an
+overview of the role and functionality of the scripts related to
+ELIAS is given. The scripts have been put into two folders to make a
+distinction between core binding and application scripts, but the
+user is of course free to create their own structure.</P>
+<H2 CLASS="western"><A NAME="__RefHeading__687_1711726609"></A>elias/Elias.cs</H2>
+<P>ELIAS enumerations for e.g. track types and error codes, and a
+structure definition for what a &ldquo;Source&rdquo; is.</P>
+<H2 CLASS="western"><A NAME="__RefHeading__689_1711726609"></A>elias/Theme.cs</H2>
+<P>Wrapper around the native library, it uses exceptions and does the
+error checking for you. If you wish to bypass it you can make the
+<I><B>extern</B></I> functions public instead of private.</P>
+<H2 CLASS="western"><A NAME="__RefHeading__691_1711726609"></A>elias/Track.cs</H2>
+<P>Wrapper around the native library, it uses exceptions and does the
+error checking for you. If you wish to bypass it you can make the
+<I><B>extern</B></I> functions public instead of private.</P>
+<H2 CLASS="western"><A NAME="__RefHeading__693_1711726609"></A>elias/Editor/ExitOnPlayModeScriptCompile.cs</H2>
+<P>This is a solution for a bug where the Unity editor will crash if
+a hot reload is performed and ELIAS is utilizing a streamed
+AudioClip. It forces the editor to exit play mode before a compile
+takes place if ELIAS is using a streamed AudioClip.</P>
+<H1 CLASS="western"></H1>
+<H1 CLASS="western"><A NAME="__RefHeading__572_755670593"></A>Platform
+specifics</H1>
+<H2 CLASS="western"><A NAME="__RefHeading__695_1711726609"></A>iOS</H2>
+<P>If you encounter link errors, please try the following:</P>
+<P>Go to the project <CODE CLASS="western">Build Settings</CODE> tab 
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">Search for <CODE CLASS="western">Other
+	Linker Flags</CODE> 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Add <CODE CLASS="western">-lz</CODE>
+	as a linker flag (see screenshot) 
+	</P>
+	<LI><P>In the <CODE CLASS="western">Product</CODE> menu, select
+	<CODE CLASS="western">Clean</CODE> before building again 
+	</P>
+</UL>
+<P><IMG SRC="ELIASUnityPlugin%20-%20UserGuide_html_4f47c7d1.jpg" NAME="graphics2" ALIGN=LEFT WIDTH=516 HEIGHT=123 BORDER=0><BR CLEAR=LEFT><BR><BR>
+</P>
+<P><BR><BR>
+</P>
+<P><A NAME="__RefHeading__499_755670593"></A>Callbacks work
+differently on iOS, to be allowed to call a managed function from
+unmanaged code the function must have the Attribute
+<B>AOT.MonoPInvokeCallback </B>to a static function,<B> </B>ex:<B>
+[AOT.MonoPInvokeCallback(typeof(Elias.Theme.SourceEnumerationCallback))]</B>
+. Mono's information:
+<A CLASS="western" HREF="http://developer.xamarin.com/guides/ios/advanced_topics/limitations/#Reverse_Callbacks">http://developer.xamarin.com/guides/ios/advanced_topics/limitations/#Reverse_Callbacks</A></P>
+<P>Due to some issues with lagging on mobile devices the processing
+period will be equal to the prebuffer if using an unmodified
+DemoPlayer.</P>
+<P>The library file used for iOS contains all different
+configurations you might need. You may want to split it apart and put
+only the versions you need together. This is due to a limitation with
+Unity.</P>
+<P>The library file used for iOS is a lot larger on disk before
+creating the end product then it will be when the end product is
+created. This is due to symbol hiding/stripping.</P>
+<H2 CLASS="western"><A NAME="__RefHeading__697_1711726609"></A>Android</H2>
+<P>On Android, all data will be packed into either the .apk file, or
+the .obb (in case of split binary). The ELIAS Unity plugin handles
+this by using LoadSourcesFromApk instead of normal <B>LoadSources </B>and
+sending in the URI that Unity is supposed to provide with
+Application.streamingAssetsPath. This will also work for files packed
+into the .obb files. In case you are getting the path in a different
+manner, you can use LoadSourcesFromArchive.  <B>LoadSourcesFromArchive</B>
+takes 2 arguments, the first is the path to the archive itself,
+including the archive name, and the second argument is the path to
+the theme folder from &ldquo;inside&rdquo; the archive.</P>
+<P>Due to some issues with lagging on mobile devices the processing
+period will be equal to the prebuffer if using an unmodified
+DemoPlayer.</P>
+<H1 CLASS="western"><A NAME="__RefHeading__477_755670593"></A></H1>
+<H1 CLASS="western"><A NAME="__RefHeading__558_471763085"></A>Demo</H1>
+<H3 CLASS="western"><A NAME="__RefHeading__699_1711726609"></A>Materials
+and Textures</H3>
+<P STYLE="margin-bottom: 0in; line-height: 100%">These are customary
+folders with expected content for a Unity developer. The floor
+texture was acquired from the Pixar One Twenty Eight library at
+<A CLASS="western" HREF="https://community.renderman.pixar.com/article/114/library-pixar-one-twenty-eight.html" TARGET="_top">https://community.renderman.pixar.com/article/114/library-pixar-one-twenty-eight.html</A>.</P>
+<H3 CLASS="western"><A NAME="__RefHeading__701_1711726609"></A>Prefabs
+(ELIAS)</H3>
+<P STYLE="margin-bottom: 0in; line-height: 100%">This folder contains
+prefabs exemplifying how a Unity GameObject can be used for
+triggering an ELIAS level change or stinger. How the ELIAS engine is
+controlled through its API is of course entirely up to you in the
+end; this is just an example. For a complete description of the ELIAS
+API, see the SDK manual in Assets/elias/doc. (Note that all the
+functions are wrapped in a C# version, so once you find the function
+you want, check in Theme.cs, Track.cs or Elias.cs to find the C#
+wrapper.)</P>
+<H2 CLASS="western"><A NAME="__RefHeading__703_1711726609"></A>elias/Demo/DemoPlayer.cs</H2>
+<P>This class is an implementation to play ELIAS themes, it will work
+just as well outside of the demo scene, and we recommend that you use
+it.</P>
+<H2 CLASS="western"><A NAME="__RefHeading__705_1711726609"></A>elias/Demo/Scripts/ELIASMusicSwitcher.cs</H2>
+<P>Implements some very simple logic for controlling trigger levels
+and which stingers to play. The Switch method listens to zone trigger
+events in the ExampleTrigger script, and the ThemeLoaded method is
+executed upon successful loading of a theme.</P>
+<H2 CLASS="western"><A NAME="__RefHeading__707_1711726609"></A>elias/Demo/Scripts/ExampleTrigger.cs</H2>
+<P>This script is attached to the trigger geometry in the scene. When
+the player character causes a trigger event to fire by intersecting
+the collision geometry, the subscribed methods will be called (e.g
+Switch in MusicSwitcher).</P>
+<H2 CLASS="western"><A NAME="__RefHeading__709_1711726609"></A>elias/Demo/Scripts/ThemeGeometry.cs</H2>
+<P STYLE="margin-bottom: 0in; line-height: 100%">Creates geometry for
+visualisation and collision detection. The ExampleTrigger script is
+attached to the trigger geometry in the scene. The script also
+defines simple movement of the geometry via its Update method.</P>
+<H1 CLASS="western"></H1>
+<H1 CLASS="western"><A NAME="__RefHeading__428_210052648"></A>ELIAS
+Unity GameObjects</H1>
+<P>The example scene contains a few GameObjects which demonstrate how
+ELIAS can be used with Unity.</P>
+<H2 CLASS="western"><A NAME="__RefHeading__711_1711726609"></A>MusicSwitcher</H2>
+<P>This GameObject carries an example script demonstrating how a
+Unity application can control the ELIAS engine.</P>
+<H2 CLASS="western"><A NAME="__RefHeading__713_1711726609"></A>ELIAS_Component</H2>
+<P><IMG SRC="ELIASUnityPlugin%20-%20UserGuide_html_m34d32f0e.png" NAME="graphics1" ALIGN=LEFT WIDTH=576 HEIGHT=962 BORDER=0><BR CLEAR=LEFT>This
+GameObject carries an AudioSource component for audio playback and
+the DemoPlayer script for interfacing with ELIAS at the highest
+level.<BR><BR><BR>
+</P>
+<H1 CLASS="western"><A NAME="__RefHeading__432_210052648"></A>About
+the Demo Scene</H1>
+<P>Spheres and boxes will be generated once the simulation has
+started. The spheres trigger stingers, and the boxes trigger level
+changes in an objective theme. These are activated once you step into
+them.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<P><IMG SRC="ELIASUnityPlugin%20-%20UserGuide_html_m4de7ac98.png" NAME="grafik2" ALIGN=LEFT BORDER=0><BR CLEAR=LEFT><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">The capsule in the
+sign turns green when a theme is loaded, which will generally be
+almost instantly after &quot;play&quot; has been pressed.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">The sign with its
+curved arrow suggests a starting point and direction when visiting
+the sequence of boxes. They are generated in a counter clockwise
+fashion with the lowest theme level trigger box at the start. If the
+theme has subtle changes between levels you can skip a few boxes at a
+time for faster progression through the theme.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<H1 CLASS="western"><A NAME="__RefHeading__434_210052648"></A>Current
+Limitations</H1>
+<P>The DemoPlayer is currently slightly limited in how it works, and
+can be extended or replaced if necessary. For most users this should
+not be required.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">The ELIAS Unity
+plugin can currently only read its audio files from disk separate
+from how Unity handles files. This is the reason for the requirement
+to place the files in the Streaming Assets folder, the downside of
+this being that the audio compression settings that Unity otherwise
+allows will have to be done outside of Unity. Elias Composer's Studio
+has a menu option called &ldquo;Export delivery package&rdquo; which
+allows the user to export all the audio that is used in a theme as
+Ogg Vorbis or Wave, (for a shipped game we strongly recommend that
+you use Ogg Vorbis!).</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%"><A NAME="__RefHeading__436_210052648"></A>
+The test scene only shows simple usage of ELIAS, there is much more
+that you can do! The actual binding to the ELIAS library offers a
+much wider set of low level features, so reading the elias manual and
+experimenting yourself is encouraged if you want to do things that
+the provided DemoPlayer can't. Note that it will generally be easier
+to make modifications to a theme or its settings using the ELIAS
+Composer's Studio, compared to doing the same in code.</P>
+<P STYLE="margin-bottom: 0in; line-height: 100%">All of the functions
+in the C reference have corresponding counterparts in the Unity
+plugin (see Elias.cs, Track.cs and Theme.cs for more information).</P>
+<H1 CLASS="western"><A NAME="__RefHeading__436_2100526481"></A><BR>Further
+documentation</H1>
+<P>In the folder &ldquo;Assets/elias/doc&rdquo; you can find the
+accompanying manual for the standalone ELIAS SDK. It contains a
+thorough description of all the core concepts in the ELIAS music
+engine, as well as the C API reference. As a Unity plugin user you do
+not need to worry about the data callback mentioned in the C
+reference.</P>
+<P>All of the functions in the C reference have corresponding
+counterparts in the Unity plugin (see Elias.cs, Track.cs and Theme.cs
+for more information). These wrapper also handle string encoding
+conversion to and from UTF-8 that ELIAS uses.</P>
+<H1 CLASS="western"><A NAME="__RefHeading__425_471763085"></A><A NAME="18.Licensing|outline"></A>
+Licensing</H1>
+<H2 CLASS="western"><A NAME="__RefHeading__715_1711726609"></A>Demo
+Theme</H2>
+<P>The package includes an adaptive theme that is used as part of the
+example scene to demonstrate the functionality of the ELIAS engine.
+This theme may not be used for any purpose, commercial or otherwise,
+except as part of the example scene when evaluating ELIAS. However,
+it may be licensed for production use from our website. The title of
+the theme on the website is &quot;<A CLASS="western" HREF="https://www.eliassoftware.com/downloads/beneath-fog-city/" TARGET="_top">Beneath
+Fog City</A>&quot;.</P>
+<H2 CLASS="western"><A NAME="__RefHeading__717_1711726609"></A>ELIAS
+and third-party licenses</H2>
+<P>To learn more about the ELIAS music engine and its licensing
+terms, as well as the authoring tool for composers, visit
+www.eliassoftware.com/elias-engine.</P>
+<P>Before distributing ELIAS as part of a game, see the file
+&quot;copying.txt&quot; which is found in the &ldquo;Assets/elias/doc&rdquo;
+directory.</P>
+<H1 CLASS="western"><A NAME="__RefHeading__438_210052648"></A>Music,
+Composer's Studio and the web site</H1>
+<P>If you need music to go along with the ELIAS engine in your next
+title, please visit <A CLASS="western" HREF="https://www.eliassoftware.com/shop/">http://www.eliassoftware.com/</A><A CLASS="western" HREF="https://www.eliassoftware.com/shop/">shop/</A></P>
+<P>We offer a high quality comprehensive library of ready to use
+adaptive themes that you can drop right into your production.</P>
+<P>We also develop and distribute an authoring tool for creating your
+own adaptive themes, modifying themes and previewing themes, the
+<A CLASS="western" HREF="https://www.eliassoftware.com/elias-composers-studio/">ELIAS
+Composer's studio.</A></P>
+<P>We hope you find the ELIAS engine useful, and we welcome your
+feedback. <A CLASS="western" HREF="mailto:support@eliassoftware.com" TARGET="_top">support@eliassoftware.com</A>.</P>
+<P>Have fun!<BR><BR><BR>
+</P>
+</BODY>
+</HTML>

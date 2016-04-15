@@ -1,0 +1,3 @@
+Redistribution is governed by the license of the engine you have acquired. 
+By downloading this package you have automatically acquired the Non-commercial License and the Limited Commercial License (see the respective license files for more details). 
+More information can be found at http://www.eliassoftware.com/elias-engine/

@@ -1,0 +1,478 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <title>ELIAS XML Specification</title>
+  <style type="text/css">code{white-space: pre-wrap;}</style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">ELIAS XML Specification</h1>
+</div>
+<div id="TOC">
+<ul>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#elements"><span class="toc-section-number">2</span> Elements</a><ul>
+<li><a href="#theme"><span class="toc-section-number">2.1</span> theme</a></li>
+<li><a href="#defaults"><span class="toc-section-number">2.2</span> defaults</a></li>
+<li><a href="#rendezvous"><span class="toc-section-number">2.3</span> rendezvous</a></li>
+<li><a href="#fade"><span class="toc-section-number">2.4</span> fade</a></li>
+<li><a href="#reverb"><span class="toc-section-number">2.5</span> reverb</a></li>
+<li><a href="#fade_in"><span class="toc-section-number">2.6</span> fade_in</a></li>
+<li><a href="#crossfade"><span class="toc-section-number">2.7</span> crossfade</a></li>
+<li><a href="#fade_out"><span class="toc-section-number">2.8</span> fade_out</a></li>
+<li><a href="#agility"><span class="toc-section-number">2.9</span> agility</a></li>
+<li><a href="#agility_points"><span class="toc-section-number">2.10</span> agility_points</a></li>
+<li><a href="#beat"><span class="toc-section-number">2.11</span> beat</a></li>
+<li><a href="#pickup"><span class="toc-section-number">2.12</span> pickup</a></li>
+<li><a href="#audio_loop_track"><span class="toc-section-number">2.13</span> audio_loop_track</a></li>
+<li><a href="#key"><span class="toc-section-number">2.14</span> key</a></li>
+<li><a href="#trigger"><span class="toc-section-number">2.15</span> trigger</a></li>
+<li><a href="#audio_stinger_track"><span class="toc-section-number">2.16</span> audio_stinger_track</a></li>
+<li><a href="#stinger"><span class="toc-section-number">2.17</span> stinger</a></li>
+<li><a href="#progression"><span class="toc-section-number">2.18</span> progression</a></li>
+<li><a href="#action_preset"><span class="toc-section-number">2.19</span> action_preset</a></li>
+<li><a href="#set_level"><span class="toc-section-number">2.20</span> set_level</a></li>
+<li><a href="#silence"><span class="toc-section-number">2.21</span> silence</a></li>
+<li><a href="#request_change"><span class="toc-section-number">2.22</span> request_change</a></li>
+<li><a href="#play_stinger"><span class="toc-section-number">2.23</span> play_stinger</a></li>
+<li><a href="#change_key"><span class="toc-section-number">2.24</span> change_key</a></li>
+</ul></li>
+<li><a href="#conclusion"><span class="toc-section-number">3</span> Conclusion</a></li>
+</ul>
+</div>
+<div id="introduction" class="section level1">
+<h1><a href="#introduction"><span class="header-section-number">1</span> Introduction</a></h1>
+<p>If desired, ELIAS can read all the information about a given theme from an XML document. This enables the composer to provide the required information in a convenient way, and saves the programmer the trouble of manually entering all the settings in the actual code.</p>
+<p>Please note: This specification is not a tutorial. It tries to be as thorough and precise as possible, but assumes that the reader is already familiar with the concepts and terminology used in XML. It also does not explain in depth what the various settings do, merely what the allowed values are. For a detailed discussion on all the features and functionality found in ELIAS, please see the accompanying instruction manual.</p>
+<p>Below is a comprehensive list of all the elements and their relations, as well as all the mandatory and optional attributes found in each element.</p>
+</div>
+<div id="elements" class="section level1">
+<h1><a href="#elements"><span class="header-section-number">2</span> Elements</a></h1>
+<div id="theme" class="section level2">
+<h2><a href="#theme"><span class="header-section-number">2.1</span> theme</a></h2>
+<p>The theme element is the top level element in every ELIAS project. All other elements are children of this element.</p>
+<p>Mandatory attributes:</p>
+<ul>
+<li>mode - Should be set to either objective or exploration.</li>
+<li>tempo - Specifies the tempo of the theme in beats per minute (bpm).</li>
+<li>time_signature - Gives the time signature as numerator/denominator, such as 4/4 or 3/4.</li>
+<li>sample_rate - The number of samples per second used for the audio in the theme (44100 is the most common).</li>
+<li>channels - The number of channels in the theme, usually set to 2 (stereo).</li>
+<li>bars - Specifies how long the theme is in bars.</li>
+</ul>
+<p>Optional attributes:</p>
+<ul>
+<li>volume - The master volume for the entire theme, specified in millibel. Default is 0. -600 is -6 dB, 100 is +1 dB etc.</li>
+</ul>
+<p>Mandatory child elements:</p>
+<ul>
+<li>At least one track element (<a href="#audio_loop_track">audio_loop_track</a> or <a href="#audio_stinger_track">audio_stinger_track</a>)</li>
+</ul>
+<p>Optional child elements:</p>
+<ul>
+<li><a href="#defaults">defaults</a></li>
+<li><a href="#rendezvous">rendezvous</a></li>
+<li><a href="#action_preset">action_preset</a></li>
+</ul>
+</div>
+<div id="defaults" class="section level2">
+<h2><a href="#defaults"><span class="header-section-number">2.2</span> defaults</a></h2>
+<p>This element specifies default settings that will be applied to any track that does not explicitly specify a new value for a given setting present in the defaults.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#theme">theme</a></li>
+</ul>
+<p>Optional child elements:</p>
+<ul>
+<li><a href="#fade_in">fade_in</a></li>
+<li><a href="#crossfade">crossfade</a></li>
+<li><a href="#fade_out">fade_out</a></li>
+<li><a href="#reverb">reverb</a></li>
+<li><a href="#progression">progression</a></li>
+<li>Either <a href="#agility">agility</a> or <a href="#agility_points">agility_points</a></li>
+<li><a href="#pickup">pickup</a></li>
+</ul>
+</div>
+<div id="rendezvous" class="section level2">
+<h2><a href="#rendezvous"><span class="header-section-number">2.3</span> rendezvous</a></h2>
+<p>Rendezvous settings come in effect when the engine needs to do a transition on all the tracks in the theme at the same time, such as when a key change occurs. It is preferable to specify separate agility and fade settings for these scenarios.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#theme">theme</a></li>
+</ul>
+<p>Optional child elements:</p>
+<ul>
+<li><a href="#fade">fade</a></li>
+<li>Either <a href="#agility">agility</a> or <a href="#agility_points">agility_points</a></li>
+</ul>
+</div>
+<div id="fade" class="section level2">
+<h2><a href="#fade"><span class="header-section-number">2.4</span> fade</a></h2>
+<p>This element is used to specify a fade length for rendezvous transitions.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#rendezvous">rendezvous</a></li>
+</ul>
+<p>Mandatory attributes:</p>
+<ul>
+<li>value - The amount of time that the fade should take, in milliseconds. The minimum is 0.</li>
+</ul>
+</div>
+<div id="reverb" class="section level2">
+<h2><a href="#reverb"><span class="header-section-number">2.5</span> reverb</a></h2>
+<p>The reverb element is used to specify the settings used for the reverb effect in the ELIAS engine.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#defaults">defaults</a></li>
+<li><a href="#audio_loop_track">audio_loop_track</a></li>
+<li><a href="#audio_stinger_track">audio_stinger_track</a></li>
+</ul>
+<p>Optional attributes:</p>
+<ul>
+<li>size - The size of the room, in percent. The minimum is 0 (smallest) and the maximum is 100 (largest).</li>
+<li>damping - The damping of the room, in percent. The minimum is 0 (no damping) and the maximum is 100 (maximum damping).</li>
+<li>mix - The mix between the reverberated and the dry signal, in percent. The minimum is 0 (completely dry) and the maximum is 100 (all reverb).</li>
+</ul>
+</div>
+<div id="fade_in" class="section level2">
+<h2><a href="#fade_in"><span class="header-section-number">2.6</span> fade_in</a></h2>
+<p>This element specifies a range for a fade in operation, which occurs when an audio loop track goes from silence to having audio on it.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#defaults">defaults</a></li>
+<li><a href="#audio_loop_track">audio_loop_track</a></li>
+</ul>
+<p>Optional attributes:</p>
+<ul>
+<li>minimum - The shortest amount of time that the fade can take, in milliseconds. The minimum is 0.</li>
+<li>maximum - The longest amount of time that the fade can take, in milliseconds. The minimum is 0.</li>
+</ul>
+</div>
+<div id="crossfade" class="section level2">
+<h2><a href="#crossfade"><span class="header-section-number">2.7</span> crossfade</a></h2>
+<p>This element specifies a range for a crossfade operation, which occurs when an audio loop track goes from one source to another.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#defaults">defaults</a></li>
+<li><a href="#audio_loop_track">audio_loop_track</a></li>
+</ul>
+<p>Optional attributes:</p>
+<ul>
+<li>minimum - The shortest amount of time that the fade can take, in milliseconds. The minimum is 0.</li>
+<li>maximum - The longest amount of time that the fade can take, in milliseconds. The minimum is 0.</li>
+</ul>
+</div>
+<div id="fade_out" class="section level2">
+<h2><a href="#fade_out"><span class="header-section-number">2.8</span> fade_out</a></h2>
+<p>This element specifies a range for a fade out operation, which occurs when an audio loop track goes from having audio on it to silence.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#defaults">defaults</a></li>
+<li><a href="#audio_loop_track">audio_loop_track</a></li>
+</ul>
+<p>Optional attributes:</p>
+<ul>
+<li>minimum - The shortest amount of time that the fade can take, in milliseconds. The minimum is 0.</li>
+<li>maximum - The longest amount of time that the fade can take, in milliseconds. The minimum is 0.</li>
+</ul>
+</div>
+<div id="agility" class="section level2">
+<h2><a href="#agility"><span class="header-section-number">2.9</span> agility</a></h2>
+<p>This element specifies the so called &quot;regular agility&quot; setting.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#defaults">defaults</a></li>
+<li><a href="#rendezvous">rendezvous</a></li>
+<li><a href="#audio_loop_track">audio_loop_track</a></li>
+<li><a href="#audio_stinger_track">audio_stinger_track</a></li>
+</ul>
+<p>Mandatory attributes:</p>
+<ul>
+<li>value - The agility period, in beats. The minimum is 0 (anytime) and the maximum is the number of bars in the theme times the time signature numerator.</li>
+</ul>
+<p>Optional attributes:</p>
+<ul>
+<li>strict - Specifies whether the engine should treat the agility setting as a suggestion or as an unconditional rule. The value should be either &quot;yes&quot; or &quot;no&quot;. Default is &quot;no&quot;. This attribute is ignored if the parent is a <a href="#rendezvous">rendezvous</a> element.</li>
+</ul>
+</div>
+<div id="agility_points" class="section level2">
+<h2><a href="#agility_points"><span class="header-section-number">2.10</span> agility_points</a></h2>
+<p>This element specifies so called &quot;agility beat points&quot;.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#defaults">defaults</a></li>
+<li><a href="#rendezvous">rendezvous</a></li>
+<li><a href="#audio_loop_track">audio_loop_track</a></li>
+<li><a href="#audio_stinger_track">audio_stinger_track</a></li>
+<li><a href="#stinger">stinger</a></li>
+</ul>
+<p>Optional attributes:</p>
+<ul>
+<li>strict - Specifies whether the engine should treat the agility beat point settings as a suggestion or as an unconditional rule. The value should be either &quot;yes&quot; or &quot;no&quot;. Default is &quot;no&quot;. This attribute is ignored if the parent is a <a href="#rendezvous">rendezvous</a> or a <a href="#stinger">stinger</a> element.</li>
+</ul>
+<p>Mandatory child elements:</p>
+<ul>
+<li>At least one (but usually several) <a href="#beat">beat</a> elements</li>
+</ul>
+</div>
+<div id="beat" class="section level2">
+<h2><a href="#beat"><span class="header-section-number">2.11</span> beat</a></h2>
+<p>This element specifies a single agility beat point.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#agility_points">agility_points</a></li>
+</ul>
+<p>Mandatory attributes:</p>
+<ul>
+<li>point - The agility beat point, in beats. The minimum is 1 and the maximum is the number of bars in the theme times the time signature numerator.</li>
+</ul>
+</div>
+<div id="pickup" class="section level2">
+<h2><a href="#pickup"><span class="header-section-number">2.12</span> pickup</a></h2>
+<p>This element specifies a number of pickup beats for a stinger track.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#defaults">defaults</a></li>
+<li><a href="#audio_stinger_track">audio_stinger_track</a></li>
+</ul>
+<p>Mandatory attributes:</p>
+<ul>
+<li>beats - The number of pickup beats. The minimum is 0 (no pickup beats) and the maximum is the number of bars in the theme times the time signature numerator, minus 1.</li>
+</ul>
+</div>
+<div id="audio_loop_track" class="section level2">
+<h2><a href="#audio_loop_track"><span class="header-section-number">2.13</span> audio_loop_track</a></h2>
+<p>This element contains all the contents found on an audio loop track.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#theme">theme</a></li>
+</ul>
+<p>Mandatory attributes:</p>
+<ul>
+<li>id - A number which is unique among all the track elements in the theme, even if the types differ. The minimum is 1.</li>
+</ul>
+<p>Optional attributes:</p>
+<ul>
+<li>volume - The volume level for the track, specified in millibel. This volume level is relative to the master volume of the theme. Default is 0. -600 is -6 dB, 100 is +1 dB etc.</li>
+</ul>
+<p>Mandatory child elements:</p>
+<ul>
+<li>At least one <a href="#key">key</a> element</li>
+</ul>
+<p>Optional child elements:</p>
+<ul>
+<li><a href="#fade_in">fade_in</a></li>
+<li><a href="#crossfade">crossfade</a></li>
+<li><a href="#fade_out">fade_out</a></li>
+<li><a href="#reverb">reverb</a></li>
+<li>Either <a href="#agility">agility</a> or <a href="#agility_points">agility_points</a></li>
+</ul>
+</div>
+<div id="key" class="section level2">
+<h2><a href="#key"><span class="header-section-number">2.14</span> key</a></h2>
+<p>This element contains the contents of a given key on a particular track.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#audio_loop_track">audio_loop_track</a></li>
+<li><a href="#audio_stinger_track">audio_stinger_track</a></li>
+</ul>
+<p>Mandatory attributes:</p>
+<ul>
+<li>value - The number of semitones above C which this key represents. The minimum is 0 (C) and the maximum is defined by the elias_max_keys constant in elias.h.</li>
+</ul>
+<p>Mandatory child elements:</p>
+<p>The permitted child elements depend on the type of track in which this key element appears.</p>
+<p>If the key element is a child of an <a href="#audio_loop_track">audio_loop_track</a> element, the following child elements are mandatory:</p>
+<ul>
+<li>At least one <a href="#trigger">trigger</a> element</li>
+</ul>
+<p>If the key element is a child of an <a href="#audio_stinger_track">audio_stinger_track</a> element, the following child elements are mandatory:</p>
+<ul>
+<li>At least one <a href="#stinger">stinger</a> element</li>
+</ul>
+</div>
+<div id="trigger" class="section level2">
+<h2><a href="#trigger"><span class="header-section-number">2.15</span> trigger</a></h2>
+<p>This element represents a single trigger in a given key on an audio loop track in the theme.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#key">key</a></li>
+</ul>
+<p>Note: This element must only be present within a key if the parent element of that key is an <a href="#audio_loop_track">audio_loop_track</a> element.</p>
+<p>Mandatory attributes:</p>
+<ul>
+<li>value - A number which is unique in the given key on the given track. The minimum is 1.</li>
+</ul>
+<p>Optional attributes:</p>
+<ul>
+<li>length - The length of the given trigger audio source, in samples. The minimum is 0. If 0 is specified, the trigger is assumed to be exactly as long as the theme.</li>
+<li>filename - The name of the file in which the audio data for this trigger can be found.</li>
+<li>dummy - Specifies whether or not this is a silent dummy trigger with no audio attached to it. The value should be either &quot;yes&quot; or &quot;no&quot;. Default is &quot;no&quot;. If set to &quot;yes&quot;, the filename and length attributes are ignored.</li>
+</ul>
+</div>
+<div id="audio_stinger_track" class="section level2">
+<h2><a href="#audio_stinger_track"><span class="header-section-number">2.16</span> audio_stinger_track</a></h2>
+<p>This element contains all the contents found on an audio stinger track.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#theme">theme</a></li>
+</ul>
+<p>Mandatory attributes:</p>
+<ul>
+<li>id - A number which is unique among all the track elements in the theme, even if the types differ. The minimum is 1.</li>
+</ul>
+<p>Optional attributes:</p>
+<ul>
+<li>volume - The volume level for the track, specified in millibel. This volume level is relative to the master volume of the theme. Default is 0. -600 is -6 dB, 100 is +1 dB etc.</li>
+</ul>
+<p>Mandatory child elements:</p>
+<ul>
+<li>At least one <a href="#key">key</a> element</li>
+</ul>
+<p>Optional child elements:</p>
+<ul>
+<li><a href="#reverb">reverb</a></li>
+<li><a href="#progression">progression</a></li>
+<li>Either <a href="#agility">agility</a> or <a href="#agility_points">agility_points</a></li>
+<li><a href="#pickup">pickup</a></li>
+</ul>
+</div>
+<div id="stinger" class="section level2">
+<h2><a href="#stinger"><span class="header-section-number">2.17</span> stinger</a></h2>
+<p>This element represents a single stinger variation in a given key on an audio stinger track in the theme.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#key">key</a></li>
+</ul>
+<p>Note: This element must only be present within a key if the parent element of that key is an <a href="#audio_stinger_track">audio_stinger_track</a> element.</p>
+<p>Mandatory attributes:</p>
+<ul>
+<li>value - A number which is unique in the given key on the given track. The minimum is 1.</li>
+<li>length - The length of the given stinger audio source, in samples. The minimum is 1.</li>
+</ul>
+<p>Optional attributes:</p>
+<ul>
+<li>filename - The name of the file in which the audio data for this stinger can be found.</li>
+</ul>
+<p>Optional child elements:</p>
+<ul>
+<li><a href="#agility_points">agility_points</a></li>
+</ul>
+</div>
+<div id="progression" class="section level2">
+<h2><a href="#progression"><span class="header-section-number">2.18</span> progression</a></h2>
+<p>The progression setting controls how a stinger track will choose among the available variations when asked to play a new stinger.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#defaults">defaults</a></li>
+<li><a href="#audio_stinger_track">audio_stinger_track</a></li>
+</ul>
+<p>Mandatory attributes:</p>
+<ul>
+<li>mode - A string specifying the desired progression mode (&quot;random&quot;, &quot;sequential&quot; or &quot;shuffle&quot;).</li>
+</ul>
+</div>
+<div id="action_preset" class="section level2">
+<h2><a href="#action_preset"><span class="header-section-number">2.19</span> action_preset</a></h2>
+<p>This element specifies an action preset with one or more associated events.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#theme">theme</a></li>
+</ul>
+<p>Mandatory attributes:</p>
+<ul>
+<li>name - A unique name for the given action preset.</li>
+</ul>
+<p>Optional child elements (at least one must be present):</p>
+<ul>
+<li><a href="#set_level">set_level</a></li>
+<li><a href="#silence">silence</a></li>
+<li><a href="#request_change">request_change</a></li>
+<li><a href="#play_stinger">play_stinger</a></li>
+<li><a href="#change_key">change_key</a></li>
+</ul>
+</div>
+<div id="set_level" class="section level2">
+<h2><a href="#set_level"><span class="header-section-number">2.20</span> set_level</a></h2>
+<p>This element represents a level change event. This is only applicable in objective mode.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#action_preset">action_preset</a></li>
+</ul>
+<p>Mandatory attributes:</p>
+<ul>
+<li>minimum - The minimum value in the level range. Must be at least 1.</li>
+<li>maximum - The maximum value in the level range (inclusive). This can be the same as minimum. Must be at least 1.</li>
+</ul>
+<p>Optional attributes:</p>
+<ul>
+<li>urgency - The urgency with which the transition should be performed in percent, between 0 and 100 (inclusive). Default is 100.</li>
+<li>stinger - The id of a stinger track that should be associated with this transition. Default is 0 (no stinger).</li>
+<li>rendezvous - Specifies whether this should be a rendezvous transition. The value should be either &quot;yes&quot; or &quot;no&quot;. Default is &quot;no&quot;.</li>
+</ul>
+</div>
+<div id="silence" class="section level2">
+<h2><a href="#silence"><span class="header-section-number">2.21</span> silence</a></h2>
+<p>This element represents a silencing event. This is applicable both in objective and exploration mode.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#action_preset">action_preset</a></li>
+</ul>
+<p>Optional attributes:</p>
+<ul>
+<li>urgency - The urgency with which the transition should be performed in percent, between 0 and 100 (inclusive). Default is 100.</li>
+<li>stinger - The id of a stinger track that should be associated with this transition. Default is 0 (no stinger).</li>
+<li>rendezvous - Specifies whether this should be a rendezvous transition. The value should be either &quot;yes&quot; or &quot;no&quot;. Default is &quot;no&quot;.</li>
+</ul>
+</div>
+<div id="request_change" class="section level2">
+<h2><a href="#request_change"><span class="header-section-number">2.22</span> request_change</a></h2>
+<p>This element represents a random change event. This is only applicable in exploration mode.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#action_preset">action_preset</a></li>
+</ul>
+<p>Mandatory attributes:</p>
+<ul>
+<li>track_count - The number of tracks that should be changed. Must be between 1 and the total number of loop tracks in the theme.</li>
+</ul>
+<p>Optional attributes:</p>
+<ul>
+<li>urgency - The urgency with which the transition should be performed in percent, between 0 and 100 (inclusive). Default is 100.</li>
+<li>stinger - The id of a stinger track that should be associated with this transition. Default is 0 (no stinger).</li>
+<li>rendezvous - Specifies whether this should be a rendezvous transition. The value should be either &quot;yes&quot; or &quot;no&quot;. Default is &quot;no&quot;.</li>
+</ul>
+</div>
+<div id="play_stinger" class="section level2">
+<h2><a href="#play_stinger"><span class="header-section-number">2.23</span> play_stinger</a></h2>
+<p>This element represents a standalone stinger event. This is applicable both in objective and exploration mode.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#action_preset">action_preset</a></li>
+</ul>
+<p>Mandatory attributes:</p>
+<ul>
+<li>stinger - The id of the stinger track that should be triggered.</li>
+</ul>
+</div>
+<div id="change_key" class="section level2">
+<h2><a href="#change_key"><span class="header-section-number">2.24</span> change_key</a></h2>
+<p>This element represents a key change event. This is applicable both in objective and exploration mode. Please note that the key change will not occur until the next transition (such as a level change) takes place.</p>
+<p>Permitted parent elements:</p>
+<ul>
+<li><a href="#action_preset">action_preset</a></li>
+</ul>
+<p>Mandatory attributes:</p>
+<ul>
+<li>key - The new key that should be activated.</li>
+</ul>
+</div>
+</div>
+<div id="conclusion" class="section level1">
+<h1><a href="#conclusion"><span class="header-section-number">3</span> Conclusion</a></h1>
+<p>At this point you should be able to construct ELIAS XML documents to represent your themes with relative ease. It is equally trivial for the programmer to import your XML document into the ELIAS engine and get your theme up and running quickly and easily. XML is an invaluable communication bridge between the composer and the programmer, and we hope that it'll save everyone some time.</p>
+</div>
+</body>
+</html>
