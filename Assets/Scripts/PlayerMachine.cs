@@ -25,6 +25,8 @@ public class PlayerMachine : SuperStateMachine {
     public bool EnableSticky = true;
     public bool EnableHoppy = true;
 
+    public Animator anim;  //Dee: animator
+
     //Private variables for different behaviours
     private float jumptime = 0;
     private bool CanDoubleJump = true;
@@ -43,6 +45,8 @@ public class PlayerMachine : SuperStateMachine {
 	void Start () {
 	    // Put any code here you want to run ONCE, when the object is initialized
         input = gameObject.GetComponent<PlayerInputController>();
+
+        anim = GetComponentInChildren<Animator>();        //Dee: INITIALIZE ANIMATOR
 
         // Grab the controller object from our object
         controller = gameObject.GetComponent<SuperCharacterController>();
@@ -89,6 +93,9 @@ public class PlayerMachine : SuperStateMachine {
     //Idle State
     void Idle_EnterState()
     {
+        //Dee: ANIMATE
+        anim.SetBool("IsWalking", false);
+
         controller.EnableSlopeLimit();
         controller.EnableClamping();
     }
@@ -143,6 +150,10 @@ public class PlayerMachine : SuperStateMachine {
             return;
         }
 
+        //Dee: ANIMATE!
+        anim.SetBool("IsWalking", true);
+
+
         //Calculate movement
         if (input.Current.MoveInput != Vector3.zero)
         {
@@ -167,6 +178,11 @@ public class PlayerMachine : SuperStateMachine {
     //Jump State
     void Jump_EnterState()
     {
+        //Dee: ANIMATE!
+        anim.SetBool("IsJumping", true);
+        anim.SetBool("HasLanded", false);
+
+
         controller.DisableClamping();
         controller.DisableSlopeLimit();
 
@@ -216,6 +232,11 @@ public class PlayerMachine : SuperStateMachine {
     }
     void Jump_ExitState()
     {
+        //Dee: ANIMATE!
+        anim.SetBool("IsJumping", false);
+        anim.SetBool("IsDoubleJumping", false);
+        anim.SetBool("HasLanded", true);
+
         CanDoubleJump = true;
     }
 
@@ -318,6 +339,9 @@ public class PlayerMachine : SuperStateMachine {
         //Check jump input
         if (input.Current.JumpInput && CanDoubleJump && EnableHoppy)
         {
+            //Dee: ANIMATE!
+            anim.SetBool("IsDoubleJumping", true);
+
             CanDoubleJump = false;
 
             //Immediately make the player move in the input direction when the jump is executed
