@@ -150,6 +150,7 @@ ModelImporter:
     100284: Spine3Joint12
     100286: Spine3Joint1202
     100288: Spine4
+    100290: BaseControl
     400000: ABackLeft
     400002: ABackMiddle
     400004: ABackRight
@@ -295,7 +296,9 @@ ModelImporter:
     400284: Spine3Joint12
     400286: Spine3Joint1202
     400288: Spine4
+    400290: BaseControl
     4300000: Hoppy
+    7400000: Take 001
     9500000: //RootNode
     13700000: Hoppy
   materials:
