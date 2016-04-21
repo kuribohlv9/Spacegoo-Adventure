@@ -6,10 +6,19 @@ public class EventSystem {
     public delegate void OnDoubleJump();
     public static event OnDoubleJump ondoublejump;
 
+    public delegate void OnSwitchCharacter(Transform target);
+    public static event OnSwitchCharacter onswitchcharacter;
+
     public static void ActivateOnDoubleJump()
     {
         if (ondoublejump != null)
             ondoublejump();
+    }
+
+    public static void ActivateSwitchCharacter(Transform target)
+    {
+        if (onswitchcharacter != null)
+            onswitchcharacter(target);
     }
 
     //EXAMPLE TIME
