@@ -1,10 +1,15 @@
 fileFormatVersion: 2
-guid: 31ef8c31477cae74b9f3f3d4e29e9e09
-timeCreated: 1459780942
+guid: 8e6d210984f9b3e43bde66c5fd980541
+timeCreated: 1454782560
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Floaty
   materials:
     importMaterials: 1
     materialName: 0
@@ -47,7 +52,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 3
+    tangentImportMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -63,7 +68,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

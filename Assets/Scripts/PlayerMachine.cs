@@ -308,7 +308,7 @@ public class PlayerMachine : SuperStateMachine {
         AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
 
         //We push the slime towards the wall so it actually looks like we're sticking
-        //controller.transform.position -= StickWall.normal * StickWall.distance;
+        AnimatedMesh.position -= StickWall.normal * StickWall.distance;
         int derp = 0;
     }
     void Sticky_SuperUpdate()
@@ -322,10 +322,12 @@ public class PlayerMachine : SuperStateMachine {
     void Sticky_ExitState()
     {
         //When we leave the state, we leave with momemtum away from the wall
-        moveDirection += StickWall.normal;
+        moveDirection += StickWall.normal * 10;
+        AnimatedMesh.position = transform.position;
 
         //And we normalize our rotation
         AnimatedMesh.rotation = Quaternion.LookRotation(moveDirection);
+
     }
 
     //No Control State
