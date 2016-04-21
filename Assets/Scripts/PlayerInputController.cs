@@ -26,6 +26,8 @@ public class PlayerInputController : MonoBehaviour {
         bool continuousJumpInput = Input.GetButton("Jump");
         bool sticky = Input.GetButtonDown("Fire2");
         bool debug = Input.GetButtonDown("Fire3");
+        bool leftbumper = Input.GetButtonDown("Swap Left");
+        bool rightbumper = Input.GetButtonDown("Swap Right");
 
         Current = new PlayerInput()
         {
@@ -34,7 +36,10 @@ public class PlayerInputController : MonoBehaviour {
             JumpInput = jumpInput,
             ContinuousJumpInput = continuousJumpInput,
             Sticky = sticky,
-            Debug = debug
+            Debug = debug,
+            LeftBumper = leftbumper,
+            RightBumper = rightbumper
+            
         };
 	}
 }
@@ -47,4 +52,6 @@ public struct PlayerInput
     public bool ContinuousJumpInput;
     public bool Sticky;
     public bool Debug;
+    public bool LeftBumper;
+    public bool RightBumper;
 }

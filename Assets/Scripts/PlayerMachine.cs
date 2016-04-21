@@ -5,7 +5,7 @@ using System.Collections;
 [RequireComponent(typeof(PlayerInputController))]
 public class PlayerMachine : SuperStateMachine {
 
-    enum PlayerStates { Idle, Walk, Jump, Fall, Sticky }
+    enum PlayerStates { Idle, Walk, Jump, Fall, Sticky, NoControl }
     
     //Public reference variables. These should be updated to private sometime in the future
     public Transform AnimatedMesh;
@@ -24,6 +24,8 @@ public class PlayerMachine : SuperStateMachine {
     public bool EnableGlidey = true;
     public bool EnableSticky = true;
     public bool EnableHoppy = true;
+    public bool EnableSwitching = false;
+    public bool InControl = false;
 
     public Animator anim;  //Dee: animator
 
@@ -41,6 +43,11 @@ public class PlayerMachine : SuperStateMachine {
     private SuperCharacterController controller;
     private PlayerInputController input;
 
+    //Debug test variables
+    public Transform leftSwitchTarget;
+    public Transform rightSwitchTarget;
+    public Transform controlTarget;
+
     //Start and global updates
 	void Start () {
 	    // Put any code here you want to run ONCE, when the object is initialized
@@ -55,11 +62,27 @@ public class PlayerMachine : SuperStateMachine {
         lookDirection = transform.forward;
 
         // Set our currentState to idle on startup
-        currentState = PlayerStates.Idle;
+        if(InControl)
+        {
+            currentState = PlayerStates.Idle;
+            EventSystem.ActivateSwitchCharacter(controller.transform);
+        }
+        else
+        {
+            currentState = PlayerStates.NoControl;
+        }
         
         //Start out lookingforward
         Lastmovedirection = lookDirection;
 	}
+    void OnEnable()
+    {
+        EventSystem.onswitchcharacter += SwitchTarget;
+    }
+    void OnDisable()
+    {
+        EventSystem.onswitchcharacter -= SwitchTarget;
+    }
     protected override void EarlyGlobalSuperUpdate()
     {
         // Put any code in here you want to run BEFORE the state's update function.
@@ -131,6 +154,8 @@ public class PlayerMachine : SuperStateMachine {
         //Change our rotation to first angle ourself to the ground normal and then look in our last moved direction
         AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
         AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
+
+        HandleSwitching();
     }
 
     //Walk State
@@ -283,7 +308,7 @@ public class PlayerMachine : SuperStateMachine {
         AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
 
         //We push the slime towards the wall so it actually looks like we're sticking
-        //controller.transform.position -= StickWall.normal * StickWall.distance;
+        AnimatedMesh.position -= StickWall.normal * StickWall.distance;
         int derp = 0;
     }
     void Sticky_SuperUpdate()
@@ -297,10 +322,32 @@ public class PlayerMachine : SuperStateMachine {
     void Sticky_ExitState()
     {
         //When we leave the state, we leave with momemtum away from the wall
-        moveDirection += StickWall.normal;
+        moveDirection += StickWall.normal * 10;
+        AnimatedMesh.position = transform.position;
 
         //And we normalize our rotation
         AnimatedMesh.rotation = Quaternion.LookRotation(moveDirection);
+
+    }
+
+    //No Control State
+    void NoControl_EnterState()
+    {
+
+    }
+    void NoControl_SuperUpdate()
+    {
+        if(InControl)
+        {
+            currentState = PlayerStates.Idle;
+        }
+        Vector3 rotatetowardscharacter = controlTarget.transform.position - controller.transform.position;
+        rotatetowardscharacter.y = 0;
+        AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.LookRotation(rotatetowardscharacter), 1);
+    }
+    void NoControl_ExitState()
+    {
+
     }
 
     //Private function used in this script
@@ -334,6 +381,7 @@ public class PlayerMachine : SuperStateMachine {
     {
         moveDirection += controller.up * CalculateJumpSpeed(height, gravity);
     }
+
 
     //Private function used in this script which are executed continously
     private void HandleHoppy()
@@ -392,11 +440,50 @@ public class PlayerMachine : SuperStateMachine {
         }
         return false;
     }
+    private void HandleSwitching()
+    {
+        if (!EnableSwitching)
+            return;
+
+        if (input.Current.LeftBumper)
+        {
+            //Enable playercontroller on specified
+            leftSwitchTarget.GetComponent<PlayerMachine>().InControl = true;
+
+            //set new camera target
+            camera.GetComponent<PlayerCamera>().SetTarget(leftSwitchTarget);
+
+            EventSystem.ActivateSwitchCharacter(leftSwitchTarget);
+
+            InControl = false;
+            currentState = PlayerStates.NoControl;
+        }
+        else if (input.Current.RightBumper)
+        {
+            //Enable playercontroller on specified
+            rightSwitchTarget.GetComponent<PlayerMachine>().InControl = true;
+
+            //set new camera target
+            camera.GetComponent<PlayerCamera>().SetTarget(rightSwitchTarget);
+
+            EventSystem.ActivateSwitchCharacter(rightSwitchTarget);
+
+            InControl = false;
+            currentState = PlayerStates.NoControl;
+        }
+
+    }
 
     //Get functions
     public Vector3 GetMovement()
     {
         return moveDirection;
+    }
+
+    //Event functions
+    private void SwitchTarget(Transform target)
+    {
+        controlTarget = target;
     }
 
     //Public functions other scripts use

@@ -56,4 +56,8 @@ public class PlayerCamera : MonoBehaviour {
         transform.position += controller.up * Height;
 
 	}
+    public void SetTarget(Transform newtarget)
+    {
+        target = newtarget;
+    }
 }
