@@ -24,7 +24,7 @@ public class GitDNet : MonoBehaviour {
 	
 	}
 
-    void LightUp()
+    public void LightUp()
     {
 
         Renderer rend = GetComponentInChildren<Renderer>();
@@ -36,7 +36,7 @@ public class GitDNet : MonoBehaviour {
         //make this on a timer
     }
 
-    void LightOff()
+   public void LightOff()
     {
 
         Renderer rend = GetComponentInChildren<Renderer>();
@@ -48,9 +48,13 @@ public class GitDNet : MonoBehaviour {
 
     }
 
-    //make one function for handling light, call it when movement on shroom 1 is detected
-    //do below, shader emission and light enable on each shroom, based on a timer assigned to each shroom's number like case: Number == 2, wait 1s, case: Number ==3, wait 2.5s and so on
-    //if no movement then turn off, OR wait first and then turn off?? I think the latter...
+    //void OnAwake()
+    //{
+    //    //This subscribes the function LightUp to the ondoublejump event
+    ////  EventSystem.ondoublejump += Lightup();
+    //    EventSystem.onglownet += LightUp();
+
+    //}
 
     void OnTriggerEnter(Collider col)                   //CHANGE THIS TO ONSTAY, GLOWS WHEN PLAYER MOVES ON IT for 1.5s
     {
@@ -60,6 +64,7 @@ public class GitDNet : MonoBehaviour {
 
             if (timer > timerTarget)
             {
+                //EventSystem.ActivateGlowNet();
                 LightUp();
             }
 
@@ -74,3 +79,33 @@ public class GitDNet : MonoBehaviour {
         }
     }
 }
+//EXAMPLE TIME
+
+    //If we have the center mushroom's on player neter function here
+    //private void OnTriggerEnter(Collider col)
+    //{
+    //  if(col.tag == "Player")
+    //  {
+    //      //Call this static function when the player enters the múshroom.
+    //      //This will activate the function in Eventsystem above^
+    //      ActivateOnDoubleJump();
+    //  }
+    //}
+
+    //Over here in each mushroom script we have the lughtup function
+    //public void LightUp()
+    //{
+    //}
+    //It does things
+
+    //But above it we need to assign it to ondoublejump
+    //public void OnAwake()
+    //{
+    //  //This subscribes the function LightUp to the ondoublejump event
+    //  EventSystem.ondoublejump += Lightup();
+    //}
+
+    //So when the center mushroom calls ActivateOnDoubleJump, each mushroom will exeute the LightUp function.
+    //You can create new event variables and new activation functions. Just copy everything above and change the name
+    //OnDoubleJump and ondoublejump to the things you wanna call them.
+    //Good luck!

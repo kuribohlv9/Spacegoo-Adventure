@@ -9,6 +9,9 @@ public class EventSystem {
     public delegate void OnSwitchCharacter(Transform target);
     public static event OnSwitchCharacter onswitchcharacter;
 
+    public delegate void OnGlowNet();
+    public static event OnGlowNet onglownet;
+
     public static void ActivateOnDoubleJump()
     {
         if (ondoublejump != null)
@@ -19,6 +22,14 @@ public class EventSystem {
     {
         if (onswitchcharacter != null)
             onswitchcharacter(target);
+    }
+
+    public static void ActivateGlowNet()
+    {
+        if (onglownet != null)
+        {
+            onglownet();
+        }
     }
 
     //EXAMPLE TIME
