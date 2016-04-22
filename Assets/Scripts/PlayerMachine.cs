@@ -178,8 +178,14 @@ public class PlayerMachine : SuperStateMachine {
             }
 
             //Change our rotation to first angle ourself to the ground normal and then look in our moving direction
-            AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
-            AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(moveDirection, controller.up);
+            //AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
+            //AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(moveDirection, controller.up);
+
+            AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal()) * Quaternion.LookRotation(moveDirection, controller.up), 8);
+            
+            //AnimatedMesh.rotation = Quaternion.LookRotation(moveDirection, controller.up);
+            //AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, AnimatedMesh.rotation * Quaternion.LookRotation(moveDirection, controller.up), 4);
+
         }
         else
         {
@@ -322,7 +328,7 @@ public class PlayerMachine : SuperStateMachine {
         }
         Vector3 rotatetowardscharacter = controlTarget.transform.position - controller.transform.position;
         rotatetowardscharacter.y = 0;
-        AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.LookRotation(rotatetowardscharacter), 1);
+        AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.LookRotation(rotatetowardscharacter), 3);
     }
     void NoControl_ExitState()
     {
@@ -473,5 +479,21 @@ public class PlayerMachine : SuperStateMachine {
         //Changes the movement on command. Used in bounce mushrooms.
         moveDirection = movement;
         CanDoubleJump = true;
+    }
+    public void ForceSwitch(Transform target)
+    {
+        if (target == transform)
+            return;
+
+        //Enable playercontroller on specified
+        target.GetComponent<PlayerMachine>().InControl = true;
+
+        //set new camera target
+        camera.GetComponent<PlayerCamera>().SetTarget(target);
+
+        EventSystem.ActivateSwitchCharacter(target);
+
+        InControl = false;
+        currentState = PlayerStates.NoControl;
     }
 }
