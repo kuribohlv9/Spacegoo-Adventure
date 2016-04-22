@@ -480,4 +480,20 @@ public class PlayerMachine : SuperStateMachine {
         moveDirection = movement;
         CanDoubleJump = true;
     }
+    public void ForceSwitch(Transform target)
+    {
+        if (target == transform)
+            return;
+
+        //Enable playercontroller on specified
+        target.GetComponent<PlayerMachine>().InControl = true;
+
+        //set new camera target
+        camera.GetComponent<PlayerCamera>().SetTarget(target);
+
+        EventSystem.ActivateSwitchCharacter(target);
+
+        InControl = false;
+        currentState = PlayerStates.NoControl;
+    }
 }
