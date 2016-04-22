@@ -4,10 +4,13 @@ using System.Collections;
 public class VenusPortal : MonoBehaviour {
 
     public GameObject TeleTarget;
-    public GameObject Player;
+    public GameObject Player1;
+    public GameObject Player2;
+    public GameObject Player3;
 
     public float timing = 0.3f;
 
+    private int whichPlayer = 0;
     private float count = 0.0f;
     private bool onIt = false;
 
@@ -27,20 +30,26 @@ public class VenusPortal : MonoBehaviour {
             Debug.Log(count);
         }
 
-        if (count >= timing)
-        {
-            count = 0;
-            onIt = false;
-            Player.transform.position = TeleTarget.transform.position;
-            Debug.Log(count);
-        }
+        
     }
 
-    void OnTriggerEnter(Collider col)
+    void OnTriggerStay(Collider col)
     {
         if (col.tag == "Player")
         {
             if (onIt == false) onIt = true;
+            /*if (col == Player1) whichPlayer = 1;
+            if (col == Player1) whichPlayer = 2;
+            if (col == Player1) whichPlayer = 1;*/
+
+            if (count >= timing)
+            {
+                count = 0;
+                onIt = false;
+                //col.transform.position = TeleTarget.transform.position;
+                col.transform.parent.transform.position = TeleTarget.transform.position;
+                Debug.Log(count);
+            }
         }
 
         
