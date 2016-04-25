@@ -271,6 +271,8 @@ public class PlayerMachine : SuperStateMachine {
 
         anim.SetBool("FoldIn", true);
 
+        anim.SetBool("IsJumpingFromStick", false);
+
         CanDoubleJump = true;
     }
 
@@ -308,6 +310,9 @@ public class PlayerMachine : SuperStateMachine {
     //Sticky State
     void Sticky_EnterState()
     {
+        //Dee: ANIMATE!
+        anim.SetBool("IsSticking", true);
+
         //When we start to stick we first wanna stop all movement
         moveDirection = Vector3.zero;
 
@@ -329,6 +334,10 @@ public class PlayerMachine : SuperStateMachine {
     }
     void Sticky_ExitState()
     {
+        //Dee: ANIMATE!
+        anim.SetBool("IsSticking", false);
+        anim.SetBool("IsJumpingFromStick", true);
+
         //When we leave the state, we leave with momemtum away from the wall
         moveDirection += StickWall.normal * 10;
         AnimatedMesh.position = transform.position;
@@ -421,7 +430,7 @@ public class PlayerMachine : SuperStateMachine {
             //ALSO it's going into glide when I use a bounceshroom. cuz it counts as an A press. :B
         }
         
-        
+        //DEE: ANIMATE!
        if (anim.GetBool("IsGliding"))
        {
            anim.SetBool("IsGliding", false);
