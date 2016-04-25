@@ -14,6 +14,10 @@ public class Spin_Me_Right_Round_Right_Round : MonoBehaviour {
 
     private float spin;
     private float limits;
+    private float maxLeft;
+    private float maxRight;
+    private float startRotation;
+
 
     private Vector3 aroundSpin;
 
@@ -24,11 +28,14 @@ public class Spin_Me_Right_Round_Right_Round : MonoBehaviour {
 
         spin = moveSpeed;
 
+        startRotation = transform.rotation.y;
     }
 
     // Update is called once per frame
     void Update ()
     {
+        maxLeft = startRotation + maxLeftRotate;
+        maxRight = startRotation + maxRightRotate;
 
         limits = 180/Mathf.PI * thisOne.transform.rotation.y*2;
 
@@ -36,8 +43,8 @@ public class Spin_Me_Right_Round_Right_Round : MonoBehaviour {
         {
             limits = Mathf.Clamp(limits, -maxLeftRotate, maxRightRotate);
 
-            if (limits == maxRightRotate) spin = -spin;
-            if (limits == -maxLeftRotate) spin = -spin;
+            if (limits == maxRight) spin = -spin;
+            if (limits == -maxLeft) spin = -spin;
         }
 
         transform.rotation = Quaternion.AngleAxis(spin, Vector3.up) * transform.rotation;
