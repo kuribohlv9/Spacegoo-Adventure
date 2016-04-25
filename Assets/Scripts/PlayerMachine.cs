@@ -269,6 +269,8 @@ public class PlayerMachine : SuperStateMachine {
         anim.SetBool("IsDoubleJumping", false);
         anim.SetBool("HasLanded", true);
 
+        anim.SetBool("FoldIn", true);
+
         CanDoubleJump = true;
     }
 
@@ -409,9 +411,26 @@ public class PlayerMachine : SuperStateMachine {
     {
         if (input.Current.ContinuousJumpInput && moveDirection.y < 0 && EnableGlidey)
         {
+            //Dee: ANIMATE!
+            anim.SetBool("IsGliding", true);
+            anim.SetBool("FoldIn", false);
+
             return -Vector3.up * Glide;
+
+            //NEED A WAY TO PLAY FOLD IN WHEN PLAY HAS BEEN HOLDING A AND GLIDING BUT THEN RELEASES GLIDE
+            //ALSO it's going into glide when I use a bounceshroom. cuz it counts as an A press. :B
         }
+        
+        
+       if (anim.GetBool("IsGliding"))
+       {
+           anim.SetBool("IsGliding", false);
+           anim.SetBool("FoldIn", true);
+           anim.SetBool("HasLanded", true);
+       }
+        
         return verticalmovement;
+
     }
     private bool HandleSticky()
     {

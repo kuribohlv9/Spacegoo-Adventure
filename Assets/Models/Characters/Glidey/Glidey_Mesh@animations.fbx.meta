@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c319e5aecd3a3d94a9f977aedbb5283c
-timeCreated: 1461241867
+guid: 78f3adf62c0b43e459d8ac5144b2f893
+timeCreated: 1461583600
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -224,9 +224,11 @@ ModelImporter:
     7400004: Land
     7400006: Idle
     7400008: Walk
-    7400010: Glide Fold Out
+    7400010: Glide fold out
     7400012: Glide
     7400014: Glide Fold In
+    7400016: animations7
+    7400018: animations8
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -490,7 +492,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
+      additiveReferencePoseFrame: 82
     - serializedVersion: 16
       name: Air Time
       takeName: Take 001
@@ -502,8 +504,8 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -986,8 +988,8 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -1228,8 +1230,8 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -1460,7 +1462,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Glide Fold Out
+      name: Glide fold out
       takeName: Take 001
       firstFrame: 82
       lastFrame: 95
@@ -1705,15 +1707,15 @@ ModelImporter:
       name: Glide
       takeName: Take 001
       firstFrame: 95
-      lastFrame: 95
+      lastFrame: 96
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

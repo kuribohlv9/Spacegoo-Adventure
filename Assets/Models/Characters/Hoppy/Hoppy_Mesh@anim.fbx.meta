@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 455685b2d466ced4f94ea3e2a67ede78
-timeCreated: 1461241237
+guid: f4324d35a71734e4d829af2f01e0c79e
+timeCreated: 1461583613
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -299,12 +299,6 @@ ModelImporter:
     7400006: Walk
     7400008: Idle
     7400010: Double Jump
-    7400012: anim5
-    7400014: anim6
-    7400016: anim7
-    7400018: anim8
-    7400020: anim9
-    7400022: anim10
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -654,8 +648,8 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -1286,8 +1280,8 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -1602,8 +1596,8 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
