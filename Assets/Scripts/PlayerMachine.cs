@@ -212,8 +212,6 @@ public class PlayerMachine : SuperStateMachine {
         //Dee: ANIMATE!
         anim.SetBool("IsJumping", true);
         anim.SetBool("HasLanded", false);
-
-        //DEE: Animate!
         anim.SetBool("FoldIn", false);
 
 
@@ -272,9 +270,7 @@ public class PlayerMachine : SuperStateMachine {
         anim.SetBool("IsJumping", false);
         anim.SetBool("IsDoubleJumping", false);
         anim.SetBool("HasLanded", true);
-        //DEE: Animate!
         anim.SetBool("FoldIn", true);
-
         anim.SetBool("IsJumpingFromStick", false);
 
         CanDoubleJump = true;
@@ -314,8 +310,7 @@ public class PlayerMachine : SuperStateMachine {
     //Sticky State
     void Sticky_EnterState()
     {
-        
-
+       
         //When we start to stick we first wanna stop all movement
         moveDirection = Vector3.zero;
 
@@ -327,8 +322,9 @@ public class PlayerMachine : SuperStateMachine {
         AnimatedMesh.position -= StickWall.normal * StickWall.distance;
         int derp = 0;
 
-        //Dee: THIS ISN'T WORKING. HE IS NEVER ENTERING STUCK ANIMATION
+        //Dee: ANIMATE? THIS ISN'T WORKING. HE IS NEVER ENTERING STUCK ANIMATION
         anim.SetBool("IsSticking", true);
+
     }
     void Sticky_SuperUpdate()
     {
@@ -421,6 +417,11 @@ public class PlayerMachine : SuperStateMachine {
             //Immediately make the player move in the input direction when the jump is executed
             moveDirection = LocalMovement() * WalkSpeed;
             Jump(JumpHeight, Gravity);
+
+            if (anim.GetBool("IsDoubleJumping")) //FULLÖSNING
+            {
+                anim.SetBool("IsDoubleJumping", false);
+            }
         }
     }
     private Vector3 HandleGlidey(Vector3 verticalmovement)
