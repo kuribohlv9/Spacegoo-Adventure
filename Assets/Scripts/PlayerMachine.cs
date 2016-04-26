@@ -213,6 +213,8 @@ public class PlayerMachine : SuperStateMachine {
         anim.SetBool("IsJumping", true);
         anim.SetBool("HasLanded", false);
 
+        //anim.SetBool("FoldIn", false);
+
 
         controller.DisableClamping();
         controller.DisableSlopeLimit();
@@ -269,7 +271,7 @@ public class PlayerMachine : SuperStateMachine {
         anim.SetBool("IsDoubleJumping", false);
         anim.SetBool("HasLanded", true);
 
-        anim.SetBool("FoldIn", true);
+        //anim.SetBool("FoldIn", true);
 
         anim.SetBool("IsJumpingFromStick", false);
 
