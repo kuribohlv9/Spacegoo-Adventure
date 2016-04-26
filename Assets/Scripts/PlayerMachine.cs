@@ -213,6 +213,9 @@ public class PlayerMachine : SuperStateMachine {
         anim.SetBool("IsJumping", true);
         anim.SetBool("HasLanded", false);
 
+        //DEE: Animate!
+        anim.SetBool("FoldIn", false);
+
 
         controller.DisableClamping();
         controller.DisableSlopeLimit();
@@ -234,6 +237,7 @@ public class PlayerMachine : SuperStateMachine {
         //This calculates if we touch the ground
         if (Vector3.Angle(verticalMoveDirection, controller.up) > 90 && AcquiringGround())
         {
+            
             moveDirection = planarMoveDirection;
             currentState = PlayerStates.Idle;
             moveDirection *= Slowdown;
@@ -268,7 +272,7 @@ public class PlayerMachine : SuperStateMachine {
         anim.SetBool("IsJumping", false);
         anim.SetBool("IsDoubleJumping", false);
         anim.SetBool("HasLanded", true);
-
+        //DEE: Animate!
         anim.SetBool("FoldIn", true);
 
         anim.SetBool("IsJumpingFromStick", false);
@@ -310,8 +314,7 @@ public class PlayerMachine : SuperStateMachine {
     //Sticky State
     void Sticky_EnterState()
     {
-        //Dee: ANIMATE!
-        anim.SetBool("IsSticking", true);
+        
 
         //When we start to stick we first wanna stop all movement
         moveDirection = Vector3.zero;
@@ -323,6 +326,9 @@ public class PlayerMachine : SuperStateMachine {
         //We push the slime towards the wall so it actually looks like we're sticking
         AnimatedMesh.position -= StickWall.normal * StickWall.distance;
         int derp = 0;
+
+        //Dee: THIS ISN'T WORKING. HE IS NEVER ENTERING STUCK ANIMATION
+        anim.SetBool("IsSticking", true);
     }
     void Sticky_SuperUpdate()
     {
@@ -330,6 +336,7 @@ public class PlayerMachine : SuperStateMachine {
         if(input.Current.Sticky)
         {
             currentState = PlayerStates.Jump;
+
         }
     }
     void Sticky_ExitState()
@@ -406,7 +413,7 @@ public class PlayerMachine : SuperStateMachine {
         //Check jump input
         if (input.Current.JumpInput && CanDoubleJump && EnableHoppy)
         {
-            //Dee: ANIMATE!
+            //Dee: ANIMATE! this is actually making him play the animation TWICE. Why??
             anim.SetBool("IsDoubleJumping", true);
 
             CanDoubleJump = false;
@@ -418,25 +425,27 @@ public class PlayerMachine : SuperStateMachine {
     }
     private Vector3 HandleGlidey(Vector3 verticalmovement)
     {
+
+        
         if (input.Current.ContinuousJumpInput && moveDirection.y < 0 && EnableGlidey)
         {
+
             //Dee: ANIMATE!
             anim.SetBool("IsGliding", true);
-            anim.SetBool("FoldIn", false);
 
             return -Vector3.up * Glide;
 
             //NEED A WAY TO PLAY FOLD IN WHEN PLAY HAS BEEN HOLDING A AND GLIDING BUT THEN RELEASES GLIDE
             //ALSO it's going into glide when I use a bounceshroom. cuz it counts as an A press. :B
         }
-        
+
         //DEE: ANIMATE!
-       if (anim.GetBool("IsGliding"))
-       {
-           anim.SetBool("IsGliding", false);
-           anim.SetBool("FoldIn", true);
-           anim.SetBool("HasLanded", true);
-       }
+        if (anim.GetBool("IsGliding"))
+        {
+            anim.SetBool("FoldIn", true);
+            anim.SetBool("IsGliding", false);
+            
+        }
         
         return verticalmovement;
 
