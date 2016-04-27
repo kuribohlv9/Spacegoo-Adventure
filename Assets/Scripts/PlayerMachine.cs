@@ -418,7 +418,7 @@ public class PlayerMachine : SuperStateMachine {
             moveDirection = LocalMovement() * WalkSpeed;
             Jump(JumpHeight, Gravity);
 
-            if (anim.GetBool("IsDoubleJumping")) //FULLÖSNING
+            if (anim.GetBool("IsDoubleJumping")) //FULLÖSNING. Works but ONLY IF we set air time -> doublejump transition to condition IsJumping rather than IsDoubleJumping..
             {
                 anim.SetBool("IsDoubleJumping", false);
             }
