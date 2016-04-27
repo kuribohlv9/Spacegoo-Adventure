@@ -10,7 +10,9 @@ public class PuffTrigger : MonoBehaviour {
 
     private float count = 0.0f;
     private bool onIt = false;
-    private bool explode = false;
+    public bool explode = false;
+
+    private Collider ColD;
 
     // Use this for initialization
     void Start ()
@@ -32,10 +34,17 @@ public class PuffTrigger : MonoBehaviour {
             count = 0;
             onIt = false;
             explode = true;
-            Puffer.Detonate(explode);
+            
             Debug.Log(count);
         }
 
+        if (ColD.tag == "Player")
+        {
+            if (explode == true)
+            {
+                Puffer.Detonate(ColD);
+            }
+        }
     }
 
     void OnTriggerEnter(Collider col)
@@ -43,10 +52,22 @@ public class PuffTrigger : MonoBehaviour {
         if (col.tag == "Player")
         {
             if (onIt == false) onIt = true;
+            ColD = col;
         }
 
        
     }
+
+    /*void OnTriggerStay(Collider col)
+    {
+        if (col.tag == "Player")
+        {
+            if (explode == true)
+            {
+                Puffer.Detonate(col);
+            }
+        }
+    }*/
 
     void OnTriggerExit(Collider col)
     {
