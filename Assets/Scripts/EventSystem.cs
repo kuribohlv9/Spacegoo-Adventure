@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EventSystem {
+public class EventSystem
+{
 
     public delegate void OnDoubleJump();
     public static event OnDoubleJump ondoublejump;
 
     public delegate void OnSwitchCharacter(Transform target);
     public static event OnSwitchCharacter onswitchcharacter;
+
+    public delegate void OnGlowNet();
+    public static event OnGlowNet onglownet;
 
     public static void ActivateOnDoubleJump()
     {
@@ -19,6 +23,14 @@ public class EventSystem {
     {
         if (onswitchcharacter != null)
             onswitchcharacter(target);
+    }
+
+    public static void ActivateGlowNet()
+    {
+        if (onglownet != null)
+        {
+            onglownet();
+        }
     }
 
     //EXAMPLE TIME
