@@ -5,7 +5,7 @@ using System.Collections;
 [RequireComponent(typeof(PlayerInputController))]
 public class PlayerMachine : SuperStateMachine {
 
-    enum PlayerStates { Idle, Walk, Jump, Fall, Sticky }
+    enum PlayerStates { Idle, Walk, Jump, Fall, Sticky, NoControl }
     
     //Public reference variables. These should be updated to private sometime in the future
     public Transform AnimatedMesh;
@@ -24,6 +24,10 @@ public class PlayerMachine : SuperStateMachine {
     public bool EnableGlidey = true;
     public bool EnableSticky = true;
     public bool EnableHoppy = true;
+    public bool EnableSwitching = false;
+    public bool InControl = false;
+
+    public Animator anim;  //Dee: animator
 
     //Private variables for different behaviours
     private float jumptime = 0;
@@ -39,10 +43,17 @@ public class PlayerMachine : SuperStateMachine {
     private SuperCharacterController controller;
     private PlayerInputController input;
 
+    //Debug test variables
+    public Transform leftSwitchTarget;
+    public Transform rightSwitchTarget;
+    public Transform controlTarget;
+
     //Start and global updates
 	void Start () {
 	    // Put any code here you want to run ONCE, when the object is initialized
         input = gameObject.GetComponent<PlayerInputController>();
+
+        anim = GetComponentInChildren<Animator>();        //Dee: INITIALIZE ANIMATOR
 
         // Grab the controller object from our object
         controller = gameObject.GetComponent<SuperCharacterController>();
@@ -51,11 +62,27 @@ public class PlayerMachine : SuperStateMachine {
         lookDirection = transform.forward;
 
         // Set our currentState to idle on startup
-        currentState = PlayerStates.Idle;
+        if(InControl)
+        {
+            currentState = PlayerStates.Idle;
+            EventSystem.ActivateSwitchCharacter(controller.transform);
+        }
+        else
+        {
+            currentState = PlayerStates.NoControl;
+        }
         
         //Start out lookingforward
         Lastmovedirection = lookDirection;
 	}
+    void OnEnable()
+    {
+        EventSystem.onswitchcharacter += SwitchTarget;
+    }
+    void OnDisable()
+    {
+        EventSystem.onswitchcharacter -= SwitchTarget;
+    }
     protected override void EarlyGlobalSuperUpdate()
     {
         // Put any code in here you want to run BEFORE the state's update function.
@@ -89,6 +116,9 @@ public class PlayerMachine : SuperStateMachine {
     //Idle State
     void Idle_EnterState()
     {
+        //Dee: ANIMATE
+        anim.SetBool("IsWalking", false);
+
         controller.EnableSlopeLimit();
         controller.EnableClamping();
     }
@@ -124,6 +154,8 @@ public class PlayerMachine : SuperStateMachine {
         //Change our rotation to first angle ourself to the ground normal and then look in our last moved direction
         AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
         AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
+
+        HandleSwitching();
     }
 
     //Walk State
@@ -143,6 +175,10 @@ public class PlayerMachine : SuperStateMachine {
             return;
         }
 
+        //Dee: ANIMATE!
+        anim.SetBool("IsWalking", true);
+
+
         //Calculate movement
         if (input.Current.MoveInput != Vector3.zero)
         {
@@ -153,8 +189,14 @@ public class PlayerMachine : SuperStateMachine {
             }
 
             //Change our rotation to first angle ourself to the ground normal and then look in our moving direction
-            AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
-            AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(moveDirection, controller.up);
+            //AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
+            //AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(moveDirection, controller.up);
+
+            AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal()) * Quaternion.LookRotation(moveDirection, controller.up), 8);
+            
+            //AnimatedMesh.rotation = Quaternion.LookRotation(moveDirection, controller.up);
+            //AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, AnimatedMesh.rotation * Quaternion.LookRotation(moveDirection, controller.up), 4);
+
         }
         else
         {
@@ -167,6 +209,12 @@ public class PlayerMachine : SuperStateMachine {
     //Jump State
     void Jump_EnterState()
     {
+        //Dee: ANIMATE!
+        anim.SetBool("IsJumping", true);
+        anim.SetBool("HasLanded", false);
+        anim.SetBool("FoldIn", false);
+
+
         controller.DisableClamping();
         controller.DisableSlopeLimit();
 
@@ -177,7 +225,8 @@ public class PlayerMachine : SuperStateMachine {
     {
         //Handle both double jump and stick to walls
         HandleHoppy();
-        HandleSticky();
+        if (HandleSticky())
+            return;
 
         //This is unneccesary and should be rewritten :p :p :p
         Vector3 planarMoveDirection = Math3d.ProjectVectorOnPlane(controller.up, moveDirection);
@@ -186,6 +235,7 @@ public class PlayerMachine : SuperStateMachine {
         //This calculates if we touch the ground
         if (Vector3.Angle(verticalMoveDirection, controller.up) > 90 && AcquiringGround())
         {
+            
             moveDirection = planarMoveDirection;
             currentState = PlayerStates.Idle;
             moveDirection *= Slowdown;
@@ -216,6 +266,13 @@ public class PlayerMachine : SuperStateMachine {
     }
     void Jump_ExitState()
     {
+        //Dee: ANIMATE!
+        anim.SetBool("IsJumping", false);
+        anim.SetBool("IsDoubleJumping", false);
+        anim.SetBool("HasLanded", true);
+        anim.SetBool("FoldIn", true);
+        anim.SetBool("IsJumpingFromStick", false);
+
         CanDoubleJump = true;
     }
 
@@ -253,6 +310,7 @@ public class PlayerMachine : SuperStateMachine {
     //Sticky State
     void Sticky_EnterState()
     {
+       
         //When we start to stick we first wanna stop all movement
         moveDirection = Vector3.zero;
 
@@ -261,7 +319,12 @@ public class PlayerMachine : SuperStateMachine {
         AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
 
         //We push the slime towards the wall so it actually looks like we're sticking
-        controller.transform.position -= StickWall.normal * StickWall.distance;
+        AnimatedMesh.position -= StickWall.normal * StickWall.distance;
+        int derp = 0;
+
+        //Dee: ANIMATE? THIS ISN'T WORKING. HE IS NEVER ENTERING STUCK ANIMATION
+        anim.SetBool("IsSticking", true);
+
     }
     void Sticky_SuperUpdate()
     {
@@ -269,15 +332,42 @@ public class PlayerMachine : SuperStateMachine {
         if(input.Current.Sticky)
         {
             currentState = PlayerStates.Jump;
+
         }
     }
     void Sticky_ExitState()
     {
+        //Dee: ANIMATE!
+        anim.SetBool("IsSticking", false);
+        anim.SetBool("IsJumpingFromStick", true);
+
         //When we leave the state, we leave with momemtum away from the wall
-        moveDirection += StickWall.normal;
+        moveDirection += StickWall.normal * 10;
+        AnimatedMesh.position = transform.position;
 
         //And we normalize our rotation
         AnimatedMesh.rotation = Quaternion.LookRotation(moveDirection);
+
+    }
+
+    //No Control State
+    void NoControl_EnterState()
+    {
+
+    }
+    void NoControl_SuperUpdate()
+    {
+        if(InControl)
+        {
+            currentState = PlayerStates.Idle;
+        }
+        Vector3 rotatetowardscharacter = controlTarget.transform.position - controller.transform.position;
+        rotatetowardscharacter.y = 0;
+        AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.LookRotation(rotatetowardscharacter), 3);
+    }
+    void NoControl_ExitState()
+    {
+
     }
 
     //Private function used in this script
@@ -312,28 +402,56 @@ public class PlayerMachine : SuperStateMachine {
         moveDirection += controller.up * CalculateJumpSpeed(height, gravity);
     }
 
+
     //Private function used in this script which are executed continously
     private void HandleHoppy()
     {
         //Check jump input
         if (input.Current.JumpInput && CanDoubleJump && EnableHoppy)
         {
+            //Dee: ANIMATE! this is actually making him play the animation TWICE. Why??
+            anim.SetBool("IsDoubleJumping", true);
+
             CanDoubleJump = false;
 
             //Immediately make the player move in the input direction when the jump is executed
             moveDirection = LocalMovement() * WalkSpeed;
             Jump(JumpHeight, Gravity);
+
+            if (anim.GetBool("IsDoubleJumping")) //FULLÖSNING. Works but ONLY IF we set air time -> doublejump transition to condition IsJumping rather than IsDoubleJumping..
+            {
+                anim.SetBool("IsDoubleJumping", false);
+            }
         }
     }
     private Vector3 HandleGlidey(Vector3 verticalmovement)
     {
+
+        
         if (input.Current.ContinuousJumpInput && moveDirection.y < 0 && EnableGlidey)
         {
+
+            //Dee: ANIMATE!
+            anim.SetBool("IsGliding", true);
+
             return -Vector3.up * Glide;
+
+            //NEED A WAY TO PLAY FOLD IN WHEN PLAY HAS BEEN HOLDING A AND GLIDING BUT THEN RELEASES GLIDE
+            //ALSO it's going into glide when I use a bounceshroom. cuz it counts as an A press. :B
         }
+
+        //DEE: ANIMATE!
+        if (anim.GetBool("IsGliding"))
+        {
+            anim.SetBool("FoldIn", true);
+            anim.SetBool("IsGliding", false);
+            
+        }
+        
         return verticalmovement;
+
     }
-    private void HandleSticky()
+    private bool HandleSticky()
     {
         //First we check the input and if we can stick
         if (input.Current.Sticky && EnableSticky)
@@ -358,18 +476,58 @@ public class PlayerMachine : SuperStateMachine {
                         {
                             StickWall = hit;
                             currentState = PlayerStates.Sticky;
-                            return;
+                            return true;
                         }
                     }
                 }
             }
         }
+        return false;
+    }
+    private void HandleSwitching()
+    {
+        if (!EnableSwitching)
+            return;
+
+        if (input.Current.LeftBumper)
+        {
+            //Enable playercontroller on specified
+            leftSwitchTarget.GetComponent<PlayerMachine>().InControl = true;
+
+            //set new camera target
+            camera.GetComponent<PlayerCamera>().SetTarget(leftSwitchTarget);
+
+            EventSystem.ActivateSwitchCharacter(leftSwitchTarget);
+
+            InControl = false;
+            currentState = PlayerStates.NoControl;
+        }
+        else if (input.Current.RightBumper)
+        {
+            //Enable playercontroller on specified
+            rightSwitchTarget.GetComponent<PlayerMachine>().InControl = true;
+
+            //set new camera target
+            camera.GetComponent<PlayerCamera>().SetTarget(rightSwitchTarget);
+
+            EventSystem.ActivateSwitchCharacter(rightSwitchTarget);
+
+            InControl = false;
+            currentState = PlayerStates.NoControl;
+        }
+
     }
 
     //Get functions
     public Vector3 GetMovement()
     {
         return moveDirection;
+    }
+
+    //Event functions
+    private void SwitchTarget(Transform target)
+    {
+        controlTarget = target;
     }
 
     //Public functions other scripts use
@@ -383,5 +541,21 @@ public class PlayerMachine : SuperStateMachine {
         //Changes the movement on command. Used in bounce mushrooms.
         moveDirection = movement;
         CanDoubleJump = true;
+    }
+    public void ForceSwitch(Transform target)
+    {
+        if (target == transform)
+            return;
+
+        //Enable playercontroller on specified
+        target.GetComponent<PlayerMachine>().InControl = true;
+
+        //set new camera target
+        camera.GetComponent<PlayerCamera>().SetTarget(target);
+
+        EventSystem.ActivateSwitchCharacter(target);
+
+        InControl = false;
+        currentState = PlayerStates.NoControl;
     }
 }
