@@ -26,6 +26,8 @@ public class PlayerMachine : SuperStateMachine {
     public bool EnableHoppy = true;
     public bool EnableSwitching = false;
     public bool InControl = false;
+    public float MaxSuperJump = 10;
+    public float SuperJumpBuildingSpeed = 1.0f;
 
     //Private variables for different behaviours
     private float jumptime = 0;
@@ -33,6 +35,7 @@ public class PlayerMachine : SuperStateMachine {
     private RaycastHit StickWall;
     private Vector3 Lastmovedirection;
     private Vector3 moveDirection;
+    private float SuperJumpCount = 0;
 
 
     //I have no idea what exactly lookDirection does ?_?
@@ -151,6 +154,7 @@ public class PlayerMachine : SuperStateMachine {
         AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
         AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
 
+        HandleHoppy();
         HandleSwitching();
     }
 
@@ -429,6 +433,22 @@ public class PlayerMachine : SuperStateMachine {
             }
         }
         return false;
+    }
+    private void HandleHoppy()
+    {
+        if(input.Current.Debug && EnableHoppy)
+        {
+            if(MaxSuperJump > SuperJumpCount)
+            {
+                SuperJumpCount += Time.deltaTime * SuperJumpBuildingSpeed;
+            }
+        }
+        if(!input.Current.Debug && EnableHoppy && SuperJumpCount != 0)
+        {
+            currentState = PlayerStates.Air;
+            Jump(SuperJumpCount, Gravity);
+            SuperJumpCount = 0;
+        }
     }
     private void HandleSwitching()
     {
