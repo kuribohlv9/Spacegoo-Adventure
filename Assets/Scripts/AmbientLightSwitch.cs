@@ -19,7 +19,7 @@ public class AmbientLightSwitch : MonoBehaviour {
         if(col.tag == "Player")
         {
             Debug.Log("Cena");
-            RenderSettings.ambientIntensity = 0;
+            RenderSettings.ambientIntensity = 0.05f;
         }
     }
     void OnTriggerExit(Collider col)
