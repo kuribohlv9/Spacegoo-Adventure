@@ -5,7 +5,7 @@ using System.Collections;
 [RequireComponent(typeof(PlayerInputController))]
 public class PlayerMachine : SuperStateMachine {
 
-    enum PlayerStates { Idle, Walk, Jump, Fall, Sticky, NoControl }
+    enum PlayerStates { Idle, Walk, Air, Sticky, NoControl }
     
     //Public reference variables. These should be updated to private sometime in the future
     public Transform AnimatedMesh;
@@ -26,8 +26,8 @@ public class PlayerMachine : SuperStateMachine {
     public bool EnableHoppy = true;
     public bool EnableSwitching = false;
     public bool InControl = false;
-
-    public Animator anim;  //Dee: animator
+    public float MaxSuperJump = 10;
+    public float SuperJumpBuildingSpeed = 1.0f;
 
     //Private variables for different behaviours
     private float jumptime = 0;
@@ -35,6 +35,8 @@ public class PlayerMachine : SuperStateMachine {
     private RaycastHit StickWall;
     private Vector3 Lastmovedirection;
     private Vector3 moveDirection;
+    private float SuperJumpCount = 0;
+
 
     //I have no idea what exactly lookDirection does ?_?
     public Vector3 lookDirection { get; private set; }
@@ -52,8 +54,6 @@ public class PlayerMachine : SuperStateMachine {
 	void Start () {
 	    // Put any code here you want to run ONCE, when the object is initialized
         input = gameObject.GetComponent<PlayerInputController>();
-
-        anim = GetComponentInChildren<Animator>();        //Dee: INITIALIZE ANIMATOR
 
         // Grab the controller object from our object
         controller = gameObject.GetComponent<SuperCharacterController>();
@@ -74,6 +74,7 @@ public class PlayerMachine : SuperStateMachine {
         
         //Start out lookingforward
         Lastmovedirection = lookDirection;
+
 	}
     void OnEnable()
     {
@@ -116,9 +117,6 @@ public class PlayerMachine : SuperStateMachine {
     //Idle State
     void Idle_EnterState()
     {
-        //Dee: ANIMATE
-        anim.SetBool("IsWalking", false);
-
         controller.EnableSlopeLimit();
         controller.EnableClamping();
     }
@@ -128,7 +126,8 @@ public class PlayerMachine : SuperStateMachine {
         //Check if we're gonna jump
         if (input.Current.JumpInput)
         {
-            currentState = PlayerStates.Jump;
+            currentState = PlayerStates.Air;
+            Jump(JumpHeight, Gravity);
             return;
         }
 
@@ -136,7 +135,7 @@ public class PlayerMachine : SuperStateMachine {
         //Check if we're gonna fall
         if (!MaintainingGround())
         {
-            currentState = PlayerStates.Fall;
+            currentState = PlayerStates.Air;
             return;
         }
 
@@ -155,6 +154,7 @@ public class PlayerMachine : SuperStateMachine {
         AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
         AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
 
+        HandleHoppy();
         HandleSwitching();
     }
 
@@ -164,20 +164,17 @@ public class PlayerMachine : SuperStateMachine {
         //Check if we're gonna jump
         if (input.Current.JumpInput)
         {
-            currentState = PlayerStates.Jump;
+            currentState = PlayerStates.Air;
+            Jump(JumpHeight, Gravity);
             return;
         }
 
         //Check if we're gonna fall
         if (!MaintainingGround())
         {
-            currentState = PlayerStates.Fall;
+            currentState = PlayerStates.Air;
             return;
         }
-
-        //Dee: ANIMATE!
-        anim.SetBool("IsWalking", true);
-
 
         //Calculate movement
         if (input.Current.MoveInput != Vector3.zero)
@@ -206,111 +203,92 @@ public class PlayerMachine : SuperStateMachine {
         }
     }
 
-    //Jump State
-    void Jump_EnterState()
-    {
-        //Dee: ANIMATE!
-        anim.SetBool("IsJumping", true);
-        anim.SetBool("HasLanded", false);
-        anim.SetBool("FoldIn", false);
+    ////Jump State
+    //void Jump_EnterState()
+    //{
+    //    controller.DisableClamping();
+    //    controller.DisableSlopeLimit();
 
+    //    //Give us vertical movement
+    //    Jump(JumpHeight, Gravity);
+    //}
+    //void Jump_SuperUpdate()
+    //{
+    //    //Handle both double jump and stick to walls
+    //    HandleDoubleJump();
+    //    if (HandleSticky())
+    //        return;
 
-        controller.DisableClamping();
-        controller.DisableSlopeLimit();
+    //    HandleAirMovement();
+    //}
+    //void Jump_ExitState()
+    //{
+    //    CanDoubleJump = true;
+    //}
 
-        //Give us vertical movement
-        Jump(JumpHeight, Gravity);
-    }
-    void Jump_SuperUpdate()
-    {
-        //Handle both double jump and stick to walls
-        HandleHoppy();
-        if (HandleSticky())
-            return;
+    ////Fall State
+    //void Fall_EnterState()
+    //{
+    //    controller.DisableClamping();
+    //    controller.DisableSlopeLimit();
 
-        //This is unneccesary and should be rewritten :p :p :p
-        Vector3 planarMoveDirection = Math3d.ProjectVectorOnPlane(controller.up, moveDirection);
-        Vector3 verticalMoveDirection = moveDirection - planarMoveDirection;
+    //    //Resets our window of jump opportunity
+    //    jumptime = 0;
+    //}
+    //void Fall_SuperUpdate()
+    //{
+    //    //--WARNING--WARNING--
+    //    //Let's just ignore this for now.
+    //    //We should really rewrite this when we have the time :P
+    //    jumptime += Time.deltaTime;
+    //    if (jumptime < 0.1 && input.Current.JumpInput)
+    //    {
+    //        currentState = PlayerStates.Jump;
+    //        return;
+    //    }
 
-        //This calculates if we touch the ground
-        if (Vector3.Angle(verticalMoveDirection, controller.up) > 90 && AcquiringGround())
-        {
-            
-            moveDirection = planarMoveDirection;
-            currentState = PlayerStates.Idle;
-            moveDirection *= Slowdown;
-            return;            
-        }
+    //    HandleAirMovement();
+    //    //if (AcquiringGround())
+    //    //{
+    //    //    moveDirection = Math3d.ProjectVectorOnPlane(controller.up, moveDirection);
+    //    //    currentState = PlayerStates.Idle;
+    //    //    return;
+    //    //}
 
-        planarMoveDirection = Vector3.MoveTowards(planarMoveDirection, LocalMovement() * WalkSpeed, JumpAcceleration * Time.deltaTime);
-        if(verticalMoveDirection.y > -30)
-        {
-            verticalMoveDirection -= controller.up * Gravity * Time.deltaTime;
-            //verticalMoveDirection = Vector3.MoveTowards(verticalMoveDirection, verticalMoveDirection - controller.up * Gravity * Time.deltaTime, MaxFallSpeed * Time.deltaTime);
-        }
+    //    //moveDirection -= controller.up * Gravity * Time.deltaTime;
+    //}
 
-        //Handle gliding and change the vertical movement appropriately
-        verticalMoveDirection = HandleGlidey(verticalMoveDirection);
-
-        moveDirection = planarMoveDirection + verticalMoveDirection;
-
-        //Change where we're looking to our movement, but ignore the y direction so we're stable.
-        Vector3 tempdirection = moveDirection;
-        tempdirection.y = 0;
-        if(tempdirection != Vector3.zero)
-        { 
-            AnimatedMesh.rotation = Quaternion.LookRotation(tempdirection, controller.up);
-        }
-
-
-    }
-    void Jump_ExitState()
-    {
-        //Dee: ANIMATE!
-        anim.SetBool("IsJumping", false);
-        anim.SetBool("IsDoubleJumping", false);
-        anim.SetBool("HasLanded", true);
-        anim.SetBool("FoldIn", true);
-        anim.SetBool("IsJumpingFromStick", false);
-
-        CanDoubleJump = true;
-    }
-
-    //Fall State
-    void Fall_EnterState()
+    void Air_EnterState()
     {
         controller.DisableClamping();
         controller.DisableSlopeLimit();
-
-        //Resets our window of jump opportunity
+        
         jumptime = 0;
     }
-    void Fall_SuperUpdate()
+    void Air_SuperUpdate()
     {
-        //--WARNING--WARNING--
-        //Let's just ignore this for now.
-        //We should really rewrite this when we have the time :P
         jumptime += Time.deltaTime;
         if (jumptime < 0.1 && input.Current.JumpInput)
         {
-            currentState = PlayerStates.Jump;
+            Jump(JumpHeight, Gravity);
+            jumptime = 1;
             return;
         }
 
-        if (AcquiringGround())
-        {
-            moveDirection = Math3d.ProjectVectorOnPlane(controller.up, moveDirection);
-            currentState = PlayerStates.Idle;
+        HandleDoubleJump();
+        if (HandleSticky())
             return;
-        }
 
-        moveDirection -= controller.up * Gravity * Time.deltaTime;
+        HandleAirMovement();
+    }
+    void Air_ExitState()
+    {
+        CanDoubleJump = true;
     }
 
     //Sticky State
     void Sticky_EnterState()
     {
-       
         //When we start to stick we first wanna stop all movement
         moveDirection = Vector3.zero;
 
@@ -321,32 +299,31 @@ public class PlayerMachine : SuperStateMachine {
         //We push the slime towards the wall so it actually looks like we're sticking
         AnimatedMesh.position -= StickWall.normal * StickWall.distance;
         int derp = 0;
-
-        //Dee: ANIMATE? THIS ISN'T WORKING. HE IS NEVER ENTERING STUCK ANIMATION
-        anim.SetBool("IsSticking", true);
-
     }
     void Sticky_SuperUpdate()
     {
         //All we do in this state is checking if we should leave it
-        if(input.Current.Sticky)
+        if(input.Current.JumpInput)
         {
-            currentState = PlayerStates.Jump;
-
+            currentState = PlayerStates.Air;
+            Jump(JumpHeight, Gravity);
+            moveDirection += StickWall.normal * 10;
+        }
+        else if(input.Current.Sticky)
+        {
+            currentState = PlayerStates.Air;
+            moveDirection += StickWall.normal * 5;
         }
     }
     void Sticky_ExitState()
     {
-        //Dee: ANIMATE!
-        anim.SetBool("IsSticking", false);
-        anim.SetBool("IsJumpingFromStick", true);
-
         //When we leave the state, we leave with momemtum away from the wall
-        moveDirection += StickWall.normal * 10;
         AnimatedMesh.position = transform.position;
 
         //And we normalize our rotation
         AnimatedMesh.rotation = Quaternion.LookRotation(moveDirection);
+
+        CanDoubleJump = false;
 
     }
 
@@ -404,52 +381,25 @@ public class PlayerMachine : SuperStateMachine {
 
 
     //Private function used in this script which are executed continously
-    private void HandleHoppy()
+    private void HandleDoubleJump()
     {
         //Check jump input
-        if (input.Current.JumpInput && CanDoubleJump && EnableHoppy)
+        if (input.Current.JumpInput && CanDoubleJump)
         {
-            //Dee: ANIMATE! this is actually making him play the animation TWICE. Why??
-            anim.SetBool("IsDoubleJumping", true);
-
             CanDoubleJump = false;
 
             //Immediately make the player move in the input direction when the jump is executed
             moveDirection = LocalMovement() * WalkSpeed;
             Jump(JumpHeight, Gravity);
-
-            if (anim.GetBool("IsDoubleJumping")) //FULLÖSNING. Works but ONLY IF we set air time -> doublejump transition to condition IsJumping rather than IsDoubleJumping..
-            {
-                anim.SetBool("IsDoubleJumping", false);
-            }
         }
     }
     private Vector3 HandleGlidey(Vector3 verticalmovement)
     {
-
-        
         if (input.Current.ContinuousJumpInput && moveDirection.y < 0 && EnableGlidey)
         {
-
-            //Dee: ANIMATE!
-            anim.SetBool("IsGliding", true);
-
             return -Vector3.up * Glide;
-
-            //NEED A WAY TO PLAY FOLD IN WHEN PLAY HAS BEEN HOLDING A AND GLIDING BUT THEN RELEASES GLIDE
-            //ALSO it's going into glide when I use a bounceshroom. cuz it counts as an A press. :B
         }
-
-        //DEE: ANIMATE!
-        if (anim.GetBool("IsGliding"))
-        {
-            anim.SetBool("FoldIn", true);
-            anim.SetBool("IsGliding", false);
-            
-        }
-        
         return verticalmovement;
-
     }
     private bool HandleSticky()
     {
@@ -484,6 +434,22 @@ public class PlayerMachine : SuperStateMachine {
         }
         return false;
     }
+    private void HandleHoppy()
+    {
+        if(input.Current.Debug && EnableHoppy)
+        {
+            if(MaxSuperJump > SuperJumpCount)
+            {
+                SuperJumpCount += Time.deltaTime * SuperJumpBuildingSpeed;
+            }
+        }
+        if(!input.Current.Debug && EnableHoppy && SuperJumpCount != 0)
+        {
+            currentState = PlayerStates.Air;
+            Jump(SuperJumpCount, Gravity);
+            SuperJumpCount = 0;
+        }
+    }
     private void HandleSwitching()
     {
         if (!EnableSwitching)
@@ -516,6 +482,41 @@ public class PlayerMachine : SuperStateMachine {
             currentState = PlayerStates.NoControl;
         }
 
+    }
+    private void HandleAirMovement()
+    {
+        //This is unneccesary and should be rewritten :p :p :p
+        Vector3 planarMoveDirection = Math3d.ProjectVectorOnPlane(controller.up, moveDirection);
+        Vector3 verticalMoveDirection = moveDirection - planarMoveDirection;
+
+        //This calculates if we touch the ground
+        if (Vector3.Angle(verticalMoveDirection, controller.up) > 90 && AcquiringGround())
+        {
+            moveDirection = planarMoveDirection;
+            currentState = PlayerStates.Idle;
+            moveDirection *= Slowdown;
+            return;
+        }
+
+        planarMoveDirection = Vector3.MoveTowards(planarMoveDirection, LocalMovement() * WalkSpeed, JumpAcceleration * Time.deltaTime);
+        if (verticalMoveDirection.y > -30)
+        {
+            verticalMoveDirection -= controller.up * Gravity * Time.deltaTime;
+            //verticalMoveDirection = Vector3.MoveTowards(verticalMoveDirection, verticalMoveDirection - controller.up * Gravity * Time.deltaTime, MaxFallSpeed * Time.deltaTime);
+        }
+
+        //Handle gliding and change the vertical movement appropriately
+        verticalMoveDirection = HandleGlidey(verticalMoveDirection);
+
+        moveDirection = planarMoveDirection + verticalMoveDirection;
+
+        //Change where we're looking to our movement, but ignore the y direction so we're stable.
+        Vector3 tempdirection = moveDirection;
+        tempdirection.y = 0;
+        if (tempdirection != Vector3.zero)
+        {
+            AnimatedMesh.rotation = Quaternion.LookRotation(tempdirection, controller.up);
+        }
     }
 
     //Get functions
