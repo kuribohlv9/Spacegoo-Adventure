@@ -26,6 +26,8 @@ public class PlayerMachine : SuperStateMachine {
     public bool EnableHoppy = true;
     public bool EnableSwitching = false;
     public bool InControl = false;
+    public float MaxSuperJump = 10;
+    public float SuperJumpBuildingSpeed = 1.0f;
 
     //Private variables for different behaviours
     private float jumptime = 0;
@@ -33,6 +35,8 @@ public class PlayerMachine : SuperStateMachine {
     private RaycastHit StickWall;
     private Vector3 Lastmovedirection;
     private Vector3 moveDirection;
+    private float SuperJumpCount = 0;
+    private  Animator anim;  //Dee: animator
 
 
     //I have no idea what exactly lookDirection does ?_?
@@ -51,6 +55,9 @@ public class PlayerMachine : SuperStateMachine {
 	void Start () {
 	    // Put any code here you want to run ONCE, when the object is initialized
         input = gameObject.GetComponent<PlayerInputController>();
+
+        
+        anim = GetComponentInChildren<Animator>();        //Dee: INITIALIZE ANIMATOR
 
         // Grab the controller object from our object
         controller = gameObject.GetComponent<SuperCharacterController>();
@@ -114,6 +121,9 @@ public class PlayerMachine : SuperStateMachine {
     //Idle State
     void Idle_EnterState()
     {
+        //Dee: ANIMATE
+        anim.SetBool("IsWalking", false);
+
         controller.EnableSlopeLimit();
         controller.EnableClamping();
     }
@@ -151,6 +161,7 @@ public class PlayerMachine : SuperStateMachine {
         AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
         AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
 
+        HandleHoppy();
         HandleSwitching();
     }
 
@@ -171,6 +182,9 @@ public class PlayerMachine : SuperStateMachine {
             currentState = PlayerStates.Air;
             return;
         }
+
+        //Dee: ANIMATE!
+        anim.SetBool("IsWalking", true);
 
         //Calculate movement
         if (input.Current.MoveInput != Vector3.zero)
@@ -279,6 +293,13 @@ public class PlayerMachine : SuperStateMachine {
     }
     void Air_ExitState()
     {
+        //Dee: ANIMATE!
+        anim.SetBool("IsJumping", false);
+        anim.SetBool("IsDoubleJumping", false);
+        anim.SetBool("HasLanded", true);
+        anim.SetBool("FoldIn", true);
+        anim.SetBool("IsJumpingFromStick", false);
+
         CanDoubleJump = true;
     }
 
@@ -294,7 +315,9 @@ public class PlayerMachine : SuperStateMachine {
 
         //We push the slime towards the wall so it actually looks like we're sticking
         AnimatedMesh.position -= StickWall.normal * StickWall.distance;
-        int derp = 0;
+
+        //Dee: ANIMATE? THIS ISN'T WORKING. HE IS NEVER ENTERING STUCK ANIMATION
+        anim.SetBool("IsSticking", true);
     }
     void Sticky_SuperUpdate()
     {
@@ -313,6 +336,10 @@ public class PlayerMachine : SuperStateMachine {
     }
     void Sticky_ExitState()
     {
+        //Dee: ANIMATE!
+        anim.SetBool("IsSticking", false);
+        anim.SetBool("IsJumpingFromStick", true);
+
         //When we leave the state, we leave with momemtum away from the wall
         AnimatedMesh.position = transform.position;
 
@@ -372,6 +399,11 @@ public class PlayerMachine : SuperStateMachine {
     }
     private void Jump(float height, float gravity)
     {
+        //Dee: ANIMATE!
+        anim.SetBool("IsJumping", true);
+        anim.SetBool("HasLanded", false);
+        anim.SetBool("FoldIn", false);
+
         moveDirection += controller.up * CalculateJumpSpeed(height, gravity);
     }
 
@@ -382,6 +414,9 @@ public class PlayerMachine : SuperStateMachine {
         //Check jump input
         if (input.Current.JumpInput && CanDoubleJump)
         {
+            //Dee: ANIMATE! this is actually making him play the animation TWICE. Why??
+            anim.SetBool("IsDoubleJumping", true);
+
             CanDoubleJump = false;
 
             //Immediately make the player move in the input direction when the jump is executed
@@ -393,8 +428,20 @@ public class PlayerMachine : SuperStateMachine {
     {
         if (input.Current.ContinuousJumpInput && moveDirection.y < 0 && EnableGlidey)
         {
+            //Dee: ANIMATE!
+            anim.SetBool("IsGliding", true);
+
             return -Vector3.up * Glide;
         }
+
+        //DEE: ANIMATE!
+        if (anim.GetBool("IsGliding"))
+        {
+            anim.SetBool("FoldIn", true);
+            anim.SetBool("IsGliding", false);
+
+        }
+
         return verticalmovement;
     }
     private bool HandleSticky()
@@ -429,6 +476,22 @@ public class PlayerMachine : SuperStateMachine {
             }
         }
         return false;
+    }
+    private void HandleHoppy()
+    {
+        if(input.Current.Debug && EnableHoppy)
+        {
+            if(MaxSuperJump > SuperJumpCount)
+            {
+                SuperJumpCount += Time.deltaTime * SuperJumpBuildingSpeed;
+            }
+        }
+        if(!input.Current.Debug && EnableHoppy && SuperJumpCount != 0)
+        {
+            currentState = PlayerStates.Air;
+            Jump(SuperJumpCount, Gravity);
+            SuperJumpCount = 0;
+        }
     }
     private void HandleSwitching()
     {
