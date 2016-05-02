@@ -73,7 +73,10 @@ public class PlayerMachine : SuperStateMachine {
         }
         else
         {
-            currentState = PlayerStates.NoControl;
+            //currentState = PlayerStates.NoControl;
+            controller.enabled = false;
+            this.enabled = false;
+            input.enabled = false;
         }
         
         //Start out lookingforward
@@ -98,9 +101,28 @@ public class PlayerMachine : SuperStateMachine {
         // Put any code in here you want to run AFTER the state's update function.
         // This is run regardless of what state you're in
 
-        // Move the player by our velocity every frame
-        transform.position += moveDirection * Time.deltaTime;
+        if(Time.deltaTime > 0.03)
+        {
+            RaycastHit hit;
+            Ray CheckWalls = new Ray(controller.transform.position, moveDirection);
+            if(Physics.Raycast(CheckWalls, out hit, moveDirection.magnitude * Time.deltaTime))
+            {
+                transform.position = hit.point;
+            }
+            else
+            {
+                // Move the player by our velocity every frame
+                transform.position += moveDirection * Time.deltaTime;
+            }
+        }
+        else
+        {
+            // Move the player by our velocity every frame
+            transform.position += moveDirection * Time.deltaTime;
+        }
 
+
+      
         //Simoncode
         //Always save the last moved direction for when we need to stand still and look the correct way
         if(moveDirection.x != 0 || moveDirection.z != 0)
@@ -113,7 +135,7 @@ public class PlayerMachine : SuperStateMachine {
         //Debug button
         if (input.Current.Debug)
         {
-            float terp = Vector3.Angle(new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+            //transform.position += moveDirection * 0.02f;
             int derp = 42;
         }
     }

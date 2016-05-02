@@ -21,11 +21,12 @@ public class PlayerInputController : MonoBehaviour {
         Vector3 moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         moveinput = moveInput;
         Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        mouseInput = Vector2.zero;
 
         bool jumpInput = Input.GetButtonDown("Jump");
         bool continuousJumpInput = Input.GetButton("Jump");
         bool sticky = Input.GetButtonDown("Fire2");
-        bool debug = Input.GetButton("Fire3");
+        bool debug = Input.GetButtonDown("Fire3");
         bool leftbumper = Input.GetButtonDown("Swap Left");
         bool rightbumper = Input.GetButtonDown("Swap Right");
 
