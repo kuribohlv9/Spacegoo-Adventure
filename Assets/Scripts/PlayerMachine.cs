@@ -101,21 +101,21 @@ public class PlayerMachine : SuperStateMachine {
         // Put any code in here you want to run AFTER the state's update function.
         // This is run regardless of what state you're in
 
-        if(Time.deltaTime > 0.03)
-        {
-            RaycastHit hit;
-            Ray CheckWalls = new Ray(controller.transform.position, moveDirection);
-            if(Physics.Raycast(CheckWalls, out hit, moveDirection.magnitude * Time.deltaTime))
-            {
-                transform.position = hit.point;
-            }
-            else
-            {
-                // Move the player by our velocity every frame
-                transform.position += moveDirection * Time.deltaTime;
-            }
-        }
-        else
+        //if(Time.deltaTime > 0.03)
+        //{
+        //    RaycastHit hit;
+        //    Ray CheckWalls = new Ray(controller.transform.position, moveDirection);
+        //    if(Physics.Raycast(CheckWalls, out hit, moveDirection.magnitude * Time.deltaTime))
+        //    {
+        //        transform.position = hit.point;
+        //    }
+        //    else
+        //    {
+        //        // Move the player by our velocity every frame
+        //        transform.position += moveDirection * Time.deltaTime;
+        //    }
+        //}
+        //else
         {
             // Move the player by our velocity every frame
             transform.position += moveDirection * Time.deltaTime;
@@ -457,12 +457,12 @@ public class PlayerMachine : SuperStateMachine {
         }
 
         //DEE: ANIMATE!
-        if (anim.GetBool("IsGliding"))
-        {
-            anim.SetBool("FoldIn", true);
-            anim.SetBool("IsGliding", false);
+        //if (anim.GetBool("IsGliding"))
+        //{
+        //    anim.SetBool("FoldIn", true);
+        //    anim.SetBool("IsGliding", false);
 
-        }
+        //}
 
         return verticalmovement;
     }
