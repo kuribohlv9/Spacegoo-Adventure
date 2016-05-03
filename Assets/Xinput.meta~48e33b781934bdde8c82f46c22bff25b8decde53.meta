@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Xinput.meta~48e33b781934bdde8c82f46c22bff25b8decde53.meta
 guid: 62b8a5bed1150b340bb7a599515474d2
 timeCreated: 1462278728
+=======
+guid: be06e0d2b7160134e8e22486b5c57047
+folderAsset: yes
+timeCreated: 1462276077
+>>>>>>> 48e33b781934bdde8c82f46c22bff25b8decde53:Assets/Xinput/Plugins.meta
 licenseType: Free
 DefaultImporter:
   userData: 
