@@ -363,7 +363,8 @@ public class PlayerMachine : SuperStateMachine {
         }
         if(input.Current.MoveInput != Vector3.zero)
         {
-            //moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * WalkSpeed * input.moveinput.magnitude, WalkAcceleration * Time.deltaTime);
+            moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * WalkSpeed * input.moveinput.magnitude, WalkAcceleration * Time.deltaTime);
+            moveDirection.y = 0;
         }
     }
     void Sticky_ExitState()
