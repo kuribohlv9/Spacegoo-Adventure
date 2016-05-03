@@ -5,7 +5,7 @@ using System.Collections;
 [RequireComponent(typeof(PlayerInputController))]
 public class PlayerMachine : SuperStateMachine {
 
-    enum PlayerStates { Idle, Walk, Air, Sticky, NoControl }
+    enum PlayerStates { Idle, Walk, Air, Sticky, Hoppy, NoControl }
     
     //Public reference variables. These should be updated to private sometime in the future
     public Transform AnimatedMesh;
@@ -37,6 +37,7 @@ public class PlayerMachine : SuperStateMachine {
     private Vector3 moveDirection;
     private float SuperJumpCount = 0;
     private  Animator anim;  //Dee: animator
+    private bool IsCharging = false;
 
 
     //I have no idea what exactly lookDirection does ?_?
@@ -73,10 +74,7 @@ public class PlayerMachine : SuperStateMachine {
         }
         else
         {
-            //currentState = PlayerStates.NoControl;
-            controller.enabled = false;
-            this.enabled = false;
-            input.enabled = false;
+            currentState = PlayerStates.NoControl;
         }
         
         //Start out lookingforward
@@ -180,8 +178,9 @@ public class PlayerMachine : SuperStateMachine {
         moveDirection = Vector3.MoveTowards(moveDirection, Vector3.zero, Friction * Time.deltaTime);
 
         //Change our rotation to first angle ourself to the ground normal and then look in our last moved direction
-        AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
-        AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
+        //AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
+        //AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
+        AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal()) * Quaternion.LookRotation(moveDirection, controller.up), 8);
 
         HandleHoppy();
         HandleSwitching();
@@ -204,6 +203,7 @@ public class PlayerMachine : SuperStateMachine {
             currentState = PlayerStates.Air;
             return;
         }
+
 
         //Dee: ANIMATE!
         anim.SetBool("IsWalking", true);
@@ -233,6 +233,8 @@ public class PlayerMachine : SuperStateMachine {
             currentState = PlayerStates.Idle;
             return;
         }
+
+        HandleHoppy();
     }
 
     ////Jump State
@@ -355,6 +357,10 @@ public class PlayerMachine : SuperStateMachine {
             currentState = PlayerStates.Air;
             moveDirection += StickWall.normal * 5;
         }
+        if(input.Current.MoveInput != Vector3.zero)
+        {
+            moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * WalkSpeed * input.moveinput.magnitude, WalkAcceleration * Time.deltaTime);
+        }
     }
     void Sticky_ExitState()
     {
@@ -370,6 +376,28 @@ public class PlayerMachine : SuperStateMachine {
 
         CanDoubleJump = false;
 
+    }
+
+    void Hoppy_EnterState()
+    {
+        moveDirection = Vector3.zero;
+        AnimatedMesh.localScale = new Vector3(1, 0.5f, 1);
+    }
+    void Hoppy_SuperUpdate()
+    {
+        if (MaxSuperJump > SuperJumpCount)
+            SuperJumpCount += Time.deltaTime * SuperJumpBuildingSpeed;
+
+        if(!input.Current.Debug && SuperJumpCount != 0)
+        {
+            currentState = PlayerStates.Air;
+        }
+    }
+    void Hoppy_ExitState()
+    {
+        AnimatedMesh.localScale = new Vector3(1, 1, 1);
+        Jump(SuperJumpCount, Gravity);
+        SuperJumpCount = 0;
     }
 
     //No Control State
@@ -503,17 +531,21 @@ public class PlayerMachine : SuperStateMachine {
     {
         if(input.Current.Debug && EnableHoppy)
         {
-            if(MaxSuperJump > SuperJumpCount)
-            {
-                SuperJumpCount += Time.deltaTime * SuperJumpBuildingSpeed;
-            }
+            //if(MaxSuperJump > SuperJumpCount)
+            //{
+            //    SuperJumpCount += Time.deltaTime * SuperJumpBuildingSpeed;
+            //    AnimatedMesh.localScale = new Vector3(1, 0.5f, 1);
+            //}
+            currentState = PlayerStates.Hoppy;
         }
-        if(!input.Current.Debug && EnableHoppy && SuperJumpCount != 0)
-        {
-            currentState = PlayerStates.Air;
-            Jump(SuperJumpCount, Gravity);
-            SuperJumpCount = 0;
-        }
+        //else if(!input.Current.Debug && EnableHoppy && SuperJumpCount != 0)
+        //{
+        //    IsCharging = false;
+        //    AnimatedMesh.localScale = new Vector3(1, 1, 1);
+        //    currentState = PlayerStates.Air;
+        //    Jump(SuperJumpCount, Gravity);
+        //    SuperJumpCount = 0;
+        //}
     }
     private void HandleSwitching()
     {
@@ -580,8 +612,9 @@ public class PlayerMachine : SuperStateMachine {
         tempdirection.y = 0;
         if (tempdirection != Vector3.zero)
         {
-            AnimatedMesh.rotation = Quaternion.LookRotation(tempdirection, controller.up);
+            //AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.LookRotation(tempdirection, controller.up) * Quaternion.RotateTowards(controller.up, controller.up), 8);
         }
+            AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.FromToRotation(controller.up, controller.up) * Quaternion.LookRotation(tempdirection, controller.up), 8);
     }
 
     //Get functions

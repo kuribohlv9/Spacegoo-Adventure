@@ -25,7 +25,7 @@ public class PlayerInputController : MonoBehaviour {
         bool jumpInput = Input.GetButtonDown("Jump");
         bool continuousJumpInput = Input.GetButton("Jump");
         bool sticky = Input.GetButtonDown("Fire2");
-        bool debug = Input.GetButtonDown("Fire3");
+        bool debug = Input.GetButton("Fire3");
         bool leftbumper = Input.GetButtonDown("Swap Left");
         bool rightbumper = Input.GetButtonDown("Swap Right");
 
