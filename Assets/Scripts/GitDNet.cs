@@ -102,6 +102,7 @@ public class GitDNet : MonoBehaviour
 
     private float timer = 0;
     public float timerTarget = 0.0f;
+    public float timerOffTarget = 0.0f;
 
 
     private bool IsLit = false;
@@ -143,22 +144,23 @@ public class GitDNet : MonoBehaviour
 
             //if willightup is true then timer than lightup()
 
-            if (willlightup && timer < timerTarget)
+            if (timer < timerTarget && (willlightup || IsLit))
             {
                 timer += Time.deltaTime;
             }
-
-            if (willlightup && !IsLit && timer > timerTarget)
+            else if (willlightup && timer > timerTarget)
             {
                 LightUp();
-
-                
+                willlightup = false;
+                IsLit = true;                
                 timer = 0;
             }
-
-            else if (IsLit && timer > timerTarget)
+            else if (IsLit && timer > timerOffTarget)
             {
+                Debug.Log("Sees that timerOffTarget has been reached");
+
                 LightOff();
+                IsLit = false;
                 timer = 0;
             }
         }
@@ -172,7 +174,9 @@ public class GitDNet : MonoBehaviour
 
     public void LightUp()
     {
-        IsLit = true;
+
+        Debug.Log("Goes into LightOn()");
+
         Renderer rend = GetComponentInChildren<Renderer>();
 
         //lerpedColor = Color.Lerp(Color.blue, glowColor, Mathf.PingPong(Time.time, 1));
@@ -189,8 +193,7 @@ public class GitDNet : MonoBehaviour
 
     public void LightOff()
     {
-        IsLit = false;
-        willlightup = false;
+        Debug.Log("Goes into LightOff()");
 
         Renderer rend = GetComponentInChildren<Renderer>();
 
@@ -208,29 +211,17 @@ public class GitDNet : MonoBehaviour
         if (col.tag == "Player" && IsHeadHoncho >= 1)
         {
         //Debug.Log("JOHN");
-            timer += Time.deltaTime;
-
             
+           
+           timer += Time.deltaTime;
+                    
 
             EventSystem.ActivateGlowNet();
-
-            //if (timer > timerTarget)
-            //{
-            //    //LightUp();
-            //}
 
             
         }
 
     }
-
-    //void OnTriggerExit(Collider col)
-    //{
-    //    if (col.tag == "Player")
-    //    {
-    //       // LightOff();
-    //    }
-    //}
 }
 
 
