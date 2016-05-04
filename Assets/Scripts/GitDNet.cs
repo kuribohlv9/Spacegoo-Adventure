@@ -93,12 +93,16 @@ public class GitDNet : MonoBehaviour
     public int Number;
     public Color glowColor = new Vector4(0.569F, 1, 1, 1);
 
+    public Color lerpedColor = new Vector4(0.569F, 1, 1, 1);
+
+
     public int IsHeadHoncho = 0;
 
     private Light glowLight;
 
     private float timer = 0;
     public float timerTarget = 0.0f;
+
 
     private bool IsLit = false;
     private bool willlightup = false;
@@ -147,6 +151,8 @@ public class GitDNet : MonoBehaviour
             if (willlightup && !IsLit && timer > timerTarget)
             {
                 LightUp();
+
+                
                 timer = 0;
             }
 
@@ -168,6 +174,8 @@ public class GitDNet : MonoBehaviour
     {
         IsLit = true;
         Renderer rend = GetComponentInChildren<Renderer>();
+
+        //lerpedColor = Color.Lerp(Color.blue, glowColor, Mathf.PingPong(Time.time, 1));
 
         rend.material.shader = Shader.Find("Standard");         //This is magically always using the right shader, regardless of order of material. Might be based on mesh where the script is attached (I put it on hats)  http://answers.unity3d.com/questions/960607/how-to-material-in-emission-color-change-1.html#comment-994024 
         rend.material.SetColor("_EmissionColor", glowColor);
