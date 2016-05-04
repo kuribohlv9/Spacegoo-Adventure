@@ -38,6 +38,12 @@ public class PuffEvent : MonoBehaviour {
             destroy = true;
             //bang.GetComponentInParent<PlayerMachine>().currentState = PlayerStates;
             bang.GetComponentInParent<PlayerMachine>().ChangeMovement(direction * Height);
+
+            if (destroy == true)
+            {
+                Destroy(thisCollider.gameObject);
+                Destroy(this.gameObject);
+            }
         }
     }
 }
