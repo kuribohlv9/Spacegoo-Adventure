@@ -346,10 +346,13 @@ public class PlayerMachine : SuperStateMachine {
         AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
 
         //We push the slime towards the wall so it actually looks like we're sticking
-        AnimatedMesh.position -= StickWall.normal * StickWall.distance;
+        AnimatedMesh.position -= Vector3.Scale(StickWall.normal * StickWall.distance, new Vector3(1, 0, 1));
+//        transform.position -= StickWall.normal * StickWall.distance;
 
         //Dee: ANIMATE? THIS ISN'T WORKING. HE IS NEVER ENTERING STUCK ANIMATION
         anim.SetBool("IsSticking", true);
+
+        CanDoubleJump = true;
     }
     void Sticky_SuperUpdate()
     {
@@ -365,11 +368,32 @@ public class PlayerMachine : SuperStateMachine {
             currentState = PlayerStates.Air;
             moveDirection += StickWall.normal * 5;
         }
-        if(input.Current.MoveInput != Vector3.zero)
-        {
-            moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * WalkSpeed * input.moveinput.magnitude, WalkAcceleration * Time.deltaTime);
-            moveDirection.y = 0;
-        }
+        //if(input.Current.MoveInput != Vector3.zero)
+        //{
+        //    moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * WalkSpeed * input.moveinput.magnitude, WalkAcceleration * Time.deltaTime);
+        //    moveDirection.y = 0;
+        //}
+
+        //RaycastHit hit;
+        //Ray wallmove = new Ray(transform.position, -StickWall.normal);
+        //Debug.DrawLine(transform.position, -StickWall.normal);
+        //if(StickWall.collider.Raycast(wallmove, out hit, Mathf.Infinity))
+        //{
+        //    StickWall = hit;
+        //    //We angle ourselves towards the wall and look upwards
+        //    AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, StickWall.normal);
+        //    AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
+
+        //    //We push the slime towards the wall so it actually looks like we're sticking
+        //    transform.position -= Vector3.Scale(StickWall.normal * StickWall.distance , new Vector3(1,0,1));
+        //    AnimatedMesh.position = transform.position - StickWall.normal * 0.5f;
+        //    Debug.Log(StickWall.distance);
+        //}
+        //else
+        //{
+        //    Debug.Log("OH NO DEBUG JOHN CENA!");
+        //    //currentState = PlayerStates.Air;
+        //}
     }
     void Sticky_ExitState()
     {
