@@ -93,20 +93,23 @@ public class GitDNet : MonoBehaviour
     public int Number;
     public Color glowColor = new Vector4(0.569F, 1, 1, 1);
 
+    public int IsHeadHoncho = 0;
+
     private Light glowLight;
 
     private float timer = 0;
     public float timerTarget = 0.0f;
 
     private bool IsLit = false;
+    private bool willlightup = false;
 
     void OnEnable()
     {
-        EventSystem.onglownet += LightUp;
+        EventSystem.onglownet += WillLight;
     }
     void OnDisable()
     {
-        EventSystem.onglownet -= LightUp;
+        EventSystem.onglownet -= WillLight;
     }
     // Use this for initialization
     void Start()
@@ -121,17 +124,44 @@ public class GitDNet : MonoBehaviour
     {
         {
 
-            if (IsLit && timer < timerTarget)
+
+            //if (!IsLit && timer < timerTarget)
+            //{
+            //    timer += Time.deltaTime;
+            //}
+
+            //else if (!IsLit && timer > timerTarget)
+            //{
+
+            //                                    //here it should light up. one at a time
+            //}
+
+
+            //if willightup is true then timer than lightup()
+
+            if (willlightup && timer < timerTarget)
             {
                 timer += Time.deltaTime;
             }
+
+            if (willlightup && !IsLit && timer > timerTarget)
+            {
+                LightUp();
+                timer = 0;
+            }
+
             else if (IsLit && timer > timerTarget)
             {
                 LightOff();
                 timer = 0;
             }
-
         }
+    }
+
+    private void WillLight()
+    {
+
+        willlightup = true;
     }
 
     public void LightUp()
@@ -152,6 +182,8 @@ public class GitDNet : MonoBehaviour
     public void LightOff()
     {
         IsLit = false;
+        willlightup = false;
+
         Renderer rend = GetComponentInChildren<Renderer>();
 
         rend.material.shader = Shader.Find("Standard");
@@ -162,30 +194,35 @@ public class GitDNet : MonoBehaviour
     }
 
 
-
+  
     void OnTriggerEnter(Collider col)                   //CHANGE THIS TO ONSTAY, GLOWS WHEN PLAYER MOVES ON IT for 1.5s
     {
-        if (col.tag == "Player")
+        if (col.tag == "Player" && IsHeadHoncho >= 1)
         {
-        Debug.Log("JOGN");
+        //Debug.Log("JOHN");
             timer += Time.deltaTime;
 
-            if (timer > timerTarget)
-            {
-                //LightUp();
-            }
+            
 
-                EventSystem.ActivateGlowNet();
+            EventSystem.ActivateGlowNet();
+
+            //if (timer > timerTarget)
+            //{
+            //    //LightUp();
+            //}
+
+            
         }
+
     }
 
-    void OnTriggerExit(Collider col)
-    {
-        if (col.tag == "Player")
-        {
-           // LightOff();
-        }
-    }
+    //void OnTriggerExit(Collider col)
+    //{
+    //    if (col.tag == "Player")
+    //    {
+    //       // LightOff();
+    //    }
+    //}
 }
 
 
