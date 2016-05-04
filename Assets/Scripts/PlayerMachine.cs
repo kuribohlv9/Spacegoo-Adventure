@@ -136,6 +136,8 @@ public class PlayerMachine : SuperStateMachine {
             //transform.position += moveDirection * 0.02f;
             int derp = 42;
         }
+
+        anim.SetFloat("Y Direction", moveDirection.y);
     }
 
     //Idle State
@@ -327,8 +329,10 @@ public class PlayerMachine : SuperStateMachine {
         anim.SetBool("IsJumping", false);
         anim.SetBool("IsDoubleJumping", false);
         anim.SetBool("HasLanded", true);
-        anim.SetBool("FoldIn", true);
-        anim.SetBool("IsJumpingFromStick", false);
+        if(EnableGlidey)
+           anim.SetBool("FoldIn", true);
+        if(EnableGlidey)
+            anim.SetBool("IsJumpingFromStick", false);
     }
 
     //Sticky State
@@ -456,7 +460,8 @@ public class PlayerMachine : SuperStateMachine {
         //Dee: ANIMATE!
         anim.SetBool("IsJumping", true);
         anim.SetBool("HasLanded", false);
-        anim.SetBool("FoldIn", false);
+        if(EnableGlidey)
+            anim.SetBool("FoldIn", false);
 
         moveDirection += controller.up * CalculateJumpSpeed(height, gravity);
     }
@@ -487,15 +492,15 @@ public class PlayerMachine : SuperStateMachine {
 
             return -Vector3.up * Glide;
         }
+        if (EnableGlidey && anim.GetBool("IsGliding"))
+        {
+            anim.SetBool("FoldIn", true);
+            anim.SetBool("IsGliding", false);
+        }
+
 
         //DEE: ANIMATE!
-        //if (anim.GetBool("IsGliding"))
-        //{
-        //    anim.SetBool("FoldIn", true);
-        //    anim.SetBool("IsGliding", false);
-
-        //}
-
+        //Simon: I do fix
         return verticalmovement;
     }
     private bool HandleSticky()
