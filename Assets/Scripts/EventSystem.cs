@@ -27,8 +27,10 @@ public class EventSystem
 
     public static void ActivateGlowNet()
     {
+            Debug.Log("CENA");
         if (onglownet != null)
         {
+            Debug.Log("DUDURUDU");
             onglownet();
         }
     }
