@@ -146,6 +146,8 @@ public class PlayerMachine : SuperStateMachine {
 
         controller.EnableSlopeLimit();
         controller.EnableClamping();
+
+        CanDoubleJump = true;
     }
     void Idle_SuperUpdate()
     {
@@ -187,6 +189,10 @@ public class PlayerMachine : SuperStateMachine {
     }
 
     //Walk State
+    void Walk_EnterState()
+    {
+        CanDoubleJump = true;
+    }
     void Walk_SuperUpdate()
     {
         //Check if we're gonna jump
@@ -323,8 +329,6 @@ public class PlayerMachine : SuperStateMachine {
         anim.SetBool("HasLanded", true);
         anim.SetBool("FoldIn", true);
         anim.SetBool("IsJumpingFromStick", false);
-
-        CanDoubleJump = true;
     }
 
     //Sticky State
@@ -360,6 +364,7 @@ public class PlayerMachine : SuperStateMachine {
         if(input.Current.MoveInput != Vector3.zero)
         {
             moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * WalkSpeed * input.moveinput.magnitude, WalkAcceleration * Time.deltaTime);
+            moveDirection.y = 0;
         }
     }
     void Sticky_ExitState()
@@ -374,7 +379,6 @@ public class PlayerMachine : SuperStateMachine {
         //And we normalize our rotation
         AnimatedMesh.rotation = Quaternion.LookRotation(moveDirection);
 
-        CanDoubleJump = false;
 
     }
 
