@@ -155,7 +155,7 @@ public class GitDNet : MonoBehaviour
                 IsLit = true;                
                 timer = 0;
             }
-            else if (IsLit && timer > timerOffTarget)
+            else if (IsLit && timer > timerTarget)
             {
                 Debug.Log("Sees that timerOffTarget has been reached");
 
