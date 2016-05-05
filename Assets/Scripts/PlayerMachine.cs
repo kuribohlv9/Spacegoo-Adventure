@@ -119,7 +119,11 @@ public class PlayerMachine : SuperStateMachine {
             transform.position += moveDirection * Time.deltaTime;
         }
 
-
+        if(InControl && input.Current.Recall)
+        {
+            leftSwitchTarget.transform.position = transform.position;
+            rightSwitchTarget.transform.position = transform.position;
+        }
       
         //Simoncode
         //Always save the last moved direction for when we need to stand still and look the correct way
