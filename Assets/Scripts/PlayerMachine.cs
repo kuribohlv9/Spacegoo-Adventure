@@ -119,7 +119,11 @@ public class PlayerMachine : SuperStateMachine {
             transform.position += moveDirection * Time.deltaTime;
         }
 
-
+        if(InControl && input.Current.Recall)
+        {
+            leftSwitchTarget.transform.position = transform.position;
+            rightSwitchTarget.transform.position = transform.position;
+        }
       
         //Simoncode
         //Always save the last moved direction for when we need to stand still and look the correct way
@@ -136,6 +140,8 @@ public class PlayerMachine : SuperStateMachine {
             //transform.position += moveDirection * 0.02f;
             int derp = 42;
         }
+
+        anim.SetFloat("Y Direction", moveDirection.y);
     }
 
     //Idle State
@@ -327,8 +333,10 @@ public class PlayerMachine : SuperStateMachine {
         anim.SetBool("IsJumping", false);
         anim.SetBool("IsDoubleJumping", false);
         anim.SetBool("HasLanded", true);
-        anim.SetBool("FoldIn", true);
-        anim.SetBool("IsJumpingFromStick", false);
+        if(EnableGlidey)
+           anim.SetBool("FoldIn", true);
+        if(EnableGlidey)
+            anim.SetBool("IsJumpingFromStick", false);
     }
 
     //Sticky State
@@ -342,10 +350,13 @@ public class PlayerMachine : SuperStateMachine {
         AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
 
         //We push the slime towards the wall so it actually looks like we're sticking
-        AnimatedMesh.position -= StickWall.normal * StickWall.distance;
+        AnimatedMesh.position -= Vector3.Scale(StickWall.normal * StickWall.distance, new Vector3(1, 0, 1));
+//        transform.position -= StickWall.normal * StickWall.distance;
 
         //Dee: ANIMATE? THIS ISN'T WORKING. HE IS NEVER ENTERING STUCK ANIMATION
         anim.SetBool("IsSticking", true);
+
+        CanDoubleJump = true;
     }
     void Sticky_SuperUpdate()
     {
@@ -354,18 +365,39 @@ public class PlayerMachine : SuperStateMachine {
         {
             currentState = PlayerStates.Air;
             Jump(JumpHeight, Gravity);
-            moveDirection += StickWall.normal * 10;
+            moveDirection += StickWall.normal * 15;
         }
         else if(input.Current.Sticky)
         {
             currentState = PlayerStates.Air;
             moveDirection += StickWall.normal * 5;
         }
-        if(input.Current.MoveInput != Vector3.zero)
-        {
-            moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * WalkSpeed * input.moveinput.magnitude, WalkAcceleration * Time.deltaTime);
-            moveDirection.y = 0;
-        }
+        //if(input.Current.MoveInput != Vector3.zero)
+        //{
+        //    moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * WalkSpeed * input.moveinput.magnitude, WalkAcceleration * Time.deltaTime);
+        //    moveDirection.y = 0;
+        //}
+
+        //RaycastHit hit;
+        //Ray wallmove = new Ray(transform.position, -StickWall.normal);
+        //Debug.DrawLine(transform.position, -StickWall.normal);
+        //if(StickWall.collider.Raycast(wallmove, out hit, Mathf.Infinity))
+        //{
+        //    StickWall = hit;
+        //    //We angle ourselves towards the wall and look upwards
+        //    AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, StickWall.normal);
+        //    AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
+
+        //    //We push the slime towards the wall so it actually looks like we're sticking
+        //    transform.position -= Vector3.Scale(StickWall.normal * StickWall.distance , new Vector3(1,0,1));
+        //    AnimatedMesh.position = transform.position - StickWall.normal * 0.5f;
+        //    Debug.Log(StickWall.distance);
+        //}
+        //else
+        //{
+        //    Debug.Log("OH NO DEBUG JOHN CENA!");
+        //    //currentState = PlayerStates.Air;
+        //}
     }
     void Sticky_ExitState()
     {
@@ -456,7 +488,8 @@ public class PlayerMachine : SuperStateMachine {
         //Dee: ANIMATE!
         anim.SetBool("IsJumping", true);
         anim.SetBool("HasLanded", false);
-        anim.SetBool("FoldIn", false);
+        if(EnableGlidey)
+            anim.SetBool("FoldIn", false);
 
         moveDirection += controller.up * CalculateJumpSpeed(height, gravity);
     }
@@ -487,15 +520,15 @@ public class PlayerMachine : SuperStateMachine {
 
             return -Vector3.up * Glide;
         }
+        if (EnableGlidey && anim.GetBool("IsGliding"))
+        {
+            anim.SetBool("FoldIn", true);
+            anim.SetBool("IsGliding", false);
+        }
+
 
         //DEE: ANIMATE!
-        //if (anim.GetBool("IsGliding"))
-        //{
-        //    anim.SetBool("FoldIn", true);
-        //    anim.SetBool("IsGliding", false);
-
-        //}
-
+        //Simon: I do fix
         return verticalmovement;
     }
     private bool HandleSticky()

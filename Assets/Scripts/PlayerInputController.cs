@@ -28,6 +28,7 @@ public class PlayerInputController : MonoBehaviour {
         bool debug = Input.GetButton("Fire2");
         bool leftbumper = Input.GetButtonDown("Swap Left");
         bool rightbumper = Input.GetButtonDown("Swap Right");
+        bool recall = Input.GetButtonDown("Y Button");
 
         Current = new PlayerInput()
         {
@@ -38,7 +39,8 @@ public class PlayerInputController : MonoBehaviour {
             Sticky = sticky,
             Debug = debug,
             LeftBumper = leftbumper,
-            RightBumper = rightbumper
+            RightBumper = rightbumper,
+            Recall = recall
             
         };
 	}
@@ -54,4 +56,5 @@ public struct PlayerInput
     public bool Debug;
     public bool LeftBumper;
     public bool RightBumper;
+    public bool Recall;
 }
