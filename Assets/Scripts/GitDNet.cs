@@ -93,12 +93,17 @@ public class GitDNet : MonoBehaviour
     public int Number;
     public Color glowColor = new Vector4(0.569F, 1, 1, 1);
 
+    public Color lerpedColor = new Vector4(0.569F, 1, 1, 1);
+
+
     public int IsHeadHoncho = 0;
 
     private Light glowLight;
 
     private float timer = 0;
     public float timerTarget = 0.0f;
+    public float timerOffTarget = 0.0f;
+
 
     private bool IsLit = false;
     private bool willlightup = false;
@@ -139,20 +144,23 @@ public class GitDNet : MonoBehaviour
 
             //if willightup is true then timer than lightup()
 
-            if (willlightup && timer < timerTarget)
+            if (timer < timerTarget && (willlightup || IsLit))
             {
                 timer += Time.deltaTime;
             }
-
-            if (willlightup && !IsLit && timer > timerTarget)
+            else if (willlightup && timer > timerTarget)
             {
                 LightUp();
+                willlightup = false;
+                IsLit = true;                
                 timer = 0;
             }
-
             else if (IsLit && timer > timerTarget)
             {
+                Debug.Log("Sees that timerOffTarget has been reached");
+
                 LightOff();
+                IsLit = false;
                 timer = 0;
             }
         }
@@ -166,8 +174,12 @@ public class GitDNet : MonoBehaviour
 
     public void LightUp()
     {
-        IsLit = true;
+
+        Debug.Log("Goes into LightOn()");
+
         Renderer rend = GetComponentInChildren<Renderer>();
+
+        //lerpedColor = Color.Lerp(Color.blue, glowColor, Mathf.PingPong(Time.time, 1));
 
         rend.material.shader = Shader.Find("Standard");         //This is magically always using the right shader, regardless of order of material. Might be based on mesh where the script is attached (I put it on hats)  http://answers.unity3d.com/questions/960607/how-to-material-in-emission-color-change-1.html#comment-994024 
         rend.material.SetColor("_EmissionColor", glowColor);
@@ -181,8 +193,7 @@ public class GitDNet : MonoBehaviour
 
     public void LightOff()
     {
-        IsLit = false;
-        willlightup = false;
+        Debug.Log("Goes into LightOff()");
 
         Renderer rend = GetComponentInChildren<Renderer>();
 
@@ -200,29 +211,17 @@ public class GitDNet : MonoBehaviour
         if (col.tag == "Player" && IsHeadHoncho >= 1)
         {
         //Debug.Log("JOHN");
-            timer += Time.deltaTime;
-
             
+           
+           timer += Time.deltaTime;
+                    
 
             EventSystem.ActivateGlowNet();
-
-            //if (timer > timerTarget)
-            //{
-            //    //LightUp();
-            //}
 
             
         }
 
     }
-
-    //void OnTriggerExit(Collider col)
-    //{
-    //    if (col.tag == "Player")
-    //    {
-    //       // LightOff();
-    //    }
-    //}
 }
 
 
