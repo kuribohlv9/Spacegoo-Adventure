@@ -5,7 +5,7 @@ using System.Collections;
 [RequireComponent(typeof(PlayerInputController))]
 public class PlayerMachine : SuperStateMachine {
 
-    enum PlayerStates { Idle, Walk, Air, Sticky, Hoppy, NoControl }
+    enum PlayerStates { Idle, Walk, Air, Sticky, Hoppy, NoControl, AirNoControl }
     
     //Public reference variables. These should be updated to private sometime in the future
     public Transform AnimatedMesh;
@@ -38,6 +38,7 @@ public class PlayerMachine : SuperStateMachine {
     private float SuperJumpCount = 0;
     private  Animator anim;  //Dee: animator
     private bool IsCharging = false;
+    private bool IsSticking = false;
 
 
     //I have no idea what exactly lookDirection does ?_?
@@ -119,8 +120,12 @@ public class PlayerMachine : SuperStateMachine {
             transform.position += moveDirection * Time.deltaTime;
         }
 
+        if(InControl && input.Current.Recall)
+        {
+            leftSwitchTarget.transform.position = transform.position;
+            rightSwitchTarget.transform.position = transform.position;
+        }
 
-      
         //Simoncode
         //Always save the last moved direction for when we need to stand still and look the correct way
         if(moveDirection.x != 0 || moveDirection.z != 0)
@@ -136,6 +141,8 @@ public class PlayerMachine : SuperStateMachine {
             //transform.position += moveDirection * 0.02f;
             int derp = 42;
         }
+
+        anim.SetFloat("Y Direction", moveDirection.y);
     }
 
     //Idle State
@@ -182,7 +189,8 @@ public class PlayerMachine : SuperStateMachine {
         //Change our rotation to first angle ourself to the ground normal and then look in our last moved direction
         //AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
         //AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
-        AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal()) * Quaternion.LookRotation(moveDirection, controller.up), 8);
+        if(moveDirection.magnitude > 0)
+            AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal()) * Quaternion.LookRotation(Lastmovedirection, controller.up), 8);
 
         HandleHoppy();
         HandleSwitching();
@@ -240,6 +248,7 @@ public class PlayerMachine : SuperStateMachine {
             return;
         }
 
+        HandleSwitching();
         HandleHoppy();
     }
 
@@ -320,6 +329,7 @@ public class PlayerMachine : SuperStateMachine {
             return;
 
         HandleAirMovement();
+        HandleSwitching();
     }
     void Air_ExitState()
     {
@@ -327,8 +337,10 @@ public class PlayerMachine : SuperStateMachine {
         anim.SetBool("IsJumping", false);
         anim.SetBool("IsDoubleJumping", false);
         anim.SetBool("HasLanded", true);
-        anim.SetBool("FoldIn", true);
-        anim.SetBool("IsJumpingFromStick", false);
+        if(EnableGlidey)
+           anim.SetBool("FoldIn", true);
+        if(EnableGlidey)
+            anim.SetBool("IsJumpingFromStick", false);
     }
 
     //Sticky State
@@ -342,10 +354,14 @@ public class PlayerMachine : SuperStateMachine {
         AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
 
         //We push the slime towards the wall so it actually looks like we're sticking
-        AnimatedMesh.position -= StickWall.normal * StickWall.distance;
+        AnimatedMesh.position -= Vector3.Scale(StickWall.normal * StickWall.distance, new Vector3(1, 0, 1));
+//        transform.position -= StickWall.normal * StickWall.distance;
 
         //Dee: ANIMATE? THIS ISN'T WORKING. HE IS NEVER ENTERING STUCK ANIMATION
         anim.SetBool("IsSticking", true);
+
+        CanDoubleJump = true;
+        IsSticking = true;
     }
     void Sticky_SuperUpdate()
     {
@@ -355,17 +371,42 @@ public class PlayerMachine : SuperStateMachine {
             currentState = PlayerStates.Air;
             Jump(JumpHeight, Gravity);
             moveDirection += StickWall.normal * 10;
+            IsSticking = false;
         }
         else if(input.Current.Sticky)
         {
             currentState = PlayerStates.Air;
             moveDirection += StickWall.normal * 5;
+            IsSticking = false;
         }
-        if(input.Current.MoveInput != Vector3.zero)
-        {
-            moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * WalkSpeed * input.moveinput.magnitude, WalkAcceleration * Time.deltaTime);
-            moveDirection.y = 0;
-        }
+
+        HandleSwitching();
+        //if(input.Current.MoveInput != Vector3.zero)
+        //{
+        //    moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * WalkSpeed * input.moveinput.magnitude, WalkAcceleration * Time.deltaTime);
+        //    moveDirection.y = 0;
+        //}
+
+        //RaycastHit hit;
+        //Ray wallmove = new Ray(transform.position, -StickWall.normal);
+        //Debug.DrawLine(transform.position, -StickWall.normal);
+        //if(StickWall.collider.Raycast(wallmove, out hit, Mathf.Infinity))
+        //{
+        //    StickWall = hit;
+        //    //We angle ourselves towards the wall and look upwards
+        //    AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, StickWall.normal);
+        //    AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
+
+        //    //We push the slime towards the wall so it actually looks like we're sticking
+        //    transform.position -= Vector3.Scale(StickWall.normal * StickWall.distance , new Vector3(1,0,1));
+        //    AnimatedMesh.position = transform.position - StickWall.normal * 0.5f;
+        //    Debug.Log(StickWall.distance);
+        //}
+        //else
+        //{
+        //    Debug.Log("OH NO DEBUG JOHN CENA!");
+        //    //currentState = PlayerStates.Air;
+        //}
     }
     void Sticky_ExitState()
     {
@@ -378,7 +419,6 @@ public class PlayerMachine : SuperStateMachine {
 
         //And we normalize our rotation
         AnimatedMesh.rotation = Quaternion.LookRotation(moveDirection);
-
 
     }
 
@@ -407,13 +447,18 @@ public class PlayerMachine : SuperStateMachine {
     //No Control State
     void NoControl_EnterState()
     {
-
+        moveDirection = Vector3.zero;
     }
     void NoControl_SuperUpdate()
     {
         if(InControl)
         {
-            currentState = PlayerStates.Idle;
+            if (IsSticking)
+                currentState = PlayerStates.Sticky;
+            else
+                currentState = PlayerStates.Idle;
+
+            return;
         }
         Vector3 rotatetowardscharacter = controlTarget.transform.position - controller.transform.position;
         rotatetowardscharacter.y = 0;
@@ -422,6 +467,28 @@ public class PlayerMachine : SuperStateMachine {
     void NoControl_ExitState()
     {
 
+    }
+
+    //Air No Control State
+    void AirNoControl_EnterState()
+    {
+        controller.DisableClamping();
+        controller.DisableSlopeLimit();
+    }
+    void AirNoControl_SuperUpdate()
+    {
+        HandleAirMovement(false);
+    }
+    void AirNoControl_ExitState()
+    {
+        //Dee: ANIMATE!
+        anim.SetBool("IsJumping", false);
+        anim.SetBool("IsDoubleJumping", false);
+        anim.SetBool("HasLanded", true);
+        if (EnableGlidey)
+            anim.SetBool("FoldIn", true);
+        if (EnableGlidey)
+            anim.SetBool("IsJumpingFromStick", false);
     }
 
     //Private function used in this script
@@ -456,7 +523,8 @@ public class PlayerMachine : SuperStateMachine {
         //Dee: ANIMATE!
         anim.SetBool("IsJumping", true);
         anim.SetBool("HasLanded", false);
-        anim.SetBool("FoldIn", false);
+        if(EnableGlidey)
+            anim.SetBool("FoldIn", false);
 
         moveDirection += controller.up * CalculateJumpSpeed(height, gravity);
     }
@@ -487,15 +555,15 @@ public class PlayerMachine : SuperStateMachine {
 
             return -Vector3.up * Glide;
         }
+        if (EnableGlidey && anim.GetBool("IsGliding"))
+        {
+            anim.SetBool("FoldIn", true);
+            anim.SetBool("IsGliding", false);
+        }
+
 
         //DEE: ANIMATE!
-        //if (anim.GetBool("IsGliding"))
-        //{
-        //    anim.SetBool("FoldIn", true);
-        //    anim.SetBool("IsGliding", false);
-
-        //}
-
+        //Simon: I do fix
         return verticalmovement;
     }
     private bool HandleSticky()
@@ -567,7 +635,10 @@ public class PlayerMachine : SuperStateMachine {
             EventSystem.ActivateSwitchCharacter(leftSwitchTarget);
 
             InControl = false;
-            currentState = PlayerStates.NoControl;
+            if (currentState.ToString() != "Air" || IsSticking)
+                currentState = PlayerStates.NoControl;
+            else
+                currentState = PlayerStates.AirNoControl;
         }
         else if (input.Current.RightBumper)
         {
@@ -580,11 +651,14 @@ public class PlayerMachine : SuperStateMachine {
             EventSystem.ActivateSwitchCharacter(rightSwitchTarget);
 
             InControl = false;
-            currentState = PlayerStates.NoControl;
+            if (currentState.ToString() != "Air" || IsSticking)
+                currentState = PlayerStates.NoControl;
+            else
+                currentState = PlayerStates.AirNoControl;
         }
 
     }
-    private void HandleAirMovement()
+    private void HandleAirMovement(bool enablemovement = true)
     {
         //This is unneccesary and should be rewritten :p :p :p
         Vector3 planarMoveDirection = Math3d.ProjectVectorOnPlane(controller.up, moveDirection);
@@ -594,12 +668,15 @@ public class PlayerMachine : SuperStateMachine {
         if (Vector3.Angle(verticalMoveDirection, controller.up) > 90 && AcquiringGround())
         {
             moveDirection = planarMoveDirection;
-            currentState = PlayerStates.Idle;
+            currentState = PlayerStates.NoControl;
             moveDirection *= Slowdown;
             return;
         }
 
-        planarMoveDirection = Vector3.MoveTowards(planarMoveDirection, LocalMovement() * WalkSpeed, JumpAcceleration * Time.deltaTime);
+        if(enablemovement)
+        {
+            planarMoveDirection = Vector3.MoveTowards(planarMoveDirection, LocalMovement() * WalkSpeed, JumpAcceleration * Time.deltaTime);
+        }
         if (verticalMoveDirection.y > -30)
         {
             verticalMoveDirection -= controller.up * Gravity * Time.deltaTime;
@@ -617,8 +694,8 @@ public class PlayerMachine : SuperStateMachine {
         if (tempdirection != Vector3.zero)
         {
             //AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.LookRotation(tempdirection, controller.up) * Quaternion.RotateTowards(controller.up, controller.up), 8);
-        }
             AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.FromToRotation(controller.up, controller.up) * Quaternion.LookRotation(tempdirection, controller.up), 8);
+        }
     }
 
     //Get functions
