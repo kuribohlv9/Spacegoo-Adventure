@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PuffEvent : MonoBehaviour {
 
-    public GameObject player;
+    //public GameObject player;
     public GameObject thisCollider;
 
     public float Height = 10;
@@ -11,18 +11,20 @@ public class PuffEvent : MonoBehaviour {
 
     private bool destroy = false;
 
+    private Collider currentPlayer;
+
     // Use this for initialization
     void Start ()
     {
-	
-	}
+        currentPlayer = null;
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        direction = player.transform.position - this.transform.position;
+        direction = currentPlayer.transform.parent.transform.position - this.transform.position;
         //direction *= -1;
-        direction.Normalize();
+        //direction.Normalize();
 
         if (destroy == true)
         {
@@ -33,6 +35,7 @@ public class PuffEvent : MonoBehaviour {
 
     public void Detonate(Collider bang)
     {
+        currentPlayer = bang;
         if (destroy == false)
         {
             destroy = true;
