@@ -122,8 +122,8 @@ public class PlayerMachine : SuperStateMachine {
 
         if(InControl && input.Current.Recall)
         {
-            leftSwitchTarget.transform.position = transform.position;
-            rightSwitchTarget.transform.position = transform.position;
+            leftSwitchTarget.transform.position = transform.position - AnimatedMesh.forward - AnimatedMesh.right;
+            rightSwitchTarget.transform.position = transform.position - AnimatedMesh.forward + AnimatedMesh.right;
         }
 
         //Simoncode
@@ -141,7 +141,6 @@ public class PlayerMachine : SuperStateMachine {
             //transform.position += moveDirection * 0.02f;
             int derp = 42;
         }
-
         anim.SetFloat("Y Direction", moveDirection.y);
     }
 
@@ -461,6 +460,11 @@ public class PlayerMachine : SuperStateMachine {
 
             return;
         }
+        if(!MaintainingGround())
+        {
+            currentState = PlayerStates.AirNoControl;
+        }
+
         Vector3 rotatetowardscharacter = controlTarget.transform.position - controller.transform.position;
         rotatetowardscharacter.y = 0;
         AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.LookRotation(rotatetowardscharacter), 3);
@@ -669,7 +673,11 @@ public class PlayerMachine : SuperStateMachine {
         if (Vector3.Angle(verticalMoveDirection, controller.up) > 90 && AcquiringGround())
         {
             moveDirection = planarMoveDirection;
-            currentState = PlayerStates.NoControl;
+            if (InControl)
+                currentState = PlayerStates.Idle;
+            else
+                currentState = PlayerStates.NoControl;
+
             moveDirection *= Slowdown;
             return;
         }
