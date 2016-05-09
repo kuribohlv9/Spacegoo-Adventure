@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(SuperCharacterController))]
 [RequireComponent(typeof(PlayerInputController))]
 public class PlayerMachine : SuperStateMachine {
 
-    enum PlayerStates { Idle, Walk, Air, Sticky, Hoppy, NoControl, AirNoControl }
+    public enum PlayerStates { Idle, Walk, Air, Sticky, Hoppy, NoControl, AirNoControl }
     
     //Public reference variables. These should be updated to private sometime in the future
     public Transform AnimatedMesh;
@@ -149,6 +150,7 @@ public class PlayerMachine : SuperStateMachine {
     {
         //Dee: ANIMATE
         anim.SetBool("IsWalking", false);
+        anim.SetBool("Clamping", true);
 
         controller.EnableSlopeLimit();
         controller.EnableClamping();
@@ -165,7 +167,7 @@ public class PlayerMachine : SuperStateMachine {
             Jump(JumpHeight, Gravity);
             return;
         }
-
+        
         //Simoncode
         //Check if we're gonna fall
         if (!MaintainingGround())
@@ -198,6 +200,7 @@ public class PlayerMachine : SuperStateMachine {
     //Walk State
     void Walk_EnterState()
     {
+        anim.SetBool("Clamping", true);
         CanDoubleJump = true;
     }
     void Walk_SuperUpdate()
@@ -312,6 +315,9 @@ public class PlayerMachine : SuperStateMachine {
         controller.DisableSlopeLimit();
         
         jumptime = 0;
+
+        anim.SetBool("Clamping", false);
+
     }
     void Air_SuperUpdate()
     {
@@ -746,5 +752,9 @@ public class PlayerMachine : SuperStateMachine {
 
         InControl = false;
         currentState = PlayerStates.NoControl;
+    }
+    public void ChangeState(PlayerStates states)
+    {
+        currentState = states;
     }
 }
