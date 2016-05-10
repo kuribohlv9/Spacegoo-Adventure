@@ -54,12 +54,16 @@ public class PlayerMachine : SuperStateMachine {
     public Transform rightSwitchTarget;
     public Transform controlTarget;
 
+	//Start audioman
+	public AudioSource audio;
+
     //Start and global updates
 	void Start () {
 	    // Put any code here you want to run ONCE, when the object is initialized
         input = gameObject.GetComponent<PlayerInputController>();
 
-        
+		audio = GetComponent<AudioSource>();			   //DEE: INIT AUDIO
+
         anim = GetComponentInChildren<Animator>();        //Dee: INITIALIZE ANIMATOR
 
         // Grab the controller object from our object
@@ -430,6 +434,7 @@ public class PlayerMachine : SuperStateMachine {
 
     void Hoppy_EnterState()
     {
+		audio.Play();							//DEE: Play Hoppy selection sound
         moveDirection = Vector3.zero;
         AnimatedMesh.localScale = new Vector3(1, 0.5f, 1);
     }
@@ -619,7 +624,8 @@ public class PlayerMachine : SuperStateMachine {
             //    SuperJumpCount += Time.deltaTime * SuperJumpBuildingSpeed;
             //    AnimatedMesh.localScale = new Vector3(1, 0.5f, 1);
             //}
-            currentState = PlayerStates.Hoppy;
+            
+			currentState = PlayerStates.Hoppy;
         }
         //else if(!input.Current.Debug && EnableHoppy && SuperJumpCount != 0)
         //{
