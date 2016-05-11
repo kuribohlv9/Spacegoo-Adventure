@@ -656,6 +656,12 @@ public class PlayerMachine : SuperStateMachine {
                 currentState = PlayerStates.NoControl;
             else
                 currentState = PlayerStates.AirNoControl;
+
+
+			if (leftSwitchTarget.GetComponent<PlayerMachine>().EnableHoppy) 	//DEE: Play unique vocal for Hoppy
+			{
+				leftSwitchTarget.GetComponent<AudioSource>().Play();
+			}
         }
         else if (input.Current.RightBumper)
         {
@@ -673,6 +679,8 @@ public class PlayerMachine : SuperStateMachine {
             else
                 currentState = PlayerStates.AirNoControl;
         }
+
+
 
     }
     private void HandleAirMovement(bool enablemovement = true)

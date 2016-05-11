@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+//NOTE: THIS MUST BE ATTACHED TO THE CAMERA
+
 public class MusicRandomizer : MonoBehaviour {
 
 	public AudioClip[] soundtrack;

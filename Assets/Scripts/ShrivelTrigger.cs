@@ -86,7 +86,7 @@ public class ShrivelTrigger : MonoBehaviour {
 			{
 				if (undone == false) 
 				{
-					audio.Play ();
+					audio.Play();
 				}
 			}
 
