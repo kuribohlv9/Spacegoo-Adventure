@@ -359,7 +359,8 @@ public class PlayerMachine : SuperStateMachine {
         AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
 
         //We push the slime towards the wall so it actually looks like we're sticking
-        AnimatedMesh.position -= Vector3.Scale(StickWall.normal * StickWall.distance, new Vector3(1, 0, 1));
+        //AnimatedMesh.position -= Vector3.Scale(StickWall.normal * StickWall.distance, new Vector3(1, 0, 1));
+        AnimatedMesh.position = StickWall.point;
 //        transform.position -= StickWall.normal * StickWall.distance;
 
         //Dee: ANIMATE? THIS ISN'T WORKING. HE IS NEVER ENTERING STUCK ANIMATION
@@ -420,12 +421,15 @@ public class PlayerMachine : SuperStateMachine {
         anim.SetBool("IsSticking", false);
         anim.SetBool("IsJumpingFromStick", true);
 
-        //When we leave the state, we leave with momemtum away from the wall
-        AnimatedMesh.position = transform.position;
 
-        //And we normalize our rotation
-        AnimatedMesh.rotation = Quaternion.LookRotation(moveDirection);
+        if (currentState.ToString() != "NoControl")
+        {
+            //When we leave the state, we leave with momemtum away from the wall
+            AnimatedMesh.position = transform.position;
 
+            //And we normalize our rotation
+            AnimatedMesh.rotation = Quaternion.LookRotation(moveDirection);
+        }
     }
 
     void Hoppy_EnterState()
@@ -451,7 +455,7 @@ public class PlayerMachine : SuperStateMachine {
         Jump(SuperJumpCount, Gravity);
         SuperJumpCount = 0;
 
-        anim.SetBool("IsSuperJumping", true);
+        anim.SetBool("IsSuperJumping", false);
     }
 
     //No Control State
@@ -474,10 +478,12 @@ public class PlayerMachine : SuperStateMachine {
         {
             currentState = PlayerStates.AirNoControl;
         }
-
-        Vector3 rotatetowardscharacter = controlTarget.transform.position - controller.transform.position;
-        rotatetowardscharacter.y = 0;
-        AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.LookRotation(rotatetowardscharacter), 3);
+        if(!IsSticking)
+        {
+            Vector3 rotatetowardscharacter = controlTarget.transform.position - controller.transform.position;
+            rotatetowardscharacter.y = 0;
+            AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.LookRotation(rotatetowardscharacter), 3);
+        }
     }
     void NoControl_ExitState()
     {
@@ -494,7 +500,22 @@ public class PlayerMachine : SuperStateMachine {
     }
     void AirNoControl_SuperUpdate()
     {
-        HandleAirMovement(false);
+        if(!IsSticking)
+        {
+            HandleAirMovement(false);
+        }
+        if(InControl)
+        {
+            if (IsSticking)
+            {
+                currentState = PlayerStates.Sticky;
+            }
+            else
+            {
+                currentState = PlayerStates.Air;
+            }
+            return;
+        }
     }
     void AirNoControl_ExitState()
     {
@@ -606,6 +627,10 @@ public class PlayerMachine : SuperStateMachine {
                         //Then we raycast towards the normal. This will be the closest point on the collider in almost every case.
                         if (col.Raycast(wallray, out hit, Mathf.Infinity) && hit.normal.y < 1)
                         {
+                            Debug.Log(Vector3.Angle(controller.up, hit.normal));
+                            if (Vector3.Angle(controller.up, hit.normal) < 40.0f)
+                                return false;
+
                             StickWall = hit;
                             currentState = PlayerStates.Sticky;
                             return true;
@@ -694,7 +719,7 @@ public class PlayerMachine : SuperStateMachine {
             return;
         }
 
-        if(enablemovement)
+        if(enablemovement && input.moveinput.magnitude > 0.2)
         {
             planarMoveDirection = Vector3.MoveTowards(planarMoveDirection, LocalMovement() * WalkSpeed, JumpAcceleration * Time.deltaTime);
         }

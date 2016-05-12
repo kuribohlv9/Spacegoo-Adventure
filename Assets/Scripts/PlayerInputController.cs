@@ -22,6 +22,11 @@ public class PlayerInputController : MonoBehaviour {
         moveinput = moveInput;
         Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
+        if(mouseInput.magnitude < 0.01f)
+        {
+            mouseInput = Vector2.zero;
+        }
+
         bool jumpInput = Input.GetButtonDown("Jump");
         bool continuousJumpInput = Input.GetButton("Jump");
         bool sticky = Input.GetButtonDown("Fire3");
