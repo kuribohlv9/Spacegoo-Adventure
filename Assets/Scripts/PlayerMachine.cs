@@ -434,10 +434,10 @@ public class PlayerMachine : SuperStateMachine {
 
     void Hoppy_EnterState()
     {
-		audio.Play();							//DEE: Play Hoppy selection sound
         moveDirection = Vector3.zero;
         AnimatedMesh.localScale = new Vector3(1, 0.5f, 1);
     }
+
     void Hoppy_SuperUpdate()
     {
         if (MaxSuperJump > SuperJumpCount)
@@ -657,11 +657,16 @@ public class PlayerMachine : SuperStateMachine {
             else
                 currentState = PlayerStates.AirNoControl;
 
-
+            //Play SFX
 			if (leftSwitchTarget.GetComponent<PlayerMachine>().EnableHoppy) 	//DEE: Play unique vocal for Hoppy
 			{
 				leftSwitchTarget.GetComponent<AudioSource>().Play();
 			}
+            if (leftSwitchTarget.GetComponent<PlayerMachine>().EnableSticky) 	//DEE: Play unique vocal for Sticky
+            {
+                leftSwitchTarget.GetComponent<AudioSource>().Play();
+            }
+
         }
         else if (input.Current.RightBumper)
         {
@@ -678,9 +683,19 @@ public class PlayerMachine : SuperStateMachine {
                 currentState = PlayerStates.NoControl;
             else
                 currentState = PlayerStates.AirNoControl;
+
+            //Play SFX
+            if (rightSwitchTarget.GetComponent<PlayerMachine>().EnableHoppy) 	//DEE: Play unique vocal for Hoppy
+            {
+                rightSwitchTarget.GetComponent<AudioSource>().Play();
+            }
+            if (rightSwitchTarget.GetComponent<PlayerMachine>().EnableSticky) 	//DEE: Play unique vocal for Sticky
+            {
+                rightSwitchTarget.GetComponent<AudioSource>().Play();
+            }
         }
 
-
+        
 
     }
     private void HandleAirMovement(bool enablemovement = true)
