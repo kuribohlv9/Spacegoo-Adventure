@@ -54,12 +54,16 @@ public class PlayerMachine : SuperStateMachine {
     public Transform rightSwitchTarget;
     public Transform controlTarget;
 
+	//Start audioman
+	public AudioSource audio;
+
     //Start and global updates
 	void Start () {
 	    // Put any code here you want to run ONCE, when the object is initialized
         input = gameObject.GetComponent<PlayerInputController>();
 
-        
+		audio = GetComponent<AudioSource>();			   //DEE: INIT AUDIO
+
         anim = GetComponentInChildren<Animator>();        //Dee: INITIALIZE ANIMATOR
 
         // Grab the controller object from our object
@@ -344,7 +348,7 @@ public class PlayerMachine : SuperStateMachine {
         anim.SetBool("HasLanded", true);
         if(EnableGlidey)
            anim.SetBool("FoldIn", true);
-        if(EnableGlidey)
+        if(EnableSticky)
             anim.SetBool("IsJumpingFromStick", false);
     }
 
@@ -432,7 +436,10 @@ public class PlayerMachine : SuperStateMachine {
     {
         moveDirection = Vector3.zero;
         AnimatedMesh.localScale = new Vector3(1, 0.5f, 1);
+
+        anim.SetBool("IsSuperJumping", true);
     }
+
     void Hoppy_SuperUpdate()
     {
         if (MaxSuperJump > SuperJumpCount)
@@ -448,6 +455,8 @@ public class PlayerMachine : SuperStateMachine {
         AnimatedMesh.localScale = new Vector3(1, 1, 1);
         Jump(SuperJumpCount, Gravity);
         SuperJumpCount = 0;
+
+        anim.SetBool("IsSuperJumping", true);
     }
 
     //No Control State
@@ -485,6 +494,8 @@ public class PlayerMachine : SuperStateMachine {
     {
         controller.DisableClamping();
         controller.DisableSlopeLimit();
+
+        anim.SetBool("Clamping", true);
     }
     void AirNoControl_SuperUpdate()
     {
@@ -619,7 +630,8 @@ public class PlayerMachine : SuperStateMachine {
             //    SuperJumpCount += Time.deltaTime * SuperJumpBuildingSpeed;
             //    AnimatedMesh.localScale = new Vector3(1, 0.5f, 1);
             //}
-            currentState = PlayerStates.Hoppy;
+            
+			currentState = PlayerStates.Hoppy;
         }
         //else if(!input.Current.Debug && EnableHoppy && SuperJumpCount != 0)
         //{
@@ -650,6 +662,17 @@ public class PlayerMachine : SuperStateMachine {
                 currentState = PlayerStates.NoControl;
             else
                 currentState = PlayerStates.AirNoControl;
+
+            //Play SFX
+			if (leftSwitchTarget.GetComponent<PlayerMachine>().EnableHoppy) 	//DEE: Play unique vocal for Hoppy
+			{
+				leftSwitchTarget.GetComponent<AudioSource>().Play();
+			}
+            if (leftSwitchTarget.GetComponent<PlayerMachine>().EnableSticky) 	//DEE: Play unique vocal for Sticky
+            {
+                leftSwitchTarget.GetComponent<AudioSource>().Play();
+            }
+
         }
         else if (input.Current.RightBumper)
         {
@@ -666,7 +689,19 @@ public class PlayerMachine : SuperStateMachine {
                 currentState = PlayerStates.NoControl;
             else
                 currentState = PlayerStates.AirNoControl;
+
+            //Play SFX
+            if (rightSwitchTarget.GetComponent<PlayerMachine>().EnableHoppy) 	//DEE: Play unique vocal for Hoppy
+            {
+                rightSwitchTarget.GetComponent<AudioSource>().Play();
+            }
+            if (rightSwitchTarget.GetComponent<PlayerMachine>().EnableSticky) 	//DEE: Play unique vocal for Sticky
+            {
+                rightSwitchTarget.GetComponent<AudioSource>().Play();
+            }
         }
+
+        
 
     }
     private void HandleAirMovement(bool enablemovement = true)
@@ -736,6 +771,7 @@ public class PlayerMachine : SuperStateMachine {
         //Changes the movement on command. Used in bounce mushrooms.
         moveDirection = movement;
         CanDoubleJump = true;
+        anim.SetBool("IsDoubleJumping", false);
     }
     public void ForceSwitch(Transform target)
     {

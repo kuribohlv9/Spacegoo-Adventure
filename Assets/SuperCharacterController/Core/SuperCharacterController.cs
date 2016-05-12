@@ -291,7 +291,11 @@ public class SuperCharacterController : MonoBehaviour
     void ClampToGround()
     {
         float d = currentGround.Distance();
-        transform.position -= up * d;
+        if(d < 1)
+        {
+            transform.position -= up * d;
+        }
+
     }
 
     public void EnableClamping()
@@ -740,6 +744,7 @@ public class SuperCharacterController : MonoBehaviour
             // Check if we are at the edge of a ledge, or on a high angle slope
             if (farGround != null && !OnSteadyGround(farGround.normal, primaryGround.point))
             {
+
                 // Check if we are walking onto steadier ground
                 if (nearGround != null && nearGround.distance < distance && Vector3.Angle(nearGround.normal, controller.up) < superCollisionType.StandAngle && !OnSteadyGround(nearGround.normal, nearGround.point))
                 {
@@ -753,10 +758,8 @@ public class SuperCharacterController : MonoBehaviour
                     groundNormal = stepGround.normal;
                     return true;
                 }
-
                 return false;
             }
-
 
             if (farGround != null)
             {
