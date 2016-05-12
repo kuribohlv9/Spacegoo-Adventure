@@ -348,7 +348,7 @@ public class PlayerMachine : SuperStateMachine {
         anim.SetBool("HasLanded", true);
         if(EnableGlidey)
            anim.SetBool("FoldIn", true);
-        if(EnableGlidey)
+        if(EnableSticky)
             anim.SetBool("IsJumpingFromStick", false);
     }
 
@@ -436,6 +436,8 @@ public class PlayerMachine : SuperStateMachine {
     {
         moveDirection = Vector3.zero;
         AnimatedMesh.localScale = new Vector3(1, 0.5f, 1);
+
+        anim.SetBool("IsSuperJumping", true);
     }
 
     void Hoppy_SuperUpdate()
@@ -453,6 +455,8 @@ public class PlayerMachine : SuperStateMachine {
         AnimatedMesh.localScale = new Vector3(1, 1, 1);
         Jump(SuperJumpCount, Gravity);
         SuperJumpCount = 0;
+
+        anim.SetBool("IsSuperJumping", true);
     }
 
     //No Control State
@@ -490,6 +494,8 @@ public class PlayerMachine : SuperStateMachine {
     {
         controller.DisableClamping();
         controller.DisableSlopeLimit();
+
+        anim.SetBool("Clamping", true);
     }
     void AirNoControl_SuperUpdate()
     {
@@ -765,6 +771,7 @@ public class PlayerMachine : SuperStateMachine {
         //Changes the movement on command. Used in bounce mushrooms.
         moveDirection = movement;
         CanDoubleJump = true;
+        anim.SetBool("IsDoubleJumping", false);
     }
     public void ForceSwitch(Transform target)
     {
