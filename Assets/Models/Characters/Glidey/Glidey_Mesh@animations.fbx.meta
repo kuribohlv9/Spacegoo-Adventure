@@ -221,14 +221,16 @@ ModelImporter:
     400212: SpineBase
     7400000: Jump
     7400002: Air Time
-    7400004: Land
-    7400006: Idle
-    7400008: Walk
-    7400010: Glide fold out
-    7400012: Glide
-    7400014: Glide Fold In
+    7400004: Apex
+    7400006: Air Time Down
+    7400008: Land
+    7400010: Idle
+    7400012: Walk
+    7400014: Glide Fold Out
     7400016: animations7
     7400018: animations8
+    7400020: Glide
+    7400022: Glide Fold In
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -255,7 +257,7 @@ ModelImporter:
       name: Jump
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 10
+      lastFrame: 13
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -736,10 +738,494 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
+      name: Apex
+      takeName: Take 001
+      firstFrame: 24
+      lastFrame: 28
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: BaseJoint
+        weight: 1
+      - path: BaseJoint/BackLeft01
+        weight: 1
+      - path: BaseJoint/BackLeft01/BackLeft01Hinge
+        weight: 1
+      - path: BaseJoint/BackLeft01/BackLeft01Hinge/BackLeft01Tip
+        weight: 1
+      - path: BaseJoint/BackLeft02
+        weight: 1
+      - path: BaseJoint/BackLeft02/BackLeft02Hinge
+        weight: 1
+      - path: BaseJoint/BackLeft02/BackLeft02Hinge/BackLeft02Tip
+        weight: 1
+      - path: BaseJoint/BackLeft03
+        weight: 1
+      - path: BaseJoint/BackLeft03/BackLeft03Hinge
+        weight: 1
+      - path: BaseJoint/BackLeft03/BackLeft03Hinge/BackLeft03Tip
+        weight: 1
+      - path: BaseJoint/BackLeft04
+        weight: 1
+      - path: BaseJoint/BackLeft04/BackLeft04Hinge
+        weight: 1
+      - path: BaseJoint/BackLeft04/BackLeft04Hinge/BackLeft04Tip
+        weight: 1
+      - path: BaseJoint/BackLeft05
+        weight: 1
+      - path: BaseJoint/BackLeft05/BackLeft05Hinge
+        weight: 1
+      - path: BaseJoint/BackLeft05/BackLeft05Hinge/BackLeft05Tip
+        weight: 1
+      - path: BaseJoint/BackMiddle
+        weight: 1
+      - path: BaseJoint/BackMiddle/BackMiddleHinge
+        weight: 1
+      - path: BaseJoint/BackMiddle/BackMiddleHinge/BackMiddleTip
+        weight: 1
+      - path: BaseJoint/BackRight01
+        weight: 1
+      - path: BaseJoint/BackRight01/BackRight01Hinge
+        weight: 1
+      - path: BaseJoint/BackRight01/BackRight01Hinge/BackRight01Tip
+        weight: 1
+      - path: BaseJoint/BackRight02
+        weight: 1
+      - path: BaseJoint/BackRight02/BackRight02Hinge
+        weight: 1
+      - path: BaseJoint/BackRight02/BackRight02Hinge/BackRight02Tip
+        weight: 1
+      - path: BaseJoint/BackRight03
+        weight: 1
+      - path: BaseJoint/BackRight03/BackRight03Hinge
+        weight: 1
+      - path: BaseJoint/BackRight03/BackRight03Hinge/BackRight03Tip
+        weight: 1
+      - path: BaseJoint/BackRight04
+        weight: 1
+      - path: BaseJoint/BackRight04/BackRight04Hinge
+        weight: 1
+      - path: BaseJoint/BackRight04/BackRight04Hinge/BackRight04Tip
+        weight: 1
+      - path: BaseJoint/BackRight05
+        weight: 1
+      - path: BaseJoint/BackRight05/BackRight05Hinge
+        weight: 1
+      - path: BaseJoint/BackRight05/BackRight05Hinge/BackRight05Tip
+        weight: 1
+      - path: BaseJoint/FrontLeft01
+        weight: 1
+      - path: BaseJoint/FrontLeft01/FrontLeft01Hinge
+        weight: 1
+      - path: BaseJoint/FrontLeft01/FrontLeft01Hinge/FrontLeft01Tip
+        weight: 1
+      - path: BaseJoint/FrontLeft02
+        weight: 1
+      - path: BaseJoint/FrontLeft02/FrontLeft02Hinge
+        weight: 1
+      - path: BaseJoint/FrontLeft02/FrontLeft02Hinge/FrontLeft02Tip
+        weight: 1
+      - path: BaseJoint/FrontLeft03
+        weight: 1
+      - path: BaseJoint/FrontLeft03/FrontLeft03Hinge
+        weight: 1
+      - path: BaseJoint/FrontLeft03/FrontLeft03Hinge/FrontLeft03Tip
+        weight: 1
+      - path: BaseJoint/FrontLeft04
+        weight: 1
+      - path: BaseJoint/FrontLeft04/FrontLeft04Hinge
+        weight: 1
+      - path: BaseJoint/FrontLeft04/FrontLeft04Hinge/FrontLeft04Tip
+        weight: 1
+      - path: BaseJoint/FrontLeft05
+        weight: 1
+      - path: BaseJoint/FrontLeft05/FrontLeft05Hinge
+        weight: 1
+      - path: BaseJoint/FrontLeft05/FrontLeft05Hinge/FrontLeft05Tip
+        weight: 1
+      - path: BaseJoint/FrontMiddle
+        weight: 1
+      - path: BaseJoint/FrontMiddle/FrontMiddleHinge
+        weight: 1
+      - path: BaseJoint/FrontMiddle/FrontMiddleHinge/FrontMiddleTip
+        weight: 1
+      - path: BaseJoint/FrontRight01
+        weight: 1
+      - path: BaseJoint/FrontRight01/FrontRight01Hinge
+        weight: 1
+      - path: BaseJoint/FrontRight01/FrontRight01Hinge/FrontRight01Tip
+        weight: 1
+      - path: BaseJoint/FrontRight02
+        weight: 1
+      - path: BaseJoint/FrontRight02/FrontRight02Hinge
+        weight: 1
+      - path: BaseJoint/FrontRight02/FrontRight02Hinge/FrontRight02Tip
+        weight: 1
+      - path: BaseJoint/FrontRight03
+        weight: 1
+      - path: BaseJoint/FrontRight03/FrontRight03Hinge
+        weight: 1
+      - path: BaseJoint/FrontRight03/FrontRight03Hinge/FrontRight03Tip
+        weight: 1
+      - path: BaseJoint/FrontRight04
+        weight: 1
+      - path: BaseJoint/FrontRight04/FrontRight04Hinge
+        weight: 1
+      - path: BaseJoint/FrontRight04/FrontRight04Hinge/FrontRight04Tip
+        weight: 1
+      - path: BaseJoint/FrontRight05
+        weight: 1
+      - path: BaseJoint/FrontRight05/FrontRight05Hinge
+        weight: 1
+      - path: BaseJoint/FrontRight05/FrontRight05Hinge/FrontRight05Tip
+        weight: 1
+      - path: BaseJoint/LeftMiddle
+        weight: 1
+      - path: BaseJoint/LeftMiddle/LeftMiddleHinge
+        weight: 1
+      - path: BaseJoint/LeftMiddle/LeftMiddleHinge/LeftMiddleTip
+        weight: 1
+      - path: BaseJoint/RightMiddle
+        weight: 1
+      - path: BaseJoint/RightMiddle/RightMiddleHinge
+        weight: 1
+      - path: BaseJoint/RightMiddle/RightMiddleHinge/RightMiddleTip
+        weight: 1
+      - path: BaseJoint/SpineBase
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftEyeBase
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftEyeBase/LeftEyeHinge1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftEyeBase/LeftEyeHinge1/LeftEyeHinge2
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftEyeBase/LeftEyeHinge1/LeftEyeHinge2/LeftEyeHinge3
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftEyeBase/LeftEyeHinge1/LeftEyeHinge2/LeftEyeHinge3/LeftEye
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftHeadHingeB1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftHeadHingeB1/LeftHeadHingeB2
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftHeadHingeB1/LeftHeadHingeB2/LeftHeadHingeB3
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftHeadHingeB1/LeftHeadHingeB2/LeftHeadHingeB3/LeftHeadSpine2
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightEyeBase
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightEyeBase/RightEyeHinge1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightEyeBase/RightEyeHinge1/RightEyeHinge2
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightEyeBase/RightEyeHinge1/RightEyeHinge2/RightEyeHinge3
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightEyeBase/RightEyeHinge1/RightEyeHinge2/RightEyeHinge3/RightEye
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightHeadHingeB1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightHeadHingeB1/RightHeadHingeB2
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightHeadHingeB1/RightHeadHingeB2/RightHeadHingeB3
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightHeadHingeB1/RightHeadHingeB2/RightHeadHingeB3/RightHeadSpine2
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: Air Time Down
+      takeName: Take 001
+      firstFrame: 30
+      lastFrame: 34
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: BaseJoint
+        weight: 1
+      - path: BaseJoint/BackLeft01
+        weight: 1
+      - path: BaseJoint/BackLeft01/BackLeft01Hinge
+        weight: 1
+      - path: BaseJoint/BackLeft01/BackLeft01Hinge/BackLeft01Tip
+        weight: 1
+      - path: BaseJoint/BackLeft02
+        weight: 1
+      - path: BaseJoint/BackLeft02/BackLeft02Hinge
+        weight: 1
+      - path: BaseJoint/BackLeft02/BackLeft02Hinge/BackLeft02Tip
+        weight: 1
+      - path: BaseJoint/BackLeft03
+        weight: 1
+      - path: BaseJoint/BackLeft03/BackLeft03Hinge
+        weight: 1
+      - path: BaseJoint/BackLeft03/BackLeft03Hinge/BackLeft03Tip
+        weight: 1
+      - path: BaseJoint/BackLeft04
+        weight: 1
+      - path: BaseJoint/BackLeft04/BackLeft04Hinge
+        weight: 1
+      - path: BaseJoint/BackLeft04/BackLeft04Hinge/BackLeft04Tip
+        weight: 1
+      - path: BaseJoint/BackLeft05
+        weight: 1
+      - path: BaseJoint/BackLeft05/BackLeft05Hinge
+        weight: 1
+      - path: BaseJoint/BackLeft05/BackLeft05Hinge/BackLeft05Tip
+        weight: 1
+      - path: BaseJoint/BackMiddle
+        weight: 1
+      - path: BaseJoint/BackMiddle/BackMiddleHinge
+        weight: 1
+      - path: BaseJoint/BackMiddle/BackMiddleHinge/BackMiddleTip
+        weight: 1
+      - path: BaseJoint/BackRight01
+        weight: 1
+      - path: BaseJoint/BackRight01/BackRight01Hinge
+        weight: 1
+      - path: BaseJoint/BackRight01/BackRight01Hinge/BackRight01Tip
+        weight: 1
+      - path: BaseJoint/BackRight02
+        weight: 1
+      - path: BaseJoint/BackRight02/BackRight02Hinge
+        weight: 1
+      - path: BaseJoint/BackRight02/BackRight02Hinge/BackRight02Tip
+        weight: 1
+      - path: BaseJoint/BackRight03
+        weight: 1
+      - path: BaseJoint/BackRight03/BackRight03Hinge
+        weight: 1
+      - path: BaseJoint/BackRight03/BackRight03Hinge/BackRight03Tip
+        weight: 1
+      - path: BaseJoint/BackRight04
+        weight: 1
+      - path: BaseJoint/BackRight04/BackRight04Hinge
+        weight: 1
+      - path: BaseJoint/BackRight04/BackRight04Hinge/BackRight04Tip
+        weight: 1
+      - path: BaseJoint/BackRight05
+        weight: 1
+      - path: BaseJoint/BackRight05/BackRight05Hinge
+        weight: 1
+      - path: BaseJoint/BackRight05/BackRight05Hinge/BackRight05Tip
+        weight: 1
+      - path: BaseJoint/FrontLeft01
+        weight: 1
+      - path: BaseJoint/FrontLeft01/FrontLeft01Hinge
+        weight: 1
+      - path: BaseJoint/FrontLeft01/FrontLeft01Hinge/FrontLeft01Tip
+        weight: 1
+      - path: BaseJoint/FrontLeft02
+        weight: 1
+      - path: BaseJoint/FrontLeft02/FrontLeft02Hinge
+        weight: 1
+      - path: BaseJoint/FrontLeft02/FrontLeft02Hinge/FrontLeft02Tip
+        weight: 1
+      - path: BaseJoint/FrontLeft03
+        weight: 1
+      - path: BaseJoint/FrontLeft03/FrontLeft03Hinge
+        weight: 1
+      - path: BaseJoint/FrontLeft03/FrontLeft03Hinge/FrontLeft03Tip
+        weight: 1
+      - path: BaseJoint/FrontLeft04
+        weight: 1
+      - path: BaseJoint/FrontLeft04/FrontLeft04Hinge
+        weight: 1
+      - path: BaseJoint/FrontLeft04/FrontLeft04Hinge/FrontLeft04Tip
+        weight: 1
+      - path: BaseJoint/FrontLeft05
+        weight: 1
+      - path: BaseJoint/FrontLeft05/FrontLeft05Hinge
+        weight: 1
+      - path: BaseJoint/FrontLeft05/FrontLeft05Hinge/FrontLeft05Tip
+        weight: 1
+      - path: BaseJoint/FrontMiddle
+        weight: 1
+      - path: BaseJoint/FrontMiddle/FrontMiddleHinge
+        weight: 1
+      - path: BaseJoint/FrontMiddle/FrontMiddleHinge/FrontMiddleTip
+        weight: 1
+      - path: BaseJoint/FrontRight01
+        weight: 1
+      - path: BaseJoint/FrontRight01/FrontRight01Hinge
+        weight: 1
+      - path: BaseJoint/FrontRight01/FrontRight01Hinge/FrontRight01Tip
+        weight: 1
+      - path: BaseJoint/FrontRight02
+        weight: 1
+      - path: BaseJoint/FrontRight02/FrontRight02Hinge
+        weight: 1
+      - path: BaseJoint/FrontRight02/FrontRight02Hinge/FrontRight02Tip
+        weight: 1
+      - path: BaseJoint/FrontRight03
+        weight: 1
+      - path: BaseJoint/FrontRight03/FrontRight03Hinge
+        weight: 1
+      - path: BaseJoint/FrontRight03/FrontRight03Hinge/FrontRight03Tip
+        weight: 1
+      - path: BaseJoint/FrontRight04
+        weight: 1
+      - path: BaseJoint/FrontRight04/FrontRight04Hinge
+        weight: 1
+      - path: BaseJoint/FrontRight04/FrontRight04Hinge/FrontRight04Tip
+        weight: 1
+      - path: BaseJoint/FrontRight05
+        weight: 1
+      - path: BaseJoint/FrontRight05/FrontRight05Hinge
+        weight: 1
+      - path: BaseJoint/FrontRight05/FrontRight05Hinge/FrontRight05Tip
+        weight: 1
+      - path: BaseJoint/LeftMiddle
+        weight: 1
+      - path: BaseJoint/LeftMiddle/LeftMiddleHinge
+        weight: 1
+      - path: BaseJoint/LeftMiddle/LeftMiddleHinge/LeftMiddleTip
+        weight: 1
+      - path: BaseJoint/RightMiddle
+        weight: 1
+      - path: BaseJoint/RightMiddle/RightMiddleHinge
+        weight: 1
+      - path: BaseJoint/RightMiddle/RightMiddleHinge/RightMiddleTip
+        weight: 1
+      - path: BaseJoint/SpineBase
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftEyeBase
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftEyeBase/LeftEyeHinge1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftEyeBase/LeftEyeHinge1/LeftEyeHinge2
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftEyeBase/LeftEyeHinge1/LeftEyeHinge2/LeftEyeHinge3
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftEyeBase/LeftEyeHinge1/LeftEyeHinge2/LeftEyeHinge3/LeftEye
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftHeadHingeB1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftHeadHingeB1/LeftHeadHingeB2
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftHeadHingeB1/LeftHeadHingeB2/LeftHeadHingeB3
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/LeftHeadBase/LeftHeadHingeA1/LeftHeadHingeA2/LeftHeadHingeA3/LeftHeadSpine1/LeftHeadHingeB1/LeftHeadHingeB2/LeftHeadHingeB3/LeftHeadSpine2
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightEyeBase
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightEyeBase/RightEyeHinge1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightEyeBase/RightEyeHinge1/RightEyeHinge2
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightEyeBase/RightEyeHinge1/RightEyeHinge2/RightEyeHinge3
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightEyeBase/RightEyeHinge1/RightEyeHinge2/RightEyeHinge3/RightEye
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightHeadHingeB1
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightHeadHingeB1/RightHeadHingeB2
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightHeadHingeB1/RightHeadHingeB2/RightHeadHingeB3
+        weight: 1
+      - path: BaseJoint/SpineBase/HingeA1/HingeA2/HingeA3/HeadBase/RightHeadBase/RightHeadHingeA1/RightHeadHingeA2/RightHeadHingeA3/RighHeadSpine1/RightHeadHingeB1/RightHeadHingeB2/RightHeadHingeB3/RightHeadSpine2
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
       name: Land
       takeName: Take 001
-      firstFrame: 25
-      lastFrame: 32
+      firstFrame: 36
+      lastFrame: 44
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -980,8 +1466,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Idle
       takeName: Take 001
-      firstFrame: 36
-      lastFrame: 52
+      firstFrame: 46
+      lastFrame: 63
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1222,8 +1708,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Walk
       takeName: Take 001
-      firstFrame: 56
-      lastFrame: 76
+      firstFrame: 67
+      lastFrame: 87
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1462,10 +1948,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Glide fold out
+      name: Glide Fold Out
       takeName: Take 001
-      firstFrame: 82
-      lastFrame: 95
+      firstFrame: 93
+      lastFrame: 106
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1706,8 +2192,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Glide
       takeName: Take 001
-      firstFrame: 95
-      lastFrame: 96
+      firstFrame: 108
+      lastFrame: 120
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1948,8 +2434,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Glide Fold In
       takeName: Take 001
-      firstFrame: 95
-      lastFrame: 110
+      firstFrame: 124
+      lastFrame: 136
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
