@@ -4,6 +4,7 @@ using System.Collections;
 public class AmbientLightSwitch : MonoBehaviour {
 
     private bool IsDark = false;
+    public GameObject lightGameObject;
 
 	// Use this for initialization
 	void Start () {
@@ -20,8 +21,18 @@ public class AmbientLightSwitch : MonoBehaviour {
         //Debug.Log("John");
         if(col.tag == "Player")
         {
+<<<<<<< HEAD
             //Debug.Log("Cena");
             RenderSettings.ambientIntensity = 0.0f;
+=======
+            Debug.Log("Cena");
+            RenderSettings.ambientIntensity = 0.33f;
+            RenderSettings.ambientEquatorColor = Color.black;
+            RenderSettings.ambientGroundColor = Color.black;
+            RenderSettings.ambientSkyColor = Color.black;
+            RenderSettings.reflectionIntensity = 0.038f;
+          
+>>>>>>> refs/remotes/origin/Dee4
         }
     }
     void OnTriggerStay(Collider col)
@@ -31,7 +42,13 @@ public class AmbientLightSwitch : MonoBehaviour {
             if(col.GetComponentInParent<PlayerMachine>().InControl && IsDark == false)
             {
                 IsDark = true;
-                RenderSettings.ambientIntensity = 0.0f;
+
+                RenderSettings.ambientIntensity = 0.33f;
+                RenderSettings.ambientEquatorColor = Color.black;
+                RenderSettings.ambientGroundColor = Color.black;
+                RenderSettings.ambientSkyColor = Color.black;
+                RenderSettings.reflectionIntensity = 0.038f;
+               
             }
             else if (col.GetComponentInParent<PlayerMachine>().InControl == false && IsDark)
             {
