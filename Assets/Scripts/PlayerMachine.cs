@@ -29,6 +29,7 @@ public class PlayerMachine : SuperStateMachine {
     public bool InControl = false;
     public float MaxSuperJump = 10;
     public float SuperJumpBuildingSpeed = 1.0f;
+    public float StickyTargetTime = 1.0f;
 
     //Private variables for different behaviours
     private float jumptime = 0;
@@ -40,6 +41,7 @@ public class PlayerMachine : SuperStateMachine {
     private  Animator anim;  //Dee: animator
     private bool IsCharging = false;
     private bool IsSticking = false;
+    private float StickyTimer = 0;
 
 
     //I have no idea what exactly lookDirection does ?_?
@@ -105,26 +107,8 @@ public class PlayerMachine : SuperStateMachine {
         // Put any code in here you want to run AFTER the state's update function.
         // This is run regardless of what state you're in
 
-        //if(Time.deltaTime > 0.03)
-        //{
-        //    RaycastHit hit;
-        //    Ray CheckWalls = new Ray(controller.transform.position, moveDirection);
-        //    if(Physics.Raycast(CheckWalls, out hit, moveDirection.magnitude * Time.deltaTime))
-        //    {
-        //        transform.position = hit.point;
-        //    }
-        //    else
-        //    {
-        //        // Move the player by our velocity every frame
-        //        transform.position += moveDirection * Time.deltaTime;
-        //    }
-        //}
-        //else
-        {
-            // Move the player by our velocity every frame
-            transform.position += moveDirection * Time.deltaTime;
-        }
-
+        transform.position += moveDirection * Time.deltaTime;
+        
         if(InControl && input.Current.Recall)
         {
             leftSwitchTarget.transform.position = transform.position - AnimatedMesh.forward - AnimatedMesh.right;
@@ -258,61 +242,6 @@ public class PlayerMachine : SuperStateMachine {
         HandleHoppy();
     }
 
-    ////Jump State
-    //void Jump_EnterState()
-    //{
-    //    controller.DisableClamping();
-    //    controller.DisableSlopeLimit();
-
-    //    //Give us vertical movement
-    //    Jump(JumpHeight, Gravity);
-    //}
-    //void Jump_SuperUpdate()
-    //{
-    //    //Handle both double jump and stick to walls
-    //    HandleDoubleJump();
-    //    if (HandleSticky())
-    //        return;
-
-    //    HandleAirMovement();
-    //}
-    //void Jump_ExitState()
-    //{
-    //    CanDoubleJump = true;
-    //}
-
-    ////Fall State
-    //void Fall_EnterState()
-    //{
-    //    controller.DisableClamping();
-    //    controller.DisableSlopeLimit();
-
-    //    //Resets our window of jump opportunity
-    //    jumptime = 0;
-    //}
-    //void Fall_SuperUpdate()
-    //{
-    //    //--WARNING--WARNING--
-    //    //Let's just ignore this for now.
-    //    //We should really rewrite this when we have the time :P
-    //    jumptime += Time.deltaTime;
-    //    if (jumptime < 0.1 && input.Current.JumpInput)
-    //    {
-    //        currentState = PlayerStates.Jump;
-    //        return;
-    //    }
-
-    //    HandleAirMovement();
-    //    //if (AcquiringGround())
-    //    //{
-    //    //    moveDirection = Math3d.ProjectVectorOnPlane(controller.up, moveDirection);
-    //    //    currentState = PlayerStates.Idle;
-    //    //    return;
-    //    //}
-
-    //    //moveDirection -= controller.up * Gravity * Time.deltaTime;
-    //}
-
     void Air_EnterState()
     {
         controller.DisableClamping();
@@ -363,10 +292,9 @@ public class PlayerMachine : SuperStateMachine {
         AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(Lastmovedirection, controller.up);
 
         //We push the slime towards the wall so it actually looks like we're sticking
-        AnimatedMesh.position -= Vector3.Scale(StickWall.normal * StickWall.distance, new Vector3(1, 0, 1));
-//        transform.position -= StickWall.normal * StickWall.distance;
+        //AnimatedMesh.position -= Vector3.Scale(StickWall.normal * StickWall.distance, new Vector3(1, 0, 1));
+        AnimatedMesh.position = StickWall.point;
 
-        //Dee: ANIMATE? THIS ISN'T WORKING. HE IS NEVER ENTERING STUCK ANIMATION
         anim.SetBool("IsSticking", true);
 
         CanDoubleJump = true;
@@ -424,12 +352,15 @@ public class PlayerMachine : SuperStateMachine {
         anim.SetBool("IsSticking", false);
         anim.SetBool("IsJumpingFromStick", true);
 
-        //When we leave the state, we leave with momemtum away from the wall
-        AnimatedMesh.position = transform.position;
 
-        //And we normalize our rotation
-        AnimatedMesh.rotation = Quaternion.LookRotation(moveDirection);
+        if (currentState.ToString() != "NoControl")
+        {
+            //When we leave the state, we leave with momemtum away from the wall
+            AnimatedMesh.position = transform.position;
 
+            //And we normalize our rotation
+            AnimatedMesh.rotation = Quaternion.LookRotation(moveDirection);
+        }
     }
 
     void Hoppy_EnterState()
@@ -456,7 +387,7 @@ public class PlayerMachine : SuperStateMachine {
         Jump(SuperJumpCount, Gravity);
         SuperJumpCount = 0;
 
-        anim.SetBool("IsSuperJumping", true);
+        anim.SetBool("IsSuperJumping", false);
     }
 
     //No Control State
@@ -479,10 +410,12 @@ public class PlayerMachine : SuperStateMachine {
         {
             currentState = PlayerStates.AirNoControl;
         }
-
-        Vector3 rotatetowardscharacter = controlTarget.transform.position - controller.transform.position;
-        rotatetowardscharacter.y = 0;
-        AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.LookRotation(rotatetowardscharacter), 3);
+        if(!IsSticking)
+        {
+            Vector3 rotatetowardscharacter = controlTarget.transform.position - controller.transform.position;
+            rotatetowardscharacter.y = 0;
+            AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.LookRotation(rotatetowardscharacter), 3);
+        }
     }
     void NoControl_ExitState()
     {
@@ -499,7 +432,22 @@ public class PlayerMachine : SuperStateMachine {
     }
     void AirNoControl_SuperUpdate()
     {
-        HandleAirMovement(false);
+        if(!IsSticking)
+        {
+            HandleAirMovement(false);
+        }
+        if(InControl)
+        {
+            if (IsSticking)
+            {
+                currentState = PlayerStates.Sticky;
+            }
+            else
+            {
+                currentState = PlayerStates.Air;
+            }
+            return;
+        }
     }
     void AirNoControl_ExitState()
     {
@@ -590,9 +538,44 @@ public class PlayerMachine : SuperStateMachine {
     }
     private bool HandleSticky()
     {
+
         //First we check the input and if we can stick
         if (input.Current.Sticky && EnableSticky)
         {
+            StickyTimer = StickyTargetTime;
+            ////Then we check if there are any colliders in a sphere around you
+            //Collider[] colliders = Physics.OverlapSphere(controller.transform.position, 1);
+            //foreach (Collider col in colliders)
+            //{
+            //    if (col.tag == "Environment")
+            //    {
+            //        //When we find a sticky wall we raycast towards it's center to get the normal
+            //        Ray wallray = new Ray(controller.transform.position, col.bounds.center - controller.transform.position);
+            //        RaycastHit hit;
+
+            //        if (col.Raycast(wallray, out hit, Mathf.Infinity))
+            //        {
+            //            //Make a new ray with the direction of the wall's normal
+            //            wallray = new Ray(controller.transform.position, -hit.normal);
+
+            //            //Then we raycast towards the normal. This will be the closest point on the collider in almost every case.
+            //            if (col.Raycast(wallray, out hit, Mathf.Infinity) && hit.normal.y < 1)
+            //            {
+            //                if (Vector3.Angle(controller.up, hit.normal) < 40.0f)
+            //                    return false;
+
+            //                StickWall = hit;
+            //                currentState = PlayerStates.Sticky;
+            //                return true;
+            //            }
+            //        }
+            //    }
+            //}
+        }
+        if (StickyTimer > 0)
+        {
+            StickyTimer -= Time.deltaTime;
+
             //Then we check if there are any colliders in a sphere around you
             Collider[] colliders = Physics.OverlapSphere(controller.transform.position, 1);
             foreach (Collider col in colliders)
@@ -611,8 +594,12 @@ public class PlayerMachine : SuperStateMachine {
                         //Then we raycast towards the normal. This will be the closest point on the collider in almost every case.
                         if (col.Raycast(wallray, out hit, Mathf.Infinity) && hit.normal.y < 1)
                         {
+                            if (Vector3.Angle(controller.up, hit.normal) < 40.0f)
+                                return false;
+
                             StickWall = hit;
                             currentState = PlayerStates.Sticky;
+                            StickyTimer = 0;
                             return true;
                         }
                     }
@@ -625,6 +612,7 @@ public class PlayerMachine : SuperStateMachine {
     {
         if(input.Current.Debug && EnableHoppy)
         {
+<<<<<<< HEAD
             //if(MaxSuperJump > SuperJumpCount)
             //{
             //    SuperJumpCount += Time.deltaTime * SuperJumpBuildingSpeed;
@@ -632,15 +620,10 @@ public class PlayerMachine : SuperStateMachine {
             //}
             
 			currentState = PlayerStates.Hoppy;
+=======
+            currentState = PlayerStates.Hoppy;
+>>>>>>> refs/remotes/origin/Simon
         }
-        //else if(!input.Current.Debug && EnableHoppy && SuperJumpCount != 0)
-        //{
-        //    IsCharging = false;
-        //    AnimatedMesh.localScale = new Vector3(1, 1, 1);
-        //    currentState = PlayerStates.Air;
-        //    Jump(SuperJumpCount, Gravity);
-        //    SuperJumpCount = 0;
-        //}
     }
     private void HandleSwitching()
     {
@@ -723,7 +706,7 @@ public class PlayerMachine : SuperStateMachine {
             return;
         }
 
-        if(enablemovement)
+        if(enablemovement && input.moveinput.magnitude > 0.2)
         {
             planarMoveDirection = Vector3.MoveTowards(planarMoveDirection, LocalMovement() * WalkSpeed, JumpAcceleration * Time.deltaTime);
         }
