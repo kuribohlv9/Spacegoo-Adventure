@@ -17,10 +17,10 @@ public class AmbientLightSwitch : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log("John");
+        //Debug.Log("John");
         if(col.tag == "Player")
         {
-            Debug.Log("Cena");
+            //Debug.Log("Cena");
             RenderSettings.ambientIntensity = 0.0f;
         }
     }

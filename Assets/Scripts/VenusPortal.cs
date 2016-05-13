@@ -19,7 +19,7 @@ public class VenusPortal : MonoBehaviour {
         if (col.tag == "Player")
         {
             count += Time.deltaTime;
-            anim.SetFloat("Count", count);
+            //anim.SetFloat("Count", count);
 
             if (count >= timing)
             {
