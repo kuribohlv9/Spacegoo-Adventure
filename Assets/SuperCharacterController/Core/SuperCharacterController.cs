@@ -186,6 +186,10 @@ public class SuperCharacterController : MonoBehaviour
             }
         }
     }
+    void FixedUpdate()
+    {
+
+    }
 
     void SingleUpdate()
     {
@@ -205,6 +209,8 @@ public class SuperCharacterController : MonoBehaviour
         //_animator.SetFloat
 
         gameObject.SendMessage("SuperUpdate", SendMessageOptions.DontRequireReceiver);
+
+        collisionData.Clear();
 
         RecursivePushback(0, MaxPushbackIterations);
 
@@ -285,7 +291,11 @@ public class SuperCharacterController : MonoBehaviour
     void ClampToGround()
     {
         float d = currentGround.Distance();
-        transform.position -= up * d;
+        if(d < 1)
+        {
+            transform.position -= up * d;
+        }
+
     }
 
     public void EnableClamping()
@@ -313,44 +323,6 @@ public class SuperCharacterController : MonoBehaviour
         return clamping;
     }
 
-    /// <summary>
-    /// Provides raycast data based on where a SphereCast would contact the specified normal
-    /// Raycasting downwards from a point along the controller's bottom sphere, based on the provided
-    /// normal
-    /// </summary>
-    /// <param name="groundNormal">Normal of a triangle assumed to be directly below the controller</param>
-    /// <param name="hit">Simulated SphereCast data</param>
-    /// <returns>True if the raycast is successful</returns>
-    private bool SimulateSphereCast(Vector3 groundNormal, out RaycastHit hit)
-    {
-        float groundAngle = Vector3.Angle(groundNormal, up) * Mathf.Deg2Rad;
-
-        Vector3 secondaryOrigin = transform.position + up * Tolerance;
-
-        if (!Mathf.Approximately(groundAngle, 0))
-        {
-            float horizontal = Mathf.Sin(groundAngle) * radius;
-            float vertical = (1.0f - Mathf.Cos(groundAngle)) * radius;
-
-            // Retrieve a vector pointing up the slope
-            Vector3 r2 = Vector3.Cross(groundNormal, down);
-            Vector3 v2 = -Vector3.Cross(r2, groundNormal);
-
-            secondaryOrigin += Math3d.ProjectVectorOnPlane(up, v2).normalized * horizontal + up * vertical;
-        }
-
-        if (Physics.Raycast(secondaryOrigin, down, out hit, Mathf.Infinity, Walkable))
-        {
-            // Remove the tolerance from the distance travelled
-            hit.distance -= Tolerance;
-
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 
     /// <summary>
     /// Check if any of the CollisionSpheres are colliding with any walkable objects in the world.
@@ -360,7 +332,6 @@ public class SuperCharacterController : MonoBehaviour
     {
         PushIgnoredColliders();
 
-        collisionData.Clear();
 
         bool contact = false;
 
@@ -684,7 +655,7 @@ public class SuperCharacterController : MonoBehaviour
 
                     // We contacted the wall of the ledge, rather than the landing. Raycast down
                     // the wall to retrieve the proper landing
-                    if (Vector3.Angle(nearHit.normal, up) > superColType.StandAngle)
+                    if (Vector3.Angle(nearHit.normal, up) > col.StandAngle)
                     {
                         // Retrieve a vector pointing down the slope
                         Vector3 r = Vector3.Cross(nearHit.normal, down);
@@ -773,6 +744,7 @@ public class SuperCharacterController : MonoBehaviour
             // Check if we are at the edge of a ledge, or on a high angle slope
             if (farGround != null && !OnSteadyGround(farGround.normal, primaryGround.point))
             {
+
                 // Check if we are walking onto steadier ground
                 if (nearGround != null && nearGround.distance < distance && Vector3.Angle(nearGround.normal, controller.up) < superCollisionType.StandAngle && !OnSteadyGround(nearGround.normal, nearGround.point))
                 {
@@ -786,10 +758,8 @@ public class SuperCharacterController : MonoBehaviour
                     groundNormal = stepGround.normal;
                     return true;
                 }
-
                 return false;
             }
-
 
             if (farGround != null)
             {
@@ -876,6 +846,14 @@ public class SuperCharacterController : MonoBehaviour
             }
         }
 
+        /// <summary>
+        /// Provides raycast data based on where a SphereCast would contact the specified normal
+        /// Raycasting downwards from a point along the controller's bottom sphere, based on the provided
+        /// normal
+        /// </summary>
+        /// <param name="groundNormal">Normal of a triangle assumed to be directly below the controller</param>
+        /// <param name="hit">Simulated SphereCast data</param>
+        /// <returns>True if the raycast is successful</returns>
         private bool SimulateSphereCast(Vector3 groundNormal, out RaycastHit hit)
         {
             float groundAngle = Vector3.Angle(groundNormal, controller.up) * Mathf.Deg2Rad;
@@ -894,7 +872,7 @@ public class SuperCharacterController : MonoBehaviour
                 secondaryOrigin += Math3d.ProjectVectorOnPlane(controller.up, v2).normalized * horizontal + controller.up * vertical;
             }
 
-            if (Physics.Raycast(secondaryOrigin, controller.down, out hit, Mathf.Infinity, walkable))
+            if (Physics.SphereCast(secondaryOrigin, TinyTolerance, controller.down, out hit, Mathf.Infinity, walkable))
             {
                 // Remove the tolerance from the distance travelled
                 hit.distance -= Tolerance;

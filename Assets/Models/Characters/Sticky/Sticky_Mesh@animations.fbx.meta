@@ -288,8 +288,11 @@ ModelImporter:
     7400008: Land
     7400010: Stick on ground
     7400012: Stick In Air
-    7400014: Stuck
-    7400016: Jump From Wall
+    7400014: Jump From Stick
+    7400016: Double Jump
+    7400018: Apex
+    7400020: Fall down from apex
+    7400022: Falling
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -1529,618 +1532,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Land
-      takeName: Take 001
-      firstFrame: 69
-      lastFrame: 76
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Root
-        weight: 1
-      - path: Root/Base
-        weight: 1
-      - path: Root/Base/BackLeft
-        weight: 1
-      - path: Root/Base/BackMid
-        weight: 1
-      - path: Root/Base/BackRight
-        weight: 1
-      - path: Root/Base/FrontLeft
-        weight: 1
-      - path: Root/Base/FrontMid
-        weight: 1
-      - path: Root/Base/FrontRight
-        weight: 1
-      - path: Root/Base/LeftLeft
-        weight: 1
-      - path: Root/Base/LeftMid
-        weight: 1
-      - path: Root/Base/LeftRight
-        weight: 1
-      - path: Root/Base/RightLeft
-        weight: 1
-      - path: Root/Base/RightMid
-        weight: 1
-      - path: Root/Base/RightRight
-        weight: 1
-      - path: Root/Base/Spine1
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2/HingeD3
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2/HingeD3/Eye
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01/Spine3Joint0102
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01/Spine3Joint0102/CBackMiddle
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02/Spine3Joint0202
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02/Spine3Joint0202/CBackRight
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03/Spine3Joint0302
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03/Spine3Joint0302/CLeftLeft
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04/Spine3Joint0402
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04/Spine3Joint0402/CLeftMiddle
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05/Spine3Joint0502
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05/Spine3Joint0502/CLeftRight
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06/Spine3Joint0602
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06/Spine3Joint0602/CFrontLeft
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07/Spine3Joint0702
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07/Spine3Joint0702/CFrontMiddle
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08/Spine3Joint0802
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08/Spine3Joint0802/CFrontRight
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09/Spine3Joint0902
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09/Spine3Joint0902/CRightLeft
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10/Spine3Joint1002
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10/Spine3Joint1002/CRightMiddle
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11/Spine3Joint1102
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11/Spine3Joint1102/CRightRight
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12/Spine3Joint1202
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12/Spine3Joint1202/CBackLeft
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine4
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01/Spine2Joint0102
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01/Spine2Joint0102/BBackMiddle
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02/Spine2Joint0202
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02/Spine2Joint0202/BBackRight
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03/Spine2Joint0302
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03/Spine2Joint0302/BLeftLeft
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04/Spine2Joint0402
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04/Spine2Joint0402/BLeftMiddle
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05/Spine2Joint0502
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05/Spine2Joint0502/BLeftRight
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06/Spine2Joint0602
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06/Spine2Joint0602/BFrontLeft
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07/Spine2Joint0702
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07/Spine2Joint0702/BFrontMiddle
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08/Spine2Joint0802
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08/Spine2Joint0802/BFrontRight
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09/Spine2Joint0902
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09/Spine2Joint0902/BRightLeft
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10/Spine2Joint1002
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10/Spine2Joint1002/BRightMiddle
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11/Spine2Joint1102
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11/Spine2Joint1102/BRightRight
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12/Spine2Joint1202
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12/Spine2Joint1202/BBackLeft
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint01
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint01/Spine1Joint0102
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint01/Spine1Joint0102/ABackMiddle
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint02
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint02/Spine1Joint0202
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint02/Spine1Joint0202/ABackRight
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint03
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint03/Spine1Joint0302
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint03/Spine1Joint0302/ALeftLeft
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint04
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint04/Spine1Joint0402
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint04/Spine1Joint0402/ALeftMiddle
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint05
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint05/Spine1Joint0502
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint05/Spine1Joint0502/ALeftRight
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint06
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint06/Spine1Joint0602
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint06/Spine1Joint0602/AFrontLeft
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint07
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint07/Spine1Joint0702
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint07/Spine1Joint0702/AFrontMiddle
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint08
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint08/Spine1Joint0802
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint08/Spine1Joint0802/AFrontRight
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint09
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint09/Spine1Joint0902
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint09/Spine1Joint0902/ARightLeft
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint10
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint10/Spine1Joint1002
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint10/Spine1Joint1002/ARightMiddle
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint11
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint11/Spine1Joint1102
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint11/Spine1Joint1102/ARightRight
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint12
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint12/Spine1Joint1202
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint12/Spine1Joint1202/ABackLeft
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
-    - serializedVersion: 16
-      name: Stick on ground
-      takeName: Take 001
-      firstFrame: 80
-      lastFrame: 92
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Root
-        weight: 1
-      - path: Root/Base
-        weight: 1
-      - path: Root/Base/BackLeft
-        weight: 1
-      - path: Root/Base/BackMid
-        weight: 1
-      - path: Root/Base/BackRight
-        weight: 1
-      - path: Root/Base/FrontLeft
-        weight: 1
-      - path: Root/Base/FrontMid
-        weight: 1
-      - path: Root/Base/FrontRight
-        weight: 1
-      - path: Root/Base/LeftLeft
-        weight: 1
-      - path: Root/Base/LeftMid
-        weight: 1
-      - path: Root/Base/LeftRight
-        weight: 1
-      - path: Root/Base/RightLeft
-        weight: 1
-      - path: Root/Base/RightMid
-        weight: 1
-      - path: Root/Base/RightRight
-        weight: 1
-      - path: Root/Base/Spine1
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2/HingeD3
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2/HingeD3/Eye
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01/Spine3Joint0102
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01/Spine3Joint0102/CBackMiddle
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02/Spine3Joint0202
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02/Spine3Joint0202/CBackRight
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03/Spine3Joint0302
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03/Spine3Joint0302/CLeftLeft
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04/Spine3Joint0402
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04/Spine3Joint0402/CLeftMiddle
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05/Spine3Joint0502
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05/Spine3Joint0502/CLeftRight
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06/Spine3Joint0602
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06/Spine3Joint0602/CFrontLeft
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07/Spine3Joint0702
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07/Spine3Joint0702/CFrontMiddle
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08/Spine3Joint0802
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08/Spine3Joint0802/CFrontRight
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09/Spine3Joint0902
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09/Spine3Joint0902/CRightLeft
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10/Spine3Joint1002
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10/Spine3Joint1002/CRightMiddle
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11/Spine3Joint1102
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11/Spine3Joint1102/CRightRight
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12/Spine3Joint1202
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12/Spine3Joint1202/CBackLeft
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine4
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01/Spine2Joint0102
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01/Spine2Joint0102/BBackMiddle
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02/Spine2Joint0202
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02/Spine2Joint0202/BBackRight
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03/Spine2Joint0302
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03/Spine2Joint0302/BLeftLeft
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04/Spine2Joint0402
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04/Spine2Joint0402/BLeftMiddle
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05/Spine2Joint0502
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05/Spine2Joint0502/BLeftRight
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06/Spine2Joint0602
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06/Spine2Joint0602/BFrontLeft
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07/Spine2Joint0702
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07/Spine2Joint0702/BFrontMiddle
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08/Spine2Joint0802
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08/Spine2Joint0802/BFrontRight
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09/Spine2Joint0902
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09/Spine2Joint0902/BRightLeft
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10/Spine2Joint1002
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10/Spine2Joint1002/BRightMiddle
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11/Spine2Joint1102
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11/Spine2Joint1102/BRightRight
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12/Spine2Joint1202
-        weight: 1
-      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12/Spine2Joint1202/BBackLeft
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint01
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint01/Spine1Joint0102
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint01/Spine1Joint0102/ABackMiddle
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint02
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint02/Spine1Joint0202
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint02/Spine1Joint0202/ABackRight
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint03
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint03/Spine1Joint0302
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint03/Spine1Joint0302/ALeftLeft
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint04
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint04/Spine1Joint0402
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint04/Spine1Joint0402/ALeftMiddle
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint05
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint05/Spine1Joint0502
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint05/Spine1Joint0502/ALeftRight
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint06
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint06/Spine1Joint0602
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint06/Spine1Joint0602/AFrontLeft
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint07
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint07/Spine1Joint0702
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint07/Spine1Joint0702/AFrontMiddle
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint08
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint08/Spine1Joint0802
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint08/Spine1Joint0802/AFrontRight
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint09
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint09/Spine1Joint0902
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint09/Spine1Joint0902/ARightLeft
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint10
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint10/Spine1Joint1002
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint10/Spine1Joint1002/ARightMiddle
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint11
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint11/Spine1Joint1102
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint11/Spine1Joint1102/ARightRight
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint12
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint12/Spine1Joint1202
-        weight: 1
-      - path: Root/Base/Spine1/Spine1Joint12/Spine1Joint1202/ABackLeft
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
-    - serializedVersion: 16
       name: Stick In Air
       takeName: Take 001
-      firstFrame: 95
-      lastFrame: 102
+      firstFrame: 80
+      lastFrame: 85
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2441,10 +1836,1226 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Stuck
+      name: Jump From Stick
       takeName: Take 001
-      firstFrame: 102
-      lastFrame: 103
+      firstFrame: 88
+      lastFrame: 95
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Base
+        weight: 1
+      - path: Root/Base/BackLeft
+        weight: 1
+      - path: Root/Base/BackMid
+        weight: 1
+      - path: Root/Base/BackRight
+        weight: 1
+      - path: Root/Base/FrontLeft
+        weight: 1
+      - path: Root/Base/FrontMid
+        weight: 1
+      - path: Root/Base/FrontRight
+        weight: 1
+      - path: Root/Base/LeftLeft
+        weight: 1
+      - path: Root/Base/LeftMid
+        weight: 1
+      - path: Root/Base/LeftRight
+        weight: 1
+      - path: Root/Base/RightLeft
+        weight: 1
+      - path: Root/Base/RightMid
+        weight: 1
+      - path: Root/Base/RightRight
+        weight: 1
+      - path: Root/Base/Spine1
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2/HingeD3
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2/HingeD3/Eye
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01/Spine3Joint0102
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01/Spine3Joint0102/CBackMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02/Spine3Joint0202
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02/Spine3Joint0202/CBackRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03/Spine3Joint0302
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03/Spine3Joint0302/CLeftLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04/Spine3Joint0402
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04/Spine3Joint0402/CLeftMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05/Spine3Joint0502
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05/Spine3Joint0502/CLeftRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06/Spine3Joint0602
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06/Spine3Joint0602/CFrontLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07/Spine3Joint0702
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07/Spine3Joint0702/CFrontMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08/Spine3Joint0802
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08/Spine3Joint0802/CFrontRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09/Spine3Joint0902
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09/Spine3Joint0902/CRightLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10/Spine3Joint1002
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10/Spine3Joint1002/CRightMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11/Spine3Joint1102
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11/Spine3Joint1102/CRightRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12/Spine3Joint1202
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12/Spine3Joint1202/CBackLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine4
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01/Spine2Joint0102
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01/Spine2Joint0102/BBackMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02/Spine2Joint0202
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02/Spine2Joint0202/BBackRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03/Spine2Joint0302
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03/Spine2Joint0302/BLeftLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04/Spine2Joint0402
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04/Spine2Joint0402/BLeftMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05/Spine2Joint0502
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05/Spine2Joint0502/BLeftRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06/Spine2Joint0602
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06/Spine2Joint0602/BFrontLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07/Spine2Joint0702
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07/Spine2Joint0702/BFrontMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08/Spine2Joint0802
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08/Spine2Joint0802/BFrontRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09/Spine2Joint0902
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09/Spine2Joint0902/BRightLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10/Spine2Joint1002
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10/Spine2Joint1002/BRightMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11/Spine2Joint1102
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11/Spine2Joint1102/BRightRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12/Spine2Joint1202
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12/Spine2Joint1202/BBackLeft
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint01
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint01/Spine1Joint0102
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint01/Spine1Joint0102/ABackMiddle
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint02
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint02/Spine1Joint0202
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint02/Spine1Joint0202/ABackRight
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint03
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint03/Spine1Joint0302
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint03/Spine1Joint0302/ALeftLeft
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint04
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint04/Spine1Joint0402
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint04/Spine1Joint0402/ALeftMiddle
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint05
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint05/Spine1Joint0502
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint05/Spine1Joint0502/ALeftRight
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint06
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint06/Spine1Joint0602
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint06/Spine1Joint0602/AFrontLeft
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint07
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint07/Spine1Joint0702
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint07/Spine1Joint0702/AFrontMiddle
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint08
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint08/Spine1Joint0802
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint08/Spine1Joint0802/AFrontRight
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint09
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint09/Spine1Joint0902
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint09/Spine1Joint0902/ARightLeft
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint10
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint10/Spine1Joint1002
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint10/Spine1Joint1002/ARightMiddle
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint11
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint11/Spine1Joint1102
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint11/Spine1Joint1102/ARightRight
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint12
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint12/Spine1Joint1202
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint12/Spine1Joint1202/ABackLeft
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: Double Jump
+      takeName: Take 001
+      firstFrame: 100
+      lastFrame: 110
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Base
+        weight: 1
+      - path: Root/Base/BackLeft
+        weight: 1
+      - path: Root/Base/BackMid
+        weight: 1
+      - path: Root/Base/BackRight
+        weight: 1
+      - path: Root/Base/FrontLeft
+        weight: 1
+      - path: Root/Base/FrontMid
+        weight: 1
+      - path: Root/Base/FrontRight
+        weight: 1
+      - path: Root/Base/LeftLeft
+        weight: 1
+      - path: Root/Base/LeftMid
+        weight: 1
+      - path: Root/Base/LeftRight
+        weight: 1
+      - path: Root/Base/RightLeft
+        weight: 1
+      - path: Root/Base/RightMid
+        weight: 1
+      - path: Root/Base/RightRight
+        weight: 1
+      - path: Root/Base/Spine1
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2/HingeD3
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2/HingeD3/Eye
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01/Spine3Joint0102
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01/Spine3Joint0102/CBackMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02/Spine3Joint0202
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02/Spine3Joint0202/CBackRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03/Spine3Joint0302
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03/Spine3Joint0302/CLeftLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04/Spine3Joint0402
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04/Spine3Joint0402/CLeftMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05/Spine3Joint0502
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05/Spine3Joint0502/CLeftRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06/Spine3Joint0602
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06/Spine3Joint0602/CFrontLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07/Spine3Joint0702
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07/Spine3Joint0702/CFrontMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08/Spine3Joint0802
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08/Spine3Joint0802/CFrontRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09/Spine3Joint0902
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09/Spine3Joint0902/CRightLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10/Spine3Joint1002
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10/Spine3Joint1002/CRightMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11/Spine3Joint1102
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11/Spine3Joint1102/CRightRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12/Spine3Joint1202
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12/Spine3Joint1202/CBackLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine4
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01/Spine2Joint0102
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01/Spine2Joint0102/BBackMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02/Spine2Joint0202
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02/Spine2Joint0202/BBackRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03/Spine2Joint0302
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03/Spine2Joint0302/BLeftLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04/Spine2Joint0402
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04/Spine2Joint0402/BLeftMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05/Spine2Joint0502
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05/Spine2Joint0502/BLeftRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06/Spine2Joint0602
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06/Spine2Joint0602/BFrontLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07/Spine2Joint0702
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07/Spine2Joint0702/BFrontMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08/Spine2Joint0802
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08/Spine2Joint0802/BFrontRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09/Spine2Joint0902
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09/Spine2Joint0902/BRightLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10/Spine2Joint1002
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10/Spine2Joint1002/BRightMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11/Spine2Joint1102
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11/Spine2Joint1102/BRightRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12/Spine2Joint1202
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12/Spine2Joint1202/BBackLeft
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint01
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint01/Spine1Joint0102
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint01/Spine1Joint0102/ABackMiddle
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint02
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint02/Spine1Joint0202
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint02/Spine1Joint0202/ABackRight
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint03
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint03/Spine1Joint0302
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint03/Spine1Joint0302/ALeftLeft
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint04
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint04/Spine1Joint0402
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint04/Spine1Joint0402/ALeftMiddle
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint05
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint05/Spine1Joint0502
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint05/Spine1Joint0502/ALeftRight
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint06
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint06/Spine1Joint0602
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint06/Spine1Joint0602/AFrontLeft
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint07
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint07/Spine1Joint0702
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint07/Spine1Joint0702/AFrontMiddle
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint08
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint08/Spine1Joint0802
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint08/Spine1Joint0802/AFrontRight
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint09
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint09/Spine1Joint0902
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint09/Spine1Joint0902/ARightLeft
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint10
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint10/Spine1Joint1002
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint10/Spine1Joint1002/ARightMiddle
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint11
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint11/Spine1Joint1102
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint11/Spine1Joint1102/ARightRight
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint12
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint12/Spine1Joint1202
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint12/Spine1Joint1202/ABackLeft
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: Apex
+      takeName: Take 001
+      firstFrame: 115
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Base
+        weight: 1
+      - path: Root/Base/BackLeft
+        weight: 1
+      - path: Root/Base/BackMid
+        weight: 1
+      - path: Root/Base/BackRight
+        weight: 1
+      - path: Root/Base/FrontLeft
+        weight: 1
+      - path: Root/Base/FrontMid
+        weight: 1
+      - path: Root/Base/FrontRight
+        weight: 1
+      - path: Root/Base/LeftLeft
+        weight: 1
+      - path: Root/Base/LeftMid
+        weight: 1
+      - path: Root/Base/LeftRight
+        weight: 1
+      - path: Root/Base/RightLeft
+        weight: 1
+      - path: Root/Base/RightMid
+        weight: 1
+      - path: Root/Base/RightRight
+        weight: 1
+      - path: Root/Base/Spine1
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2/HingeD3
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2/HingeD3/Eye
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01/Spine3Joint0102
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01/Spine3Joint0102/CBackMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02/Spine3Joint0202
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02/Spine3Joint0202/CBackRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03/Spine3Joint0302
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03/Spine3Joint0302/CLeftLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04/Spine3Joint0402
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04/Spine3Joint0402/CLeftMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05/Spine3Joint0502
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05/Spine3Joint0502/CLeftRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06/Spine3Joint0602
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06/Spine3Joint0602/CFrontLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07/Spine3Joint0702
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07/Spine3Joint0702/CFrontMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08/Spine3Joint0802
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08/Spine3Joint0802/CFrontRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09/Spine3Joint0902
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09/Spine3Joint0902/CRightLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10/Spine3Joint1002
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10/Spine3Joint1002/CRightMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11/Spine3Joint1102
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11/Spine3Joint1102/CRightRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12/Spine3Joint1202
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12/Spine3Joint1202/CBackLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine4
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01/Spine2Joint0102
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01/Spine2Joint0102/BBackMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02/Spine2Joint0202
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02/Spine2Joint0202/BBackRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03/Spine2Joint0302
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03/Spine2Joint0302/BLeftLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04/Spine2Joint0402
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04/Spine2Joint0402/BLeftMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05/Spine2Joint0502
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05/Spine2Joint0502/BLeftRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06/Spine2Joint0602
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06/Spine2Joint0602/BFrontLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07/Spine2Joint0702
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07/Spine2Joint0702/BFrontMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08/Spine2Joint0802
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08/Spine2Joint0802/BFrontRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09/Spine2Joint0902
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09/Spine2Joint0902/BRightLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10/Spine2Joint1002
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10/Spine2Joint1002/BRightMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11/Spine2Joint1102
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11/Spine2Joint1102/BRightRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12/Spine2Joint1202
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12/Spine2Joint1202/BBackLeft
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint01
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint01/Spine1Joint0102
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint01/Spine1Joint0102/ABackMiddle
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint02
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint02/Spine1Joint0202
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint02/Spine1Joint0202/ABackRight
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint03
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint03/Spine1Joint0302
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint03/Spine1Joint0302/ALeftLeft
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint04
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint04/Spine1Joint0402
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint04/Spine1Joint0402/ALeftMiddle
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint05
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint05/Spine1Joint0502
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint05/Spine1Joint0502/ALeftRight
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint06
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint06/Spine1Joint0602
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint06/Spine1Joint0602/AFrontLeft
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint07
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint07/Spine1Joint0702
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint07/Spine1Joint0702/AFrontMiddle
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint08
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint08/Spine1Joint0802
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint08/Spine1Joint0802/AFrontRight
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint09
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint09/Spine1Joint0902
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint09/Spine1Joint0902/ARightLeft
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint10
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint10/Spine1Joint1002
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint10/Spine1Joint1002/ARightMiddle
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint11
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint11/Spine1Joint1102
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint11/Spine1Joint1102/ARightRight
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint12
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint12/Spine1Joint1202
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint12/Spine1Joint1202/ABackLeft
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: Fall down from apex
+      takeName: Take 001
+      firstFrame: 121
+      lastFrame: 125
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Base
+        weight: 1
+      - path: Root/Base/BackLeft
+        weight: 1
+      - path: Root/Base/BackMid
+        weight: 1
+      - path: Root/Base/BackRight
+        weight: 1
+      - path: Root/Base/FrontLeft
+        weight: 1
+      - path: Root/Base/FrontMid
+        weight: 1
+      - path: Root/Base/FrontRight
+        weight: 1
+      - path: Root/Base/LeftLeft
+        weight: 1
+      - path: Root/Base/LeftMid
+        weight: 1
+      - path: Root/Base/LeftRight
+        weight: 1
+      - path: Root/Base/RightLeft
+        weight: 1
+      - path: Root/Base/RightMid
+        weight: 1
+      - path: Root/Base/RightRight
+        weight: 1
+      - path: Root/Base/Spine1
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2/HingeD3
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/EyeBase/HingeD1/HingeD2/HingeD3/Eye
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01/Spine3Joint0102
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint01/Spine3Joint0102/CBackMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02/Spine3Joint0202
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint02/Spine3Joint0202/CBackRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03/Spine3Joint0302
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint03/Spine3Joint0302/CLeftLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04/Spine3Joint0402
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint04/Spine3Joint0402/CLeftMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05/Spine3Joint0502
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint05/Spine3Joint0502/CLeftRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06/Spine3Joint0602
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint06/Spine3Joint0602/CFrontLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07/Spine3Joint0702
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint07/Spine3Joint0702/CFrontMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08/Spine3Joint0802
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint08/Spine3Joint0802/CFrontRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09/Spine3Joint0902
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint09/Spine3Joint0902/CRightLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10/Spine3Joint1002
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint10/Spine3Joint1002/CRightMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11/Spine3Joint1102
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint11/Spine3Joint1102/CRightRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12/Spine3Joint1202
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine3Joint12/Spine3Joint1202/CBackLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/hingeB1/hingeB2/hingeB3/Spine3/Spine4
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01/Spine2Joint0102
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint01/Spine2Joint0102/BBackMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02/Spine2Joint0202
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint02/Spine2Joint0202/BBackRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03/Spine2Joint0302
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint03/Spine2Joint0302/BLeftLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04/Spine2Joint0402
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint04/Spine2Joint0402/BLeftMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05/Spine2Joint0502
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint05/Spine2Joint0502/BLeftRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06/Spine2Joint0602
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint06/Spine2Joint0602/BFrontLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07/Spine2Joint0702
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint07/Spine2Joint0702/BFrontMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08/Spine2Joint0802
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint08/Spine2Joint0802/BFrontRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09/Spine2Joint0902
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint09/Spine2Joint0902/BRightLeft
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10/Spine2Joint1002
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint10/Spine2Joint1002/BRightMiddle
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11/Spine2Joint1102
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint11/Spine2Joint1102/BRightRight
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12/Spine2Joint1202
+        weight: 1
+      - path: Root/Base/Spine1/hingeA1/hingeA2/hingeA3/Spine2/Spine2Joint12/Spine2Joint1202/BBackLeft
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint01
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint01/Spine1Joint0102
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint01/Spine1Joint0102/ABackMiddle
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint02
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint02/Spine1Joint0202
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint02/Spine1Joint0202/ABackRight
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint03
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint03/Spine1Joint0302
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint03/Spine1Joint0302/ALeftLeft
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint04
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint04/Spine1Joint0402
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint04/Spine1Joint0402/ALeftMiddle
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint05
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint05/Spine1Joint0502
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint05/Spine1Joint0502/ALeftRight
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint06
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint06/Spine1Joint0602
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint06/Spine1Joint0602/AFrontLeft
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint07
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint07/Spine1Joint0702
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint07/Spine1Joint0702/AFrontMiddle
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint08
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint08/Spine1Joint0802
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint08/Spine1Joint0802/AFrontRight
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint09
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint09/Spine1Joint0902
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint09/Spine1Joint0902/ARightLeft
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint10
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint10/Spine1Joint1002
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint10/Spine1Joint1002/ARightMiddle
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint11
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint11/Spine1Joint1102
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint11/Spine1Joint1102/ARightRight
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint12
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint12/Spine1Joint1202
+        weight: 1
+      - path: Root/Base/Spine1/Spine1Joint12/Spine1Joint1202/ABackLeft
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: Falling
+      takeName: Take 001
+      firstFrame: 125
+      lastFrame: 130
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2745,10 +3356,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Jump From Wall
+      name: Land
       takeName: Take 001
-      firstFrame: 102
-      lastFrame: 109
+      firstFrame: 132
+      lastFrame: 142
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

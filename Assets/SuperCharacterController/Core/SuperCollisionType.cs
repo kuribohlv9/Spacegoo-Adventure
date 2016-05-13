@@ -7,6 +7,11 @@ using System.Collections;
 /// </summary>
 public class SuperCollisionType : MonoBehaviour {
 
-    public float StandAngle = 80.0f;
+    public float StandAngle = 60.0f;
     public float SlopeLimit = 80.0f;
+
+    void Start()
+    {
+        StandAngle = 60.0f;
+    }
 }

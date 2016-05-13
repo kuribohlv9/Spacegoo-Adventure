@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 19c5000621b43bd44aec0a26a1e73558
-timeCreated: 1461583624
+guid: 01401b36314957447802de2a4e0f2797
+timeCreated: 1461674763
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -145,45 +145,6 @@ ModelImporter:
     100274: Spine4
     100276: Sticky
     100278: //RootNode
-    100280: BackLeftControl
-    100282: BackMidControl
-    100284: BackRightControl
-    100286: bottomnurbsSquare1
-    100288: Con1
-    100290: Con10
-    100292: Con11
-    100294: Con12
-    100296: Con2
-    100298: Con3
-    100300: Con4
-    100302: Con5
-    100304: Con6
-    100306: Con7
-    100308: Con8
-    100310: Con9
-    100312: EyeMoveControl
-    100314: EyeRotationControl
-    100316: FrontLeftControl
-    100318: FrontMidControl
-    100320: FrontRightControl
-    100322: LeftLeftControl
-    100324: LeftMidControl
-    100326: leftnurbsSquare1
-    100328: LeftRightControl
-    100330: RightLeftControl
-    100332: RightMidControl
-    100334: rightnurbsSquare1
-    100336: RightRightControl
-    100338: Spine1Control
-    100340: Spine2Control
-    100342: Spine3Control
-    100344: Spine4Control
-    100346: Squash1Control
-    100348: Squash2Control
-    100350: Stretch1Control
-    100352: Stretch2Control
-    100354: Stretch3Control
-    100356: topnurbsSquare1
     400000: ABackLeft
     400002: ABackMiddle
     400004: ABackRight
@@ -324,45 +285,8 @@ ModelImporter:
     400274: Spine4
     400276: Sticky
     400278: //RootNode
-    400280: BackLeftControl
-    400282: BackMidControl
-    400284: BackRightControl
-    400286: bottomnurbsSquare1
-    400288: Con1
-    400290: Con10
-    400292: Con11
-    400294: Con12
-    400296: Con2
-    400298: Con3
-    400300: Con4
-    400302: Con5
-    400304: Con6
-    400306: Con7
-    400308: Con8
-    400310: Con9
-    400312: EyeMoveControl
-    400314: EyeRotationControl
-    400316: FrontLeftControl
-    400318: FrontMidControl
-    400320: FrontRightControl
-    400322: LeftLeftControl
-    400324: LeftMidControl
-    400326: leftnurbsSquare1
-    400328: LeftRightControl
-    400330: RightLeftControl
-    400332: RightMidControl
-    400334: rightnurbsSquare1
-    400336: RightRightControl
-    400338: Spine1Control
-    400340: Spine2Control
-    400342: Spine3Control
-    400344: Spine4Control
-    400346: Squash1Control
-    400348: Squash2Control
-    400350: Stretch1Control
-    400352: Stretch2Control
-    400354: Stretch3Control
-    400356: topnurbsSquare1
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: Sticky
     7400000: Take 001
     9500000: //RootNode
