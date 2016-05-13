@@ -144,18 +144,19 @@ public class GitDNet : MonoBehaviour
 
             //if willightup is true then timer than lightup()
 
-            if (timer < timerTarget && (willlightup || IsLit))
+            if ((willlightup || IsLit))
             {
                 timer += Time.deltaTime;
             }
-            else if (willlightup && timer > timerTarget)
+
+            if (willlightup && timer > timerTarget)
             {
                 LightUp();
                 willlightup = false;
                 IsLit = true;                
                 timer = 0;
             }
-            else if (IsLit && timer > timerTarget)
+            else if (IsLit && timer > timerOffTarget)
             {
                 Debug.Log("Sees that timerOffTarget has been reached");
 
@@ -170,6 +171,7 @@ public class GitDNet : MonoBehaviour
     {
 
         willlightup = true;
+        timer = 0;
     }
 
     public void LightUp()
