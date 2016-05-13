@@ -612,17 +612,7 @@ public class PlayerMachine : SuperStateMachine {
     {
         if(input.Current.Debug && EnableHoppy)
         {
-<<<<<<< HEAD
-            //if(MaxSuperJump > SuperJumpCount)
-            //{
-            //    SuperJumpCount += Time.deltaTime * SuperJumpBuildingSpeed;
-            //    AnimatedMesh.localScale = new Vector3(1, 0.5f, 1);
-            //}
-            
-			currentState = PlayerStates.Hoppy;
-=======
             currentState = PlayerStates.Hoppy;
->>>>>>> refs/remotes/origin/Simon
         }
     }
     private void HandleSwitching()
@@ -683,9 +673,6 @@ public class PlayerMachine : SuperStateMachine {
                 rightSwitchTarget.GetComponent<AudioSource>().Play();
             }
         }
-
-        
-
     }
     private void HandleAirMovement(bool enablemovement = true)
     {

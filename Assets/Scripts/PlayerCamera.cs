@@ -36,32 +36,26 @@ public class PlayerCamera : MonoBehaviour {
     void LateUpdate() {
         transform.position = target.position;
 
-        updateTime += Time.deltaTime;
-
         yRotation += input.Current.MouseInput.y * yRotationSpeed;
 
         yRotation = Mathf.Clamp(yRotation, -maxUpRotate, maxDownRotate);
 
-        xRotation += input.Current.MouseInput.x * xRotationSpeed;
+        xRotation += input.Current.MouseInput.x * xRotationSpeed * Time.deltaTime * 40;
 
         //Debug.Log(yRotation);
 
         Vector3 upward = Vector3.Cross(machine.lookDirection, controller.up);
         Vector3 right = Vector3.Cross(machine.lookDirection, controller.right);
 
-        if (updateTime >= 0.05)
-        { 
             transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.up);
             //transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.right);
             transform.rotation = Quaternion.AngleAxis(yRotation, upward) * transform.rotation;
             transform.rotation = Quaternion.AngleAxis(xRotation, right) * transform.rotation;
 
-            updateTime = 0;
-        }
-        
-
         transform.position -= transform.forward * Distance;
         transform.position += controller.up * Height;
+        
+
 
 	}
     public void SetTarget(Transform newtarget)
