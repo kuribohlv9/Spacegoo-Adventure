@@ -1,19 +1,15 @@
 fileFormatVersion: 2
-guid: cf7120eef4815454797af851b91d97de
-timeCreated: 1459780945
+guid: 9d1ac4facc8c4fc4c8513cad790d4d7d
+timeCreated: 1463148700
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: RegularTop_PH
     400000: //RootNode
-    400002: RegularTop_PH
-    2300000: RegularTop_PH
-    3300000: RegularTop_PH
-    4300000: RegularTop_PH
-    7400000: Take 001
-    9500000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Coop_Bounce_Shroom
   materials:
     importMaterials: 1
     materialName: 0
@@ -72,7 +68,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
