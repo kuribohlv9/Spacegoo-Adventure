@@ -20,6 +20,8 @@ public class PlayerCamera : MonoBehaviour {
     private float yRotation;
     private float xRotation;
 
+    private float updateTime;
+
     private SuperCharacterController controller;
 
 	// Use this for initialization
@@ -29,10 +31,12 @@ public class PlayerCamera : MonoBehaviour {
         controller = PlayerTarget.GetComponent<SuperCharacterController>();
         target = PlayerTarget.transform;
 	}
-	
-	// Update is called once per frame
-	void LateUpdate () {
+
+    // Update is called once per frame
+    void LateUpdate() {
         transform.position = target.position;
+
+        updateTime += Time.deltaTime;
 
         yRotation += input.Current.MouseInput.y * yRotationSpeed;
 
@@ -45,11 +49,15 @@ public class PlayerCamera : MonoBehaviour {
         Vector3 upward = Vector3.Cross(machine.lookDirection, controller.up);
         Vector3 right = Vector3.Cross(machine.lookDirection, controller.right);
 
-        transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.up);
-        //transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.right);
-        transform.rotation = Quaternion.AngleAxis(yRotation, upward) * transform.rotation;
-        transform.rotation = Quaternion.AngleAxis(xRotation, right) * transform.rotation;
+        if (updateTime >= 0.05)
+        { 
+            transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.up);
+            //transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.right);
+            transform.rotation = Quaternion.AngleAxis(yRotation, upward) * transform.rotation;
+            transform.rotation = Quaternion.AngleAxis(xRotation, right) * transform.rotation;
 
+            updateTime = 0;
+        }
         
 
         transform.position -= transform.forward * Distance;
