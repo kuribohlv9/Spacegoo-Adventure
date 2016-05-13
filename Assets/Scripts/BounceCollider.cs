@@ -6,16 +6,17 @@ public class BounceCollider : MonoBehaviour {
     AudioSource audio;
     public float Height = 10;
     public Vector3 direction = new Vector3(0, 1, 0);
+    public Animator anim;
 
 	// Use this for initialization
 	void Start () {
         audio = GetComponent<AudioSource>();
         direction.Normalize();
+        anim = GetComponentInChildren<Animator>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 
     void OnTriggerEnter(Collider col)
@@ -24,6 +25,7 @@ public class BounceCollider : MonoBehaviour {
         {
             audio.Play();
             col.GetComponentInParent<PlayerMachine>().ChangeMovement(direction * Height);
+            anim.SetTrigger("Bounce");
         }
     }
 }

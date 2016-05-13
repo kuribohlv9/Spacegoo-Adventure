@@ -101,26 +101,8 @@ public class PlayerMachine : SuperStateMachine {
         // Put any code in here you want to run AFTER the state's update function.
         // This is run regardless of what state you're in
 
-        //if(Time.deltaTime > 0.03)
-        //{
-        //    RaycastHit hit;
-        //    Ray CheckWalls = new Ray(controller.transform.position, moveDirection);
-        //    if(Physics.Raycast(CheckWalls, out hit, moveDirection.magnitude * Time.deltaTime))
-        //    {
-        //        transform.position = hit.point;
-        //    }
-        //    else
-        //    {
-        //        // Move the player by our velocity every frame
-        //        transform.position += moveDirection * Time.deltaTime;
-        //    }
-        //}
-        //else
-        {
-            // Move the player by our velocity every frame
-            transform.position += moveDirection * Time.deltaTime;
-        }
-
+        transform.position += moveDirection * Time.deltaTime;
+        
         if(InControl && input.Current.Recall)
         {
             leftSwitchTarget.transform.position = transform.position - AnimatedMesh.forward - AnimatedMesh.right;
@@ -254,61 +236,6 @@ public class PlayerMachine : SuperStateMachine {
         HandleHoppy();
     }
 
-    ////Jump State
-    //void Jump_EnterState()
-    //{
-    //    controller.DisableClamping();
-    //    controller.DisableSlopeLimit();
-
-    //    //Give us vertical movement
-    //    Jump(JumpHeight, Gravity);
-    //}
-    //void Jump_SuperUpdate()
-    //{
-    //    //Handle both double jump and stick to walls
-    //    HandleDoubleJump();
-    //    if (HandleSticky())
-    //        return;
-
-    //    HandleAirMovement();
-    //}
-    //void Jump_ExitState()
-    //{
-    //    CanDoubleJump = true;
-    //}
-
-    ////Fall State
-    //void Fall_EnterState()
-    //{
-    //    controller.DisableClamping();
-    //    controller.DisableSlopeLimit();
-
-    //    //Resets our window of jump opportunity
-    //    jumptime = 0;
-    //}
-    //void Fall_SuperUpdate()
-    //{
-    //    //--WARNING--WARNING--
-    //    //Let's just ignore this for now.
-    //    //We should really rewrite this when we have the time :P
-    //    jumptime += Time.deltaTime;
-    //    if (jumptime < 0.1 && input.Current.JumpInput)
-    //    {
-    //        currentState = PlayerStates.Jump;
-    //        return;
-    //    }
-
-    //    HandleAirMovement();
-    //    //if (AcquiringGround())
-    //    //{
-    //    //    moveDirection = Math3d.ProjectVectorOnPlane(controller.up, moveDirection);
-    //    //    currentState = PlayerStates.Idle;
-    //    //    return;
-    //    //}
-
-    //    //moveDirection -= controller.up * Gravity * Time.deltaTime;
-    //}
-
     void Air_EnterState()
     {
         controller.DisableClamping();
@@ -361,9 +288,7 @@ public class PlayerMachine : SuperStateMachine {
         //We push the slime towards the wall so it actually looks like we're sticking
         //AnimatedMesh.position -= Vector3.Scale(StickWall.normal * StickWall.distance, new Vector3(1, 0, 1));
         AnimatedMesh.position = StickWall.point;
-//        transform.position -= StickWall.normal * StickWall.distance;
 
-        //Dee: ANIMATE? THIS ISN'T WORKING. HE IS NEVER ENTERING STUCK ANIMATION
         anim.SetBool("IsSticking", true);
 
         CanDoubleJump = true;
@@ -645,21 +570,8 @@ public class PlayerMachine : SuperStateMachine {
     {
         if(input.Current.Debug && EnableHoppy)
         {
-            //if(MaxSuperJump > SuperJumpCount)
-            //{
-            //    SuperJumpCount += Time.deltaTime * SuperJumpBuildingSpeed;
-            //    AnimatedMesh.localScale = new Vector3(1, 0.5f, 1);
-            //}
             currentState = PlayerStates.Hoppy;
         }
-        //else if(!input.Current.Debug && EnableHoppy && SuperJumpCount != 0)
-        //{
-        //    IsCharging = false;
-        //    AnimatedMesh.localScale = new Vector3(1, 1, 1);
-        //    currentState = PlayerStates.Air;
-        //    Jump(SuperJumpCount, Gravity);
-        //    SuperJumpCount = 0;
-        //}
     }
     private void HandleSwitching()
     {
