@@ -19,11 +19,15 @@ public class ShrivelTrigger : MonoBehaviour {
     public GameObject target1;
     public MeshCollider target2;
 
+	AudioSource audio;
+
     // Use this for initialization
     void Start ()
     {
         xOriginal = target1.transform.localScale.x;
         yOriginal = target1.transform.localScale.y;
+
+		audio = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -78,10 +82,19 @@ public class ShrivelTrigger : MonoBehaviour {
     {
         if (col.tag == "Player")
         {
-            shrink = true;
+			if (!audio.isPlaying) 
+			{
+				if (undone == false) 
+				{
+					audio.Play();
+				}
+			}
+
+			shrink = true;
             undone = false;
             grow = false;
             timer = 0;
+
         }
     }
 

@@ -9,8 +9,9 @@ public class PrizeTrigger : MonoBehaviour {
     public int prize = 1;
 
     // Use this for initialization
-    void Start () {
-	
+    void Start ()
+    {
+        scorer.TotalPrize(prize);
 	}
 	
 	// Update is called once per frame

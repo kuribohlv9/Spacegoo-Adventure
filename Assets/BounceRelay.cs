@@ -27,18 +27,18 @@ public class BounceRelay : MonoBehaviour {
         if (timerOn == true)
         {
             time += Time.deltaTime;
-            if (gameObject.transform.localScale.y >= sizeUp/2) transform.localScale += new Vector3(0, -shrink, 0);
+            if (gameObject.transform.localScale.z >= sizeUp/2) transform.localScale += new Vector3(0, 0, -shrink);
 
             //gameObject.transform.localScale(gameObject.transform.localScale.x, gameObject.transform.localScale.y-shrink, gameObject.transform.localScale.z);
         }
 
-        else if (gameObject.transform.localScale.y <= sizeUp)
+        else if (gameObject.transform.localScale.z <= sizeUp)
         {
-            transform.localScale += new Vector3(0, shrink, 0);
+            transform.localScale += new Vector3(0, 0, shrink);
             //gameObject.transform.localScale(gameObject.transform.localScale.x, gameObject.transform.localScale.y+shrink, gameObject.transform.localScale.z);
         }
 
-        else if (gameObject.transform.localScale.y >= sizeUp)
+        else if (gameObject.transform.localScale.z >= sizeUp)
         {
             //transform.localScal
             //gameObject.transform.localScale(gameObject.transform.localScale.x, sizeUp, gameObject.transform.localScale.z);

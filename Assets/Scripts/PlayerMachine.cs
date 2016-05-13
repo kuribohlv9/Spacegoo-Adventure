@@ -56,12 +56,16 @@ public class PlayerMachine : SuperStateMachine {
     public Transform rightSwitchTarget;
     public Transform controlTarget;
 
+	//Start audioman
+	public AudioSource audio;
+
     //Start and global updates
 	void Start () {
 	    // Put any code here you want to run ONCE, when the object is initialized
         input = gameObject.GetComponent<PlayerInputController>();
 
-        
+		audio = GetComponent<AudioSource>();			   //DEE: INIT AUDIO
+
         anim = GetComponentInChildren<Animator>();        //Dee: INITIALIZE ANIMATOR
 
         // Grab the controller object from our object
@@ -366,6 +370,7 @@ public class PlayerMachine : SuperStateMachine {
 
         anim.SetBool("IsSuperJumping", true);
     }
+
     void Hoppy_SuperUpdate()
     {
         if (MaxSuperJump > SuperJumpCount)
@@ -630,6 +635,17 @@ public class PlayerMachine : SuperStateMachine {
                 currentState = PlayerStates.NoControl;
             else
                 currentState = PlayerStates.AirNoControl;
+
+            //Play SFX
+			if (leftSwitchTarget.GetComponent<PlayerMachine>().EnableHoppy) 	//DEE: Play unique vocal for Hoppy
+			{
+				leftSwitchTarget.GetComponent<AudioSource>().Play();
+			}
+            if (leftSwitchTarget.GetComponent<PlayerMachine>().EnableSticky) 	//DEE: Play unique vocal for Sticky
+            {
+                leftSwitchTarget.GetComponent<AudioSource>().Play();
+            }
+
         }
         else if (input.Current.RightBumper)
         {
@@ -646,8 +662,17 @@ public class PlayerMachine : SuperStateMachine {
                 currentState = PlayerStates.NoControl;
             else
                 currentState = PlayerStates.AirNoControl;
-        }
 
+            //Play SFX
+            if (rightSwitchTarget.GetComponent<PlayerMachine>().EnableHoppy) 	//DEE: Play unique vocal for Hoppy
+            {
+                rightSwitchTarget.GetComponent<AudioSource>().Play();
+            }
+            if (rightSwitchTarget.GetComponent<PlayerMachine>().EnableSticky) 	//DEE: Play unique vocal for Sticky
+            {
+                rightSwitchTarget.GetComponent<AudioSource>().Play();
+            }
+        }
     }
     private void HandleAirMovement(bool enablemovement = true)
     {
