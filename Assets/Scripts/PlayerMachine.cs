@@ -451,7 +451,7 @@ public class PlayerMachine : SuperStateMachine {
         Jump(SuperJumpCount, Gravity);
         SuperJumpCount = 0;
 
-        anim.SetBool("IsSuperJumping", true);
+        anim.SetBool("IsSuperJumping", false);
     }
 
     //No Control State
