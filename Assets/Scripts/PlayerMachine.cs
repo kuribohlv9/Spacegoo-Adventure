@@ -29,6 +29,7 @@ public class PlayerMachine : SuperStateMachine {
     public bool InControl = false;
     public float MaxSuperJump = 10;
     public float SuperJumpBuildingSpeed = 1.0f;
+    public float StickyTargetTime = 1.0f;
 
     //Private variables for different behaviours
     private float jumptime = 0;
@@ -40,6 +41,7 @@ public class PlayerMachine : SuperStateMachine {
     private  Animator anim;  //Dee: animator
     private bool IsCharging = false;
     private bool IsSticking = false;
+    private float StickyTimer = 0;
 
 
     //I have no idea what exactly lookDirection does ?_?
@@ -531,9 +533,44 @@ public class PlayerMachine : SuperStateMachine {
     }
     private bool HandleSticky()
     {
+
         //First we check the input and if we can stick
         if (input.Current.Sticky && EnableSticky)
         {
+            StickyTimer = StickyTargetTime;
+            ////Then we check if there are any colliders in a sphere around you
+            //Collider[] colliders = Physics.OverlapSphere(controller.transform.position, 1);
+            //foreach (Collider col in colliders)
+            //{
+            //    if (col.tag == "Environment")
+            //    {
+            //        //When we find a sticky wall we raycast towards it's center to get the normal
+            //        Ray wallray = new Ray(controller.transform.position, col.bounds.center - controller.transform.position);
+            //        RaycastHit hit;
+
+            //        if (col.Raycast(wallray, out hit, Mathf.Infinity))
+            //        {
+            //            //Make a new ray with the direction of the wall's normal
+            //            wallray = new Ray(controller.transform.position, -hit.normal);
+
+            //            //Then we raycast towards the normal. This will be the closest point on the collider in almost every case.
+            //            if (col.Raycast(wallray, out hit, Mathf.Infinity) && hit.normal.y < 1)
+            //            {
+            //                if (Vector3.Angle(controller.up, hit.normal) < 40.0f)
+            //                    return false;
+
+            //                StickWall = hit;
+            //                currentState = PlayerStates.Sticky;
+            //                return true;
+            //            }
+            //        }
+            //    }
+            //}
+        }
+        if (StickyTimer > 0)
+        {
+            StickyTimer -= Time.deltaTime;
+
             //Then we check if there are any colliders in a sphere around you
             Collider[] colliders = Physics.OverlapSphere(controller.transform.position, 1);
             foreach (Collider col in colliders)
@@ -552,12 +589,12 @@ public class PlayerMachine : SuperStateMachine {
                         //Then we raycast towards the normal. This will be the closest point on the collider in almost every case.
                         if (col.Raycast(wallray, out hit, Mathf.Infinity) && hit.normal.y < 1)
                         {
-                            Debug.Log(Vector3.Angle(controller.up, hit.normal));
                             if (Vector3.Angle(controller.up, hit.normal) < 40.0f)
                                 return false;
 
                             StickWall = hit;
                             currentState = PlayerStates.Sticky;
+                            StickyTimer = 0;
                             return true;
                         }
                     }
