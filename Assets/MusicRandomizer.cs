@@ -16,6 +16,10 @@ public class MusicRandomizer : MonoBehaviour {
 			GetComponent<AudioSource>().clip = soundtrack[Random.Range(0, soundtrack.Length-1)];
 			GetComponent<AudioSource>().Play();
 		}
+        int random = Random.Range(0, soundtrack.Length - 1);
+
+        GetComponent<AudioSource>().clip = soundtrack[random];
+        GetComponent<AudioSource>().Play();
 	}
 	
 	// Update is called once per frame
