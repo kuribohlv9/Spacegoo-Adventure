@@ -1,11 +1,7 @@
 fileFormatVersion: 2
-guid: 9256295d99086f14abb6d9d9f80321ce
-labels:
-- free
-- plugin
-- particles
-- FX
-- PopcornFX
+guid: 4d400595dc98b724e8236b2bb20c8555
+timeCreated: 1462366893
+licenseType: Free
 PluginImporter:
   serializedVersion: 1
   iconMap: {}
@@ -25,7 +21,7 @@ PluginImporter:
       settings:
         CPU: None
     Linux64:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: x86_64
     LinuxUniversal:
@@ -37,7 +33,7 @@ PluginImporter:
       settings:
         CPU: None
     OSXIntel64:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: AnyCPU
     OSXUniversal:
@@ -49,7 +45,7 @@ PluginImporter:
       settings:
         CPU: None
     Win64:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: AnyCPU
   userData: 
