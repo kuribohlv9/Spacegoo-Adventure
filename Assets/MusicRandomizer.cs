@@ -10,6 +10,12 @@ public class MusicRandomizer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+	
+		if (!GetComponent<AudioSource>().playOnAwake)
+		{
+			GetComponent<AudioSource>().clip = soundtrack[Random.Range(0, soundtrack.Length-1)];
+			GetComponent<AudioSource>().Play();
+		}
         int random = Random.Range(0, soundtrack.Length - 1);
 
         GetComponent<AudioSource>().clip = soundtrack[random];
@@ -21,7 +27,7 @@ public class MusicRandomizer : MonoBehaviour {
 	
 		if (!GetComponent<AudioSource>().isPlaying)
 		{
-			GetComponent<AudioSource>().clip = soundtrack[Random.Range(0, soundtrack.Length - 1)];
+			GetComponent<AudioSource>().clip = soundtrack[Random.Range(0, soundtrack.Length-1)];
 			GetComponent<AudioSource>().Play();
 		}
 	}

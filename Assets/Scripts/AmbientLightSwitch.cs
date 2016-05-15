@@ -6,6 +6,9 @@ public class AmbientLightSwitch : MonoBehaviour {
     private bool InControlIsHere = false;
     private bool IsDark = false;
     public GameObject lightGameObject;
+	public Color EquatorColor;
+	public Color GroundColor = Color.black;
+	public Color SkyColor = Color.black;
 
     private float AreaambientIntensity;
     private float AreareflectionIntensity;
@@ -71,9 +74,9 @@ public class AmbientLightSwitch : MonoBehaviour {
         RenderSettings.ambientIntensity = 0.33f;
         RenderSettings.reflectionIntensity = 0.038f;
 
-        RenderSettings.ambientEquatorColor = Color.black;
-        RenderSettings.ambientGroundColor = Color.black;
-        RenderSettings.ambientSkyColor = Color.black;
+        RenderSettings.ambientEquatorColor = EquatorColor;
+        RenderSettings.ambientGroundColor = GroundColor;
+        RenderSettings.ambientSkyColor = SkyColor;
 
         IsDark = true;
         lightGameObject.SetActive(false);
