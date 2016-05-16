@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class DebugButtons : MonoBehaviour {
+
+    public GameObject PauseScreen;
 
 	// Use this for initialization
 	void Start () {
@@ -12,11 +15,24 @@ public class DebugButtons : MonoBehaviour {
 	void Update () {
 	    if(Input.GetButtonDown("Debug F1"))
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            SceneManager.LoadScene(0);
         }
         if (Input.GetButtonDown("Debug F2"))
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+            SceneManager.LoadScene(1);
+        }
+        if(Input.GetButtonDown("Start1"))
+        {
+            if(Time.timeScale == 1)
+            {
+                Time.timeScale = 0;
+                PauseScreen.SetActive(true);
+            }
+            else if(Time.timeScale == 0)
+            {
+                Time.timeScale = 1;
+                PauseScreen.SetActive(false);
+            }
         }
 	}
 }
