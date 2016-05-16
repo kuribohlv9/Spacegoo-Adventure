@@ -3,11 +3,27 @@ using System.Collections;
 
 public class AmbientLightSwitch : MonoBehaviour {
 
+    private bool InControlIsHere = false;
     private bool IsDark = false;
+    public GameObject lightGameObject;
+	public Color EquatorColor;
+	public Color GroundColor = Color.black;
+	public Color SkyColor = Color.black;
 
+    private float AreaambientIntensity;
+    private float AreareflectionIntensity;
+    private Color AreaambientEquatorColor;
+    private Color AreaambientGroundColor;
+    private Color AreaambientSkyColor;
 	// Use this for initialization
 	void Start () {
-	
+
+        AreaambientIntensity = RenderSettings.ambientIntensity;
+        AreareflectionIntensity = RenderSettings.reflectionIntensity;
+
+        AreaambientEquatorColor = RenderSettings.ambientEquatorColor;
+        AreaambientGroundColor = RenderSettings.ambientGroundColor;
+        AreaambientSkyColor = RenderSettings.ambientSkyColor;
 	}
 	
 	// Update is called once per frame
@@ -15,36 +31,66 @@ public class AmbientLightSwitch : MonoBehaviour {
 
 	}
 
+    void LateUpdate()
+    {
+        if(InControlIsHere == false && IsDark)
+        {
+            TurnBright();
+        }
+        else if(InControlIsHere && IsDark == false)
+        {
+            TurnDark();
+        }
+        InControlIsHere = false;
+    }
+
     void OnTriggerEnter(Collider col)
     {
         //Debug.Log("John");
         if(col.tag == "Player")
         {
-            //Debug.Log("Cena");
-            RenderSettings.ambientIntensity = 0.0f;
+            TurnDark();
         }
     }
     void OnTriggerStay(Collider col)
     {
         if(col.tag == "Player")
         {
-            if(col.GetComponentInParent<PlayerMachine>().InControl && IsDark == false)
-            {
-                IsDark = true;
-                RenderSettings.ambientIntensity = 0.0f;
-            }
-            else if (col.GetComponentInParent<PlayerMachine>().InControl == false && IsDark)
-            {
-                IsDark = false;
-                RenderSettings.ambientIntensity = 1;
-            }
+            if (col.GetComponentInParent<PlayerMachine>().InControl == false)
+                return;
+
+            InControlIsHere = true;
         }
     }
     void OnTriggerExit(Collider col)
     {
         if (col.tag == "Player")
         {
-            RenderSettings.ambientIntensity = 1;
+            TurnBright();
         }
+    }
+    private void TurnDark()
+    {
+        RenderSettings.ambientIntensity = 0.33f;
+        RenderSettings.reflectionIntensity = 0.038f;
+
+        RenderSettings.ambientEquatorColor = EquatorColor;
+        RenderSettings.ambientGroundColor = GroundColor;
+        RenderSettings.ambientSkyColor = SkyColor;
+
+        IsDark = true;
+        lightGameObject.SetActive(false);
+    }
+    private void TurnBright()
+    {
+        RenderSettings.ambientIntensity = AreaambientIntensity;
+        RenderSettings.reflectionIntensity = AreareflectionIntensity;
+
+        RenderSettings.ambientEquatorColor = AreaambientEquatorColor;
+        RenderSettings.ambientGroundColor = AreaambientGroundColor;
+        RenderSettings.ambientSkyColor = AreaambientSkyColor;
+
+        IsDark = false;
+        lightGameObject.SetActive(true);
     }
 }
