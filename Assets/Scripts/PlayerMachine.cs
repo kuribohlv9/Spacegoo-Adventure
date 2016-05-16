@@ -307,7 +307,7 @@ public class PlayerMachine : SuperStateMachine {
         {
             currentState = PlayerStates.Air;
             Jump(JumpHeight, Gravity);
-            moveDirection += StickWall.normal * 20;
+			moveDirection += StickWall.normal * 20;
             IsSticking = false;
 
         }
