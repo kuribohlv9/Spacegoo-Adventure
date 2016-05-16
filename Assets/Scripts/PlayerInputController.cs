@@ -5,6 +5,7 @@ public class PlayerInputController : MonoBehaviour {
 
     public PlayerInput Current;
     public Vector3 moveinput;
+    public string PlayerNumber = "1";
 
 	// Use this for initialization
 	void Start () {
@@ -14,26 +15,32 @@ public class PlayerInputController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         
+
         // Retrieve our current WASD or Arrow Key input
         // Using GetAxisRaw removes any kind of gravity or filtering being applied to the input
         // Ensuring that we are getting either -1, 0 or 1   
         //Vector3 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        Vector3 moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 moveInput = new Vector3(Input.GetAxis("Left Stick X" + PlayerNumber), 0, Input.GetAxis("Left Stick Y" + PlayerNumber));
         moveinput = moveInput;
-        Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        Vector2 mouseInput = new Vector2(Input.GetAxis("Right Stick X" + PlayerNumber), Input.GetAxis("Right Stick Y" + PlayerNumber));
 
         if(mouseInput.magnitude < 0.01f)
         {
             mouseInput = Vector2.zero;
         }
 
-        bool jumpInput = Input.GetButtonDown("Jump");
-        bool continuousJumpInput = Input.GetButton("Jump");
-        bool sticky = Input.GetButtonDown("Fire3");
-        bool debug = Input.GetButton("Fire2");
-        bool leftbumper = Input.GetButtonDown("Swap Left");
-        bool rightbumper = Input.GetButtonDown("Swap Right");
-        bool recall = Input.GetButtonDown("Y Button");
+        bool jumpInput = Input.GetButtonDown("A Button" + PlayerNumber);
+        bool continuousJumpInput = Input.GetButton("A Button" + PlayerNumber);
+        
+        if(jumpInput == true)
+        {
+            int derp = 42;
+        }
+        bool sticky = Input.GetButtonDown("X Button" + PlayerNumber);
+        bool debug = Input.GetButton("B Button" + PlayerNumber);
+        bool recall = Input.GetButtonDown("Y Button" + PlayerNumber);
+        bool leftbumper = Input.GetButtonDown("Swap Left" + PlayerNumber);
+        bool rightbumper = Input.GetButtonDown("Swap Right" + PlayerNumber);
 
         Current = new PlayerInput()
         {

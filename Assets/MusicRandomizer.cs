@@ -13,9 +13,13 @@ public class MusicRandomizer : MonoBehaviour {
 	
 		if (!GetComponent<AudioSource>().playOnAwake)
 		{
-			GetComponent<AudioSource>().clip = soundtrack[Random.Range(0, soundtrack.Length)];
+			GetComponent<AudioSource>().clip = soundtrack[Random.Range(0, soundtrack.Length-1)];
 			GetComponent<AudioSource>().Play();
 		}
+        int random = Random.Range(0, soundtrack.Length - 1);
+
+        GetComponent<AudioSource>().clip = soundtrack[random];
+        GetComponent<AudioSource>().Play();
 	}
 	
 	// Update is called once per frame
@@ -23,7 +27,7 @@ public class MusicRandomizer : MonoBehaviour {
 	
 		if (!GetComponent<AudioSource>().isPlaying)
 		{
-			GetComponent<AudioSource>().clip = soundtrack[Random.Range(0, soundtrack.Length)];
+			GetComponent<AudioSource>().clip = soundtrack[Random.Range(0, soundtrack.Length-1)];
 			GetComponent<AudioSource>().Play();
 		}
 	}

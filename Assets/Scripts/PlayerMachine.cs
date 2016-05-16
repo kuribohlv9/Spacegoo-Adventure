@@ -498,6 +498,48 @@ public class PlayerMachine : SuperStateMachine {
 
         moveDirection += controller.up * CalculateJumpSpeed(height, gravity);
     }
+    private void Switch(Transform target)
+    {
+        if (target.GetComponent<PlayerMachine>().InControl == true)
+        {
+            //if (input.Current.LeftBumper)
+            //{
+            //    Switch(target.GetComponent<PlayerMachine>().leftSwitchTarget);
+            //}
+            //else if (input.Current.RightBumper)
+            //{
+            //    Switch(target.GetComponent<PlayerMachine>().rightSwitchTarget);
+            //}
+            return;
+        }
+
+        //Enable playercontroller on specified
+        target.GetComponent<PlayerMachine>().InControl = true;
+
+        //set new camera target
+        camera.GetComponent<PlayerCamera>().SetTarget(target);
+
+        EventSystem.ActivateSwitchCharacter(target);
+
+        InControl = false;
+        if (currentState.ToString() != "Air" || IsSticking)
+            currentState = PlayerStates.NoControl;
+        else
+            currentState = PlayerStates.AirNoControl;
+
+        target.GetComponent<PlayerInputController>().PlayerNumber = input.PlayerNumber;
+        target.GetComponent<PlayerMachine>().camera = camera;
+
+        //Play SFX
+        if (target.GetComponent<PlayerMachine>().EnableHoppy) 	//DEE: Play unique vocal for Hoppy
+        {
+            target.GetComponent<AudioSource>().Play();
+        }
+        if (target.GetComponent<PlayerMachine>().EnableSticky) 	//DEE: Play unique vocal for Sticky
+        {
+            target.GetComponent<AudioSource>().Play();
+        }
+    }
 
 
     //Private function used in this script which are executed continously
@@ -622,56 +664,11 @@ public class PlayerMachine : SuperStateMachine {
 
         if (input.Current.LeftBumper)
         {
-            //Enable playercontroller on specified
-            leftSwitchTarget.GetComponent<PlayerMachine>().InControl = true;
-
-            //set new camera target
-            camera.GetComponent<PlayerCamera>().SetTarget(leftSwitchTarget);
-
-            EventSystem.ActivateSwitchCharacter(leftSwitchTarget);
-
-            InControl = false;
-            if (currentState.ToString() != "Air" || IsSticking)
-                currentState = PlayerStates.NoControl;
-            else
-                currentState = PlayerStates.AirNoControl;
-
-            //Play SFX
-			if (leftSwitchTarget.GetComponent<PlayerMachine>().EnableHoppy) 	//DEE: Play unique vocal for Hoppy
-			{
-				leftSwitchTarget.GetComponent<AudioSource>().Play();
-			}
-            if (leftSwitchTarget.GetComponent<PlayerMachine>().EnableSticky) 	//DEE: Play unique vocal for Sticky
-            {
-                leftSwitchTarget.GetComponent<AudioSource>().Play();
-            }
-
+            Switch(leftSwitchTarget);
         }
         else if (input.Current.RightBumper)
         {
-            //Enable playercontroller on specified
-            rightSwitchTarget.GetComponent<PlayerMachine>().InControl = true;
-
-            //set new camera target
-            camera.GetComponent<PlayerCamera>().SetTarget(rightSwitchTarget);
-
-            EventSystem.ActivateSwitchCharacter(rightSwitchTarget);
-
-            InControl = false;
-            if (currentState.ToString() != "Air" || IsSticking)
-                currentState = PlayerStates.NoControl;
-            else
-                currentState = PlayerStates.AirNoControl;
-
-            //Play SFX
-            if (rightSwitchTarget.GetComponent<PlayerMachine>().EnableHoppy) 	//DEE: Play unique vocal for Hoppy
-            {
-                rightSwitchTarget.GetComponent<AudioSource>().Play();
-            }
-            if (rightSwitchTarget.GetComponent<PlayerMachine>().EnableSticky) 	//DEE: Play unique vocal for Sticky
-            {
-                rightSwitchTarget.GetComponent<AudioSource>().Play();
-            }
+            Switch(rightSwitchTarget);
         }
     }
     private void HandleAirMovement(bool enablemovement = true)
