@@ -25,12 +25,10 @@ public class DebugButtons : MonoBehaviour {
         {
             if(Time.timeScale == 1)
             {
-                Time.timeScale = 0;
                 PauseScreen.SetActive(true);
             }
             else if(Time.timeScale == 0)
             {
-                Time.timeScale = 1;
                 PauseScreen.SetActive(false);
             }
         }
