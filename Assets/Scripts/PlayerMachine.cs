@@ -410,12 +410,12 @@ public class PlayerMachine : SuperStateMachine {
         {
             currentState = PlayerStates.AirNoControl;
         }
-        if(!IsSticking)
-        {
-            Vector3 rotatetowardscharacter = controlTarget.transform.position - controller.transform.position;
-            rotatetowardscharacter.y = 0;
-            AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.LookRotation(rotatetowardscharacter), 3);
-        }
+        //if(!IsSticking)
+        //{
+        //    Vector3 rotatetowardscharacter = controlTarget.transform.position - controller.transform.position;
+        //    rotatetowardscharacter.y = 0;
+        //    AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.LookRotation(rotatetowardscharacter), 3);
+        //}
     }
     void NoControl_ExitState()
     {
