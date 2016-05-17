@@ -457,7 +457,7 @@ public class PlayerMachine : SuperStateMachine {
         anim.SetBool("HasLanded", true);
         if (EnableGlidey)
             anim.SetBool("FoldIn", true);
-        if (EnableGlidey)
+        if (EnableSticky)
             anim.SetBool("IsJumpingFromStick", false);
     }
 

@@ -8,6 +8,9 @@ public class StartMenu : MonoBehaviour {
 
     private int selection = 0;
 
+    private int Axis;
+    private bool Lock = false;
+
 	// Use this for initialization
 	void Start () {
         ChangeSelection(0);
@@ -30,15 +33,15 @@ public class StartMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    if(Input.GetButtonDown("Swap Left1"))
+
+        HandleAxisInput();
+        if(!Lock && Axis != 0)
         {
-            ChangeSelection(-1);
+            ChangeSelection(Axis * -1);
+            Lock = true;
         }
-        else if(Input.GetButtonDown("Swap Right1"))
-        {
-            ChangeSelection(1);
-        }
-        else if(Input.GetButtonDown("A Button1"))
+
+        if(Input.GetButtonDown("A Button1"))
         {
             options[selection].ExecuteOption();
         }
@@ -59,5 +62,14 @@ public class StartMenu : MonoBehaviour {
         }
 
         options[selection].GetComponent<Text>().color = Color.red;
+    }
+    private void HandleAxisInput()
+    {
+        Axis = (int)Input.GetAxisRaw("Left Stick Y1");
+
+        if(Axis == 0)
+        {
+            Lock = false;
+        }
     }
 }
