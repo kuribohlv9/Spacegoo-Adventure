@@ -111,8 +111,11 @@ public class PlayerMachine : SuperStateMachine {
         
         if(InControl && input.Current.Recall)
         {
-            leftSwitchTarget.transform.position = transform.position - AnimatedMesh.forward - AnimatedMesh.right;
-            rightSwitchTarget.transform.position = transform.position - AnimatedMesh.forward + AnimatedMesh.right;
+            if(!leftSwitchTarget.GetComponent<PlayerMachine>().InControl)
+                leftSwitchTarget.transform.position = transform.position - AnimatedMesh.forward - AnimatedMesh.right;
+
+            if (!rightSwitchTarget.GetComponent<PlayerMachine>().InControl)
+                rightSwitchTarget.transform.position = transform.position - AnimatedMesh.forward + AnimatedMesh.right;
         }
 
         //Simoncode
