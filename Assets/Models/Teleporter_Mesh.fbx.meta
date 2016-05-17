@@ -1,29 +1,29 @@
 fileFormatVersion: 2
-guid: c860f553c2e95e54983660ae9760a3e8
-timeCreated: 1461166570
+guid: 1c721adb2fb47f14c903cd10415ce84b
+timeCreated: 1463151654
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Bounce_Hat
+    100000: Teleporter_left_door_Mesh
     100002: //RootNode
-    100004: Hinge1
-    100006: Hinge2
-    100008: joint1
-    100010: joint2
-    100012: Root
-    100014: rwogirwgph
-    400000: Bounce_Hat
+    100004: Teleporter_Mesh
+    100006: Teleporter_right_door_Mesh
+    400000: Teleporter_left_door_Mesh
     400002: //RootNode
-    400004: Hinge1
-    400006: Hinge2
-    400008: joint1
-    400010: joint2
-    400012: Root
-    400014: rwogirwgph
-    4300000: Bounce_Hat
+    400004: Teleporter_Mesh
+    400006: Teleporter_right_door_Mesh
+    2300000: Teleporter_left_door_Mesh
+    2300002: Teleporter_Mesh
+    2300004: Teleporter_right_door_Mesh
+    3300000: Teleporter_left_door_Mesh
+    3300002: Teleporter_Mesh
+    3300004: Teleporter_right_door_Mesh
+    4300000: Teleporter_right_door_Mesh
+    4300002: Teleporter_left_door_Mesh
+    4300004: Teleporter_Mesh
+    7400000: Take 001
     9500000: //RootNode
-    13700000: Bounce_Hat
   materials:
     importMaterials: 1
     materialName: 0
