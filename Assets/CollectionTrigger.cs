@@ -6,7 +6,7 @@ public class CollectionTrigger : MonoBehaviour {
     public GameObject objective;
     public Score scorer;
 
-    public int score = 1;
+    private int score = 1;
 
 	// Use this for initialization
 	void Start ()

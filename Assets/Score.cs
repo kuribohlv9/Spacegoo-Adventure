@@ -12,6 +12,11 @@ public class Score : MonoBehaviour {
     public Text ScoreText;
     public Text PrizeText;
 
+    public int ratio = 10;
+    public int portalOpeningAt = 10;
+
+    public bool openPortal = false;
+
 
     //public Text ScoreTotalText;
     //public Text PrizeTotalText;
@@ -22,7 +27,7 @@ public class Score : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        ScoreText.text = score.ToString() + "/" + scoreTotal.ToString();
+        ScoreText.text = score.ToString() + "/" + ratio.ToString();
         PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
     }
 	
@@ -37,6 +42,11 @@ public class Score : MonoBehaviour {
     public void TotalScore(int totalScore)
     {
         scoreTotal += totalScore;
+        if (scoreTotal == ratio)
+        {
+            prizeTotal += 1;
+            scoreTotal = 0;
+        }
         //ScoreTotalText.text = scoreTotal.ToString();
     }
 
@@ -49,7 +59,15 @@ public class Score : MonoBehaviour {
     public void GiveScore(int gainedScore)
     {
         score += gainedScore;
-        ScoreText.text = score.ToString() + "/" + scoreTotal.ToString();
+        if (score == ratio)
+        {
+            prize += 1;
+            PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
+            score = 0;
+
+            if (prize >= portalOpeningAt) openPortal = true;
+        }
+        ScoreText.text = score.ToString() + "/" + ratio.ToString();
 
     }
 
@@ -57,5 +75,7 @@ public class Score : MonoBehaviour {
     {
         prize += gainedPrize;
         PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
+
+        if (prize >= portalOpeningAt) openPortal = true;
     }
 }

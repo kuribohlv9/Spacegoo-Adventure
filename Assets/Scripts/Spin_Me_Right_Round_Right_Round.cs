@@ -13,6 +13,7 @@ public class Spin_Me_Right_Round_Right_Round : MonoBehaviour {
     public bool reverse = false;
 
     private float spin;
+    private float spinForce;
     private float limits;
     private float maxLeft;
     private float maxRight;
@@ -27,6 +28,7 @@ public class Spin_Me_Right_Round_Right_Round : MonoBehaviour {
         if (reverse == true) moveSpeed = -moveSpeed;
 
         spin = moveSpeed;
+        spinForce = spin * Time.deltaTime * 10;
 
         startRotation = transform.rotation.y;
     }
@@ -34,6 +36,7 @@ public class Spin_Me_Right_Round_Right_Round : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
+
         maxLeft = startRotation + maxLeftRotate;
         maxRight = startRotation + maxRightRotate;
 
@@ -47,6 +50,8 @@ public class Spin_Me_Right_Round_Right_Round : MonoBehaviour {
             if (limits == -maxLeft) spin = -spin;
         }
 
-        transform.rotation = Quaternion.AngleAxis(spin, Vector3.up) * transform.rotation;
+        spinForce = spin * Time.deltaTime * 10;
+
+        transform.rotation = Quaternion.AngleAxis(spinForce, Vector3.up) * transform.rotation;
     }
 }
