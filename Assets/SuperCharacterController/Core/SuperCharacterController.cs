@@ -193,6 +193,9 @@ public class SuperCharacterController : MonoBehaviour
 
     void SingleUpdate()
     {
+        if (Time.timeScale == 0)
+            return;
+
         // Check if we are clamped to an object implicity or explicity
         bool isClamping = clamping || currentlyClampedTo != null;
         Transform clampedTo = currentlyClampedTo != null ? currentlyClampedTo : currentGround.transform;
