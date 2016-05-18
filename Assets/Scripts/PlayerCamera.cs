@@ -61,5 +61,8 @@ public class PlayerCamera : MonoBehaviour {
     public void SetTarget(Transform newtarget)
     {
         target = newtarget;
+        input = target.GetComponent<PlayerInputController>();
+        machine = target.GetComponent<PlayerMachine>();
+        controller = target.GetComponent<SuperCharacterController>();
     }
 }
