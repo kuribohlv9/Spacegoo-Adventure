@@ -1,0 +1,190 @@
+fileFormatVersion: 2
+guid: 9576905c5eb26db4d8740a19f9d4f445
+timeCreated: 1463143567
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: joint10
+    100002: joint10 1
+    100004: joint10 2
+    100006: joint11
+    100008: joint12
+    100010: joint12 1
+    100012: joint12 2
+    100014: joint12 3
+    100016: joint13
+    100018: joint13 1
+    100020: joint13 2
+    100022: joint13 3
+    100024: joint14
+    100026: joint14 1
+    100028: joint14 2
+    100030: joint15
+    100032: joint16
+    100034: joint17
+    100036: joint18
+    100038: joint19
+    100040: joint2
+    100042: joint20
+    100044: joint21
+    100046: joint22
+    100048: joint23
+    100050: joint24
+    100052: joint25
+    100054: joint26
+    100056: joint27
+    100058: joint28
+    100060: joint29
+    100062: joint3
+    100064: joint3 1
+    100066: joint3 2
+    100068: joint30
+    100070: joint31
+    100072: joint32
+    100074: joint4
+    100076: joint4 1
+    100078: joint4 2
+    100080: joint5
+    100082: joint5 1
+    100084: joint5 2
+    100086: joint6
+    100088: joint6 1
+    100090: joint6 2
+    100092: joint6 3
+    100094: joint7
+    100096: joint7 1
+    100098: joint7 2
+    100100: joint7 3
+    100102: joint8
+    100104: joint9
+    100106: joint9 1
+    100108: joint9 2
+    100110: Root
+    100112: //RootNode
+    100114: VenusSlimeTrap_Mushroom
+    400000: joint10
+    400002: joint10 1
+    400004: joint10 2
+    400006: joint11
+    400008: joint12
+    400010: joint12 1
+    400012: joint12 2
+    400014: joint12 3
+    400016: joint13
+    400018: joint13 1
+    400020: joint13 2
+    400022: joint13 3
+    400024: joint14
+    400026: joint14 1
+    400028: joint14 2
+    400030: joint15
+    400032: joint16
+    400034: joint17
+    400036: joint18
+    400038: joint19
+    400040: joint2
+    400042: joint20
+    400044: joint21
+    400046: joint22
+    400048: joint23
+    400050: joint24
+    400052: joint25
+    400054: joint26
+    400056: joint27
+    400058: joint28
+    400060: joint29
+    400062: joint3
+    400064: joint3 1
+    400066: joint3 2
+    400068: joint30
+    400070: joint31
+    400072: joint32
+    400074: joint4
+    400076: joint4 1
+    400078: joint4 2
+    400080: joint5
+    400082: joint5 1
+    400084: joint5 2
+    400086: joint6
+    400088: joint6 1
+    400090: joint6 2
+    400092: joint6 3
+    400094: joint7
+    400096: joint7 1
+    400098: joint7 2
+    400100: joint7 3
+    400102: joint8
+    400104: joint9
+    400106: joint9 1
+    400108: joint9 2
+    400110: Root
+    400112: //RootNode
+    400114: VenusSlimeTrap_Mushroom
+    4300000: VenusSlimeTrap_Mushroom
+    9500000: //RootNode
+    13700000: VenusSlimeTrap_Mushroom
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

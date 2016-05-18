@@ -36,7 +36,7 @@ public class PlayerCamera : MonoBehaviour {
     void LateUpdate() {
         transform.position = target.position;
 
-        yRotation += input.Current.MouseInput.y * yRotationSpeed;
+        yRotation += input.Current.MouseInput.y * yRotationSpeed * Time.deltaTime * 40;
 
         yRotation = Mathf.Clamp(yRotation, -maxUpRotate, maxDownRotate);
 
@@ -44,13 +44,18 @@ public class PlayerCamera : MonoBehaviour {
 
         //Debug.Log(yRotation);
 
+        if (Physics.Linecast(this.transform.position, PlayerTarget.transform.position))
+        {
+            Debug.Log("blocked");
+        }
+
         Vector3 upward = Vector3.Cross(machine.lookDirection, controller.up);
         Vector3 right = Vector3.Cross(machine.lookDirection, controller.right);
 
-            transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.up);
-            //transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.right);
-            transform.rotation = Quaternion.AngleAxis(yRotation, upward) * transform.rotation;
-            transform.rotation = Quaternion.AngleAxis(xRotation, right) * transform.rotation;
+        transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.up);
+        //transform.rotation = Quaternion.LookRotation(machine.lookDirection, controller.right);
+        transform.rotation = Quaternion.AngleAxis(yRotation, upward) * transform.rotation;
+        transform.rotation = Quaternion.AngleAxis(xRotation, right) * transform.rotation;
 
         transform.position -= transform.forward * Distance;
         transform.position += controller.up * Height;
