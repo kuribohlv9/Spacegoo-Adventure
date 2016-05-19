@@ -13,6 +13,7 @@ public class TrailerCamera : MonoBehaviour {
     private bool RunCutscene = false;
     private bool CutsceneDone = false;
     private bool ParticleActive = false;
+    private float timer = 2;
 
 	// Use this for initialization
 	void Start () {
@@ -26,17 +27,21 @@ public class TrailerCamera : MonoBehaviour {
             transform.position = Vector3.MoveTowards(transform.position, end.position, Time.deltaTime * speed);
         }
 
-        if (Vector3.Distance(transform.position, end.position) < 4 && !ParticleActive)
+        if (Vector3.Distance(transform.position, end.position) < 9 && !ParticleActive)
         {
             particle.gameObject.SetActive(true);
         }
         if(transform.position == end.position)
         {
-            foreach(Transform t in EnableList)
+            timer -= Time.deltaTime;
+            if(timer < 0)
             {
-                t.gameObject.SetActive(true);
+                foreach(Transform t in EnableList)
+                {
+                    t.gameObject.SetActive(true);
+                }
+                gameObject.SetActive(false);
             }
-            gameObject.SetActive(false);
         }
         //else if (Input.GetButtonDown("X Button"))
         //{

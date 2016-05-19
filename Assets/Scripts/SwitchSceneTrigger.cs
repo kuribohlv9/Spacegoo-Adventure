@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class SwitchSceneTrigger : MonoBehaviour {
 
-    public string LevelName = "";
+    public Image loadingscreen;
+    public int LevelNumber = 3;
 
 	// Use this for initialization
 	void Start () {
@@ -20,10 +22,8 @@ public class SwitchSceneTrigger : MonoBehaviour {
     {
         if(col.tag == "Player")
         {
-            if(LevelName == "")
-                return;
-
-            SceneManager.LoadScene(LevelName);
+            loadingscreen.gameObject.SetActive(true);
+            SceneManager.LoadScene(LevelNumber);
         }
     }
 }
