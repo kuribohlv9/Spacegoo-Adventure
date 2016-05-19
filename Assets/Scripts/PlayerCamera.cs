@@ -15,7 +15,7 @@ public class PlayerCamera : MonoBehaviour {
     public GameObject PlayerTarget;    
 
     private PlayerInputController input;
-    private Transform target;
+    public Transform target;
     private PlayerMachine machine;
     private float yRotation;
     private float xRotation;
@@ -44,10 +44,15 @@ public class PlayerCamera : MonoBehaviour {
 
         //Debug.Log(yRotation);
 
-        if (Physics.Linecast(this.transform.position, PlayerTarget.transform.position))
+        /*if (Physics.Linecast(this.transform.position, PlayerTarget.transform.position))
         {
+<<<<<<< HEAD
             //Debug.Log("blocked");
         }
+=======
+            Debug.Log("blocked");
+        }*/
+>>>>>>> refs/remotes/origin/Stefan7IReallyNeedToStopMakingBranches
 
         Vector3 upward = Vector3.Cross(machine.lookDirection, controller.up);
         Vector3 right = Vector3.Cross(machine.lookDirection, controller.right);

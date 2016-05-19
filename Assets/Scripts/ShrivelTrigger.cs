@@ -37,12 +37,12 @@ public class ShrivelTrigger : MonoBehaviour {
         {
             if (target1.transform.localScale.x >= xOriginal/10)
             {
-                target1.transform.localScale += new Vector3(-desizeSpeed, 0, 0);
+                target1.transform.localScale += new Vector3(-desizeSpeed * Time.deltaTime * 40, 0, 0);
             }
 
             if (target1.transform.localScale.y >= yOriginal / 10)
             {
-                target1.transform.localScale += new Vector3(0, -desizeSpeed, 0);
+                target1.transform.localScale += new Vector3(0, -desizeSpeed * Time.deltaTime * 40, 0);
             }
 
 
@@ -65,12 +65,12 @@ public class ShrivelTrigger : MonoBehaviour {
         {
             if (target1.transform.localScale.x < xOriginal)
             {
-                target1.transform.localScale += new Vector3(resizeSpeed, 0, 0);
+                target1.transform.localScale += new Vector3(resizeSpeed * Time.deltaTime * 40, 0, 0);
             }
 
             if (target1.transform.localScale.y < yOriginal)
             {
-                target1.transform.localScale += new Vector3(0, resizeSpeed, 0);
+                target1.transform.localScale += new Vector3(0, resizeSpeed * Time.deltaTime * 40, 0);
             }
 
 

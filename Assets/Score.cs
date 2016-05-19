@@ -9,6 +9,8 @@ public class Score : MonoBehaviour {
     private int prize = 0;
     private int prizeTotal = 0;
 
+    private float secondCheck;
+
     public Text ScoreText;
     public Text PrizeText;
 
@@ -29,15 +31,17 @@ public class Score : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        ScoreText.text = score.ToString() + "/" + ratio.ToString();
-        PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
+        //ScoreText.text = score.ToString() + "/" + ratio.ToString();
+        //PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
+        //secondCheck += Time.deltaTime;
+        //if (secondCheck >= 0.5) PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
         // Debug.Log(score);
-        
+
 
     }
 
@@ -48,6 +52,8 @@ public class Score : MonoBehaviour {
         {
             prizeTotal += 1;
             scoreTotal = 0;
+
+            PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
         }
         //ScoreTotalText.text = scoreTotal.ToString();
     }
@@ -55,6 +61,8 @@ public class Score : MonoBehaviour {
     public void TotalPrize(int totalPrize)
     {
         prizeTotal += totalPrize;
+
+        PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
         //PrizeTotalText.text = prizeTotal.ToString();
     }
 
