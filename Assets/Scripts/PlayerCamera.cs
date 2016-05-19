@@ -46,7 +46,7 @@ public class PlayerCamera : MonoBehaviour {
 
         if (Physics.Linecast(this.transform.position, PlayerTarget.transform.position))
         {
-            Debug.Log("blocked");
+            //Debug.Log("blocked");
         }
 
         Vector3 upward = Vector3.Cross(machine.lookDirection, controller.up);
