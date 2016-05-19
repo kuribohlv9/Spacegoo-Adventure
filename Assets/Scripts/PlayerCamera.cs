@@ -42,18 +42,6 @@ public class PlayerCamera : MonoBehaviour {
 
         xRotation += input.Current.MouseInput.x * xRotationSpeed * Time.deltaTime * 40;
 
-        //Debug.Log(yRotation);
-
-        /*if (Physics.Linecast(this.transform.position, PlayerTarget.transform.position))
-        {
-<<<<<<< HEAD
-            //Debug.Log("blocked");
-        }
-=======
-            Debug.Log("blocked");
-        }*/
->>>>>>> refs/remotes/origin/Stefan7IReallyNeedToStopMakingBranches
-
         Vector3 upward = Vector3.Cross(machine.lookDirection, controller.up);
         Vector3 right = Vector3.Cross(machine.lookDirection, controller.right);
 
