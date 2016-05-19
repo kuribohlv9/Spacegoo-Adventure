@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class SwitchSceneTrigger : MonoBehaviour {
@@ -22,7 +23,7 @@ public class SwitchSceneTrigger : MonoBehaviour {
             if(LevelName == "")
                 return;
 
-            UnityEngine.SceneManagement.SceneManager.LoadScene(LevelName);
+            SceneManager.LoadScene(LevelName);
         }
     }
 }

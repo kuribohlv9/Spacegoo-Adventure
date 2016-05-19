@@ -17,6 +17,8 @@ public class Score : MonoBehaviour {
 
     public bool openPortal = false;
 
+    public CutSceneHandler CSH;
+
 
     //public Text ScoreTotalText;
     //public Text PrizeTotalText;
@@ -61,11 +63,9 @@ public class Score : MonoBehaviour {
         score += gainedScore;
         if (score == ratio)
         {
-            prize += 1;
-            PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
             score = 0;
-
-            if (prize >= portalOpeningAt) openPortal = true;
+            ScoreText.text = score.ToString() + "/" + ratio.ToString();
+            GivePrize(1);
         }
         ScoreText.text = score.ToString() + "/" + ratio.ToString();
 
@@ -76,6 +76,10 @@ public class Score : MonoBehaviour {
         prize += gainedPrize;
         PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
 
-        if (prize >= portalOpeningAt) openPortal = true;
+        if (prize == portalOpeningAt && !openPortal)
+        {
+            openPortal = true;
+            CSH.ActivateCutscene(0);
+        }
     }
 }
