@@ -30,14 +30,10 @@ public class PlayerInputController : MonoBehaviour {
         }
 
         bool jumpInput = Input.GetButtonDown("A Button" + PlayerNumber);
-        bool continuousJumpInput = Input.GetButton("A Button" + PlayerNumber);
+        bool continuousJumpInput = Input.GetButton("X Button" + PlayerNumber);
         
-        if(jumpInput == true)
-        {
-            int derp = 42;
-        }
         bool sticky = Input.GetButtonDown("X Button" + PlayerNumber);
-        bool debug = Input.GetButton("B Button" + PlayerNumber);
+        bool debug = Input.GetButton("X Button" + PlayerNumber);
         bool recall = Input.GetButtonDown("Y Button" + PlayerNumber);
         bool leftbumper = Input.GetButtonDown("Swap Left" + PlayerNumber);
         bool rightbumper = Input.GetButtonDown("Swap Right" + PlayerNumber);

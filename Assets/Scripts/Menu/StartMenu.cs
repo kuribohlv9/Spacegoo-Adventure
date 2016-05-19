@@ -10,6 +10,7 @@ public class StartMenu : MonoBehaviour {
 
     private int Axis;
     private bool Lock = false;
+    private bool SuperLock = false;
 
 	// Use this for initialization
 	void Start () {
@@ -20,11 +21,14 @@ public class StartMenu : MonoBehaviour {
     {
         foreach(MenuOption op in options)
         {
-            op.GetComponent<Text>().color = Color.black;
+            Color temp = op.GetComponent<Image>().color;
+            temp.a = 0.5f;
+            op.GetComponent<Image>().color = temp;
         }
         selection = 0;
         ChangeSelection(0);
         Time.timeScale = 0;
+        SuperLock = false;
     }
     void OnDisable()
     {
@@ -33,23 +37,27 @@ public class StartMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        HandleAxisInput();
-        if(!Lock && Axis != 0)
+        if(!SuperLock)
         {
-            ChangeSelection(Axis * -1);
-            Lock = true;
-        }
+            HandleAxisInput();
+            if(!Lock && Axis != 0)
+            {
+                ChangeSelection(Axis * -1);
+                Lock = true;
+            }
 
-        if(Input.GetButtonDown("A Button1"))
-        {
-            options[selection].ExecuteOption();
+            if(Input.GetButtonDown("A Button1"))
+            {
+                options[selection].ExecuteOption();
+            }
         }
 	}
 
     private void ChangeSelection(int number)
     {
-        options[selection].GetComponent<Text>().color = Color.black;
+        Color temp = options[selection].GetComponent<Image>().color;
+        temp.a = 0.5f;
+        options[selection].GetComponent<Image>().color = temp;
 
         selection += number;
         if(selection == options.Length)
@@ -61,7 +69,9 @@ public class StartMenu : MonoBehaviour {
             selection = options.Length - 1;
         }
 
-        options[selection].GetComponent<Text>().color = Color.red;
+        temp = options[selection].GetComponent<Image>().color;
+        temp.a = 1f;
+        options[selection].GetComponent<Image>().color = temp;
     }
     private void HandleAxisInput()
     {
@@ -71,5 +81,9 @@ public class StartMenu : MonoBehaviour {
         {
             Lock = false;
         }
+    }
+    public void SetSuperLock(bool state)
+    {
+        SuperLock = state;
     }
 }

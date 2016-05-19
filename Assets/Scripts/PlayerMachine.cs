@@ -228,7 +228,7 @@ public class PlayerMachine : SuperStateMachine {
             //AnimatedMesh.rotation = Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal());
             //AnimatedMesh.rotation = AnimatedMesh.rotation * Quaternion.LookRotation(moveDirection, controller.up);
 
-            AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal()) * Quaternion.LookRotation(moveDirection, controller.up), 8);
+            AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.FromToRotation(controller.up, controller.currentGround.PrimaryNormal()) * Quaternion.LookRotation(moveDirection, controller.up), 10);
             
             //AnimatedMesh.rotation = Quaternion.LookRotation(moveDirection, controller.up);
             //AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, AnimatedMesh.rotation * Quaternion.LookRotation(moveDirection, controller.up), 4);
@@ -714,7 +714,7 @@ public class PlayerMachine : SuperStateMachine {
         if (tempdirection != Vector3.zero)
         {
             //AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.LookRotation(tempdirection, controller.up) * Quaternion.RotateTowards(controller.up, controller.up), 8);
-            AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.FromToRotation(controller.up, controller.up) * Quaternion.LookRotation(tempdirection, controller.up), 8);
+            AnimatedMesh.rotation = Quaternion.RotateTowards(AnimatedMesh.rotation, Quaternion.FromToRotation(controller.up, controller.up) * Quaternion.LookRotation(tempdirection, controller.up), 10);
         }
     }
 
