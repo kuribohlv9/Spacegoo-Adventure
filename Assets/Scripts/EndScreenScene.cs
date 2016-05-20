@@ -31,19 +31,6 @@ public class EndScreenScene : MonoBehaviour {
             {
                 UnityEngine.SceneManagement.SceneManager.LoadScene(0);
             }
-
-            //timer -= Time.deltaTime;
-            //if(timer < 0)
-            //{
-            //    Color temp = instruction.color;
-            //    if (temp.a == 0)
-            //        temp.a = 1;
-            //    else if (temp.a == 1)
-            //        temp.a = 0;
-
-            //    instruction.color = temp;
-            //    timer = looptime;
-            //}
         }
 	}
 }

@@ -5,6 +5,8 @@ public class EnableSwitchingTrigger : MonoBehaviour {
 
     public Transform target;
 
+    private bool hasTriggered = false;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -17,8 +19,9 @@ public class EnableSwitchingTrigger : MonoBehaviour {
 
     public void OnTriggerEnter(Collider col)
     {
-        if(col.tag == "Player")
+        if(col.tag == "Player" && !hasTriggered)
         {
+            hasTriggered = true;
             col.GetComponentInParent<PlayerMachine>().ForceSwitch(target);
         }
     }
