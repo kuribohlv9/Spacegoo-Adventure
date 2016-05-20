@@ -8,6 +8,7 @@ public class HelpTextOnce : MonoBehaviour {
     public Image[] helpimage;
     public float fadeinspeed = 1;
     public float fadeoutspeed = 1;
+    public string button = "A Button1";
 
     private bool fadein = false;
     private bool fadeout = false;
@@ -92,7 +93,7 @@ public class HelpTextOnce : MonoBehaviour {
                 havebeenplayed = true;
             }
         }
-        if(Input.GetButtonDown("B Button1"))
+        if(Input.GetButtonDown(button))
         {
             fadeout = true;
         }
