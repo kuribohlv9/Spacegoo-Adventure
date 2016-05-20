@@ -3,13 +3,18 @@ using System.Collections;
 
 public class MultiplayerOption : MenuOption {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public MultiplayerEnabler mpe;
+
+    public override void ExecuteOption()
+    {
+        if(mpe)
+        {
+            if (!mpe.IsMultiplayerEnabled)
+                mpe.EnableMultiplayer();
+            else if(mpe.IsMultiplayerEnabled)
+                mpe.DisableMultiplayer();
+
+            GetComponentInParent<StartMenu>().gameObject.SetActive(false);
+        }
+    }
 }

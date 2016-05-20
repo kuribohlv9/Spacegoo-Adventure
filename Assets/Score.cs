@@ -24,30 +24,9 @@ public class Score : MonoBehaviour {
 
     public CutSceneHandler CSH;
 
-
-    //public Text ScoreTotalText;
-    //public Text PrizeTotalText;
-
     private Text OutputScore;
     private Text OutputPrize;
-
-    // Use this for initialization
-    void Start ()
-    {
-        //ScoreText.text = score.ToString() + "/" + ratio.ToString();
-        //PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
-    }
 	
-	// Update is called once per frame
-	void Update ()
-    {
-        //secondCheck += Time.deltaTime;
-        //if (secondCheck >= 0.5) PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
-        // Debug.Log(score);
-
-
-    }
-
     public void TotalScore(int totalScore)
     {
         scoreTotal += totalScore;
@@ -58,7 +37,6 @@ public class Score : MonoBehaviour {
 
             PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
         }
-        //ScoreTotalText.text = scoreTotal.ToString();
     }
 
     public void TotalPrize(int totalPrize)
@@ -66,7 +44,6 @@ public class Score : MonoBehaviour {
         prizeTotal += totalPrize;
 
         PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
-        //PrizeTotalText.text = prizeTotal.ToString();
     }
 
     public void GiveScore(int gainedScore)
