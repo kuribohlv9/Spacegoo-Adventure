@@ -5,9 +5,10 @@ using System.Collections;
 public class StartMenu : MonoBehaviour {
 
     public MenuOption[] options;
+    public AudioSource selectionsound;
+    public bool StopTime = true;
 
     private int selection = 0;
-
     private int Axis;
     private bool Lock = false;
     private bool SuperLock = false;
@@ -27,8 +28,10 @@ public class StartMenu : MonoBehaviour {
         }
         selection = 0;
         ChangeSelection(0);
-        Time.timeScale = 0;
         SuperLock = false;
+
+        if(StopTime)
+            Time.timeScale = 0;
     }
     void OnDisable()
     {
@@ -55,6 +58,8 @@ public class StartMenu : MonoBehaviour {
 
     private void ChangeSelection(int number)
     {
+        selectionsound.Play();
+
         Color temp = options[selection].GetComponent<Image>().color;
         temp.a = 0.5f;
         options[selection].GetComponent<Image>().color = temp;

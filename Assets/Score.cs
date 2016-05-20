@@ -9,36 +9,24 @@ public class Score : MonoBehaviour {
     private int prize = 0;
     private int prizeTotal = 0;
 
+    private float secondCheck;
+
     public Text ScoreText;
     public Text PrizeText;
+
+    public AudioSource BigPickupSound;
+    public AudioSource SmallPickupSound;
 
     public int ratio = 10;
     public int portalOpeningAt = 10;
 
     public bool openPortal = false;
 
-
-    //public Text ScoreTotalText;
-    //public Text PrizeTotalText;
+    public CutSceneHandler CSH;
 
     private Text OutputScore;
     private Text OutputPrize;
-
-    // Use this for initialization
-    void Start ()
-    {
-        ScoreText.text = score.ToString() + "/" + ratio.ToString();
-        PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
-    }
 	
-	// Update is called once per frame
-	void Update ()
-    {
-        // Debug.Log(score);
-        
-
-    }
-
     public void TotalScore(int totalScore)
     {
         scoreTotal += totalScore;
@@ -46,26 +34,27 @@ public class Score : MonoBehaviour {
         {
             prizeTotal += 1;
             scoreTotal = 0;
+
+            PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
         }
-        //ScoreTotalText.text = scoreTotal.ToString();
     }
 
     public void TotalPrize(int totalPrize)
     {
         prizeTotal += totalPrize;
-        //PrizeTotalText.text = prizeTotal.ToString();
+
+        PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
     }
 
     public void GiveScore(int gainedScore)
     {
+        SmallPickupSound.Play();
         score += gainedScore;
         if (score == ratio)
         {
-            prize += 1;
-            PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
             score = 0;
-
-            if (prize >= portalOpeningAt) openPortal = true;
+            ScoreText.text = score.ToString() + "/" + ratio.ToString();
+            GivePrize(1);
         }
         ScoreText.text = score.ToString() + "/" + ratio.ToString();
 
@@ -73,9 +62,17 @@ public class Score : MonoBehaviour {
 
     public void GivePrize(int gainedPrize)
     {
+        if (SmallPickupSound.isPlaying)
+            SmallPickupSound.Stop();
+
+        BigPickupSound.Play();
         prize += gainedPrize;
         PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
 
-        if (prize >= portalOpeningAt) openPortal = true;
+        if (prize == portalOpeningAt && !openPortal)
+        {
+            openPortal = true;
+            CSH.ActivateCutscene(0);
+        }
     }
 }

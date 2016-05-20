@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class RestartOption : MonoBehaviour {
+public class RestartOption : MenuOption {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public Image loadingscreen;
+
+    public override void ExecuteOption()
+    {
+        loadingscreen.gameObject.SetActive(true);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }
