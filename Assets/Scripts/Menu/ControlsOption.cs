@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class ControlsOption : MenuOption {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    public Image controlimage;
+
+    void OnDisable()
+    {
+        controlimage.gameObject.SetActive(false);
+    }
+
+    public override void ExecuteOption()
+    {
         GetComponentInParent<StartMenu>().SetSuperLock(true);
-	}
+        controlimage.gameObject.SetActive(true);
+    }
 }
