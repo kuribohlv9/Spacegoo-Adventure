@@ -12,6 +12,13 @@ public class PlayerMachine : SuperStateMachine {
     public Transform AnimatedMesh;
     public Transform camera;
 
+    public AudioSource StickySelectSFX;
+    public AudioSource HoppySelectSFX;
+    public AudioSource GlideySelectSFX;
+    public AudioSource StickingSFX;
+    public AudioSource GlidingSFX;
+    public AudioSource SuperJumpingSFX;
+
     //All public variables used for testing
     public float WalkSpeed = 4.0f;
     public float WalkAcceleration = 30.0f;
@@ -287,6 +294,10 @@ public class PlayerMachine : SuperStateMachine {
     //Sticky State
     void Sticky_EnterState()
     {
+
+        //Play SFX
+        StickingSFX.Play();
+
         //When we start to stick we first wanna stop all movement
         moveDirection = Vector3.zero;
 
@@ -536,11 +547,15 @@ public class PlayerMachine : SuperStateMachine {
         //Play SFX
         if (target.GetComponent<PlayerMachine>().EnableHoppy) 	//DEE: Play unique vocal for Hoppy
         {
-            target.GetComponent<AudioSource>().Play();
+            HoppySelectSFX.Play();
         }
         if (target.GetComponent<PlayerMachine>().EnableSticky) 	//DEE: Play unique vocal for Sticky
         {
-            target.GetComponent<AudioSource>().Play();
+            StickySelectSFX.Play();
+        }
+        if (target.GetComponent<PlayerMachine>().EnableGlidey) 	//DEE: Play unique vocal for Sticky
+        {
+            GlideySelectSFX.Play();
         }
     }
 
