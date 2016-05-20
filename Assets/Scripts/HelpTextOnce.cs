@@ -36,7 +36,9 @@ public class HelpTextOnce : MonoBehaviour {
 
         foreach (Image i in helpimage)
         {
-            i.color = CurrentColor;
+            Color temp = i.color;
+            temp.a = CurrentColor.a;
+            i.color = temp;
         }
     }
     void OnDisable()
@@ -58,7 +60,9 @@ public class HelpTextOnce : MonoBehaviour {
 
             foreach (Image i in helpimage)
             {
-                i.color = CurrentColor;
+                Color temp = i.color;
+                temp.a = CurrentColor.a;
+                i.color = temp;
             }
 
             if (CurrentColor.a == 1)
@@ -77,7 +81,9 @@ public class HelpTextOnce : MonoBehaviour {
 
             foreach (Image i in helpimage)
             {
-                i.color = CurrentColor;
+                Color temp = i.color;
+                temp.a = CurrentColor.a;
+                i.color = temp;
             }
 
             if (CurrentColor.a == 0)
