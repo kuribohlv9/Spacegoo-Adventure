@@ -8,6 +8,7 @@ public class HelpTextOnce : MonoBehaviour {
     public Image[] helpimage;
     public float fadeinspeed = 1;
     public float fadeoutspeed = 1;
+    public string button = "A Button1";
 
     private bool fadein = false;
     private bool fadeout = false;
@@ -36,7 +37,9 @@ public class HelpTextOnce : MonoBehaviour {
 
         foreach (Image i in helpimage)
         {
-            i.color = CurrentColor;
+            Color temp = i.color;
+            temp.a = CurrentColor.a;
+            i.color = temp;
         }
     }
     void OnDisable()
@@ -58,7 +61,9 @@ public class HelpTextOnce : MonoBehaviour {
 
             foreach (Image i in helpimage)
             {
-                i.color = CurrentColor;
+                Color temp = i.color;
+                temp.a = CurrentColor.a;
+                i.color = temp;
             }
 
             if (CurrentColor.a == 1)
@@ -77,7 +82,9 @@ public class HelpTextOnce : MonoBehaviour {
 
             foreach (Image i in helpimage)
             {
-                i.color = CurrentColor;
+                Color temp = i.color;
+                temp.a = CurrentColor.a;
+                i.color = temp;
             }
 
             if (CurrentColor.a == 0)
@@ -86,7 +93,7 @@ public class HelpTextOnce : MonoBehaviour {
                 havebeenplayed = true;
             }
         }
-        if(Input.GetButtonDown("B Button1"))
+        if(Input.GetButtonDown(button))
         {
             fadeout = true;
         }
