@@ -5,8 +5,8 @@ public class MultiplayerEnabler : MonoBehaviour {
 
     public Transform OtherCamera;
     public Transform Sticky;
+    public bool IsMultiplayerEnabled = false;
 
-    private bool Multiplayer = false;
     private Camera MainCamera;
     private float width = 1;
 
@@ -17,30 +17,13 @@ public class MultiplayerEnabler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    if(!Multiplayer && Input.GetButtonDown("Debug F3"))
+        if (!IsMultiplayerEnabled && Input.GetButtonDown("Debug F3"))
         {
-            OtherCamera.gameObject.SetActive(true);
-            Multiplayer = true;
-            
-            if(!InsertPlayerInSlime(Sticky))
-            {
-                if (!InsertPlayerInSlime(Sticky.GetComponent<PlayerMachine>().rightSwitchTarget))
-                {
-                    InsertPlayerInSlime(Sticky.GetComponent<PlayerMachine>().rightSwitchTarget.GetComponent<PlayerMachine>().rightSwitchTarget);
-                }
-            }
-
-            width = 0.5f;
+            EnableMultiplayer();
         }
-        else if (Multiplayer && Input.GetButtonDown("Debug F3"))
+        else if (IsMultiplayerEnabled && Input.GetButtonDown("Debug F3"))
         {
-            Multiplayer = false;
-
-            PurifySlimes(Sticky);
-            PurifySlimes(Sticky.GetComponent<PlayerMachine>().rightSwitchTarget);
-            PurifySlimes(Sticky.GetComponent<PlayerMachine>().rightSwitchTarget.GetComponent<PlayerMachine>().rightSwitchTarget);
-
-            width = 1.0f;
+            DisableMultiplayer();
         }
         if(MainCamera.rect.width != width)
         {
@@ -72,5 +55,31 @@ public class MultiplayerEnabler : MonoBehaviour {
             return true;
         }
         return false;
+    }
+
+    public void EnableMultiplayer()
+    {
+        OtherCamera.gameObject.SetActive(true);
+        IsMultiplayerEnabled = true;
+
+        if (!InsertPlayerInSlime(Sticky))
+        {
+            if (!InsertPlayerInSlime(Sticky.GetComponent<PlayerMachine>().rightSwitchTarget))
+            {
+                InsertPlayerInSlime(Sticky.GetComponent<PlayerMachine>().rightSwitchTarget.GetComponent<PlayerMachine>().rightSwitchTarget);
+            }
+        }
+
+        width = 0.5f;
+    }
+    public void DisableMultiplayer()
+    {
+        IsMultiplayerEnabled = false;
+
+        PurifySlimes(Sticky);
+        PurifySlimes(Sticky.GetComponent<PlayerMachine>().rightSwitchTarget);
+        PurifySlimes(Sticky.GetComponent<PlayerMachine>().rightSwitchTarget.GetComponent<PlayerMachine>().rightSwitchTarget);
+
+        width = 1.0f;
     }
 }

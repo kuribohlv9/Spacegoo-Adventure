@@ -11,6 +11,5 @@ public class ControlsOption : MenuOption {
 	// Update is called once per frame
 	void Update () {
         GetComponentInParent<StartMenu>().SetSuperLock(true);
-
 	}
 }
