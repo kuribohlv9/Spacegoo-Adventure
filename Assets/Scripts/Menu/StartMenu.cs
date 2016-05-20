@@ -6,6 +6,7 @@ public class StartMenu : MonoBehaviour {
 
     public MenuOption[] options;
     public AudioSource selectionsound;
+    public bool StopTime = true;
 
     private int selection = 0;
     private int Axis;
@@ -27,8 +28,10 @@ public class StartMenu : MonoBehaviour {
         }
         selection = 0;
         ChangeSelection(0);
-        Time.timeScale = 0;
         SuperLock = false;
+
+        if(StopTime)
+            Time.timeScale = 0;
     }
     void OnDisable()
     {
