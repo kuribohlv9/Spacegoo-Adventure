@@ -14,6 +14,9 @@ public class Score : MonoBehaviour {
     public Text ScoreText;
     public Text PrizeText;
 
+    public AudioSource BigPickupSound;
+    public AudioSource SmallPickupSound;
+
     public int ratio = 10;
     public int portalOpeningAt = 10;
 
@@ -68,6 +71,7 @@ public class Score : MonoBehaviour {
 
     public void GiveScore(int gainedScore)
     {
+        SmallPickupSound.Play();
         score += gainedScore;
         if (score == ratio)
         {
@@ -81,6 +85,10 @@ public class Score : MonoBehaviour {
 
     public void GivePrize(int gainedPrize)
     {
+        if (SmallPickupSound.isPlaying)
+            SmallPickupSound.Stop();
+
+        BigPickupSound.Play();
         prize += gainedPrize;
         PrizeText.text = prize.ToString() + "/" + prizeTotal.ToString();
 
