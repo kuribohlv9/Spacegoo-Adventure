@@ -8,7 +8,7 @@ public class EnableSwitching : MonoBehaviour {
     {
         if(col.tag == "Player")
         {
-            col.GetComponent<PlayerMachine>().EnableSwitching = true;
+            col.GetComponentInParent<PlayerMachine>().EnableSwitching = true;
         }
     }
 }
